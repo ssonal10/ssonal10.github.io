@@ -10,7 +10,7 @@ export const profile = {
   ],
   socials: {
     github: 'https://github.com/ssonal10',
-    linkedin: 'https://www.linkedin.com/in/shipra-sonal/',
+    linkedin: 'https://www.linkedin.com/in/shiprasonal/',
     email: 'mailto:shipra.sonal12@gmail.com',
   },
 };
