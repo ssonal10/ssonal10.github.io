@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background: #030712;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #030712; }
+::-webkit-scrollbar-thumb { background: rgba(16,185,129,0.2); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(16,185,129,0.45); }
+
+::selection { background: rgba(16,185,129,0.3); color: #f1f5f9; }
+
+/* ===== Aurora mesh background ===== */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  filter: blur(100px) saturate(140%);
+  opacity: 0.55;
+}
+.aurora::before,
+.aurora::after,
+.aurora > span {
+  content: '';
+  position: absolute;
+  border-radius: 9999px;
+}
+.aurora::before {
+  width: 620px; height: 620px;
+  top: -140px; left: -120px;
+  background: radial-gradient(circle, #10b981 0%, transparent 60%);
+  animation: aurora1 22s ease-in-out infinite;
+}
+.aurora::after {
+  width: 720px; height: 720px;
+  bottom: -220px; right: -180px;
+  background: radial-gradient(circle, #8b5cf6 0%, transparent 60%);
+  animation: aurora2 28s ease-in-out infinite;
+}
+.aurora > span {
+  width: 520px; height: 520px;
+  top: 35%; left: 40%;
+  background: radial-gradient(circle, #f43f5e 0%, transparent 60%);
+  animation: aurora3 24s ease-in-out infinite;
+  opacity: 0.45;
+}
+
+/* ===== Film grain ===== */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===== Grid texture ===== */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(148,163,184,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* ===== Glass ===== */
+.glass {
+  background: linear-gradient(135deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.35) 100%);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(148,163,184,0.08);
+  box-shadow: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 40px 80px -20px rgba(0,0,0,0.4);
+}
+
+/* ===== Gradient text ===== */
+.text-gradient {
+  background: linear-gradient(135deg, #f8fafc 0%, #10b981 60%, #8b5cf6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-2 {
+  background: linear-gradient(180deg, #f1f5f9 0%, #64748b 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== Conic animated border (for hero project card) ===== */
+.conic-border {
+  position: relative;
+  isolation: isolate;
+}
+.conic-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle, 0deg), transparent 0%, #10b981 10%, #8b5cf6 30%, transparent 40%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-angle 6s linear infinite;
+  z-index: -1;
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to { --angle: 360deg; }
+}
+
+/* ===== Shimmer ===== */
+.shimmer-text {
+  background: linear-gradient(110deg, #64748b 40%, #f1f5f9 50%, #64748b 60%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* ===== Chip ===== */
+.chip {
+  display: inline-flex; align-items: center;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #cbd5e1;
+  background: rgba(30,41,59,0.5);
+  border: 1px solid rgba(148,163,184,0.12);
+  transition: all 0.2s ease;
+}
+.chip:hover {
+  border-color: rgba(16,185,129,0.4);
+  color: #10b981;
+}
+.chip-accent {
+  background: rgba(16,185,129,0.10);
+  border-color: rgba(16,185,129,0.3);
+  color: #34d399;
+}
+
+/* ===== Dot ===== */
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 9999px;
+  background: #10b981;
+  box-shadow: 0 0 12px rgba(16,185,129,0.8);
+}
+
+/* ===== Section label ===== */
+.section-label {
+  display: inline-flex; align-items: center;
+  gap: 0.5rem;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: #10b981;
+}
+.section-label::before {
+  content: ''; width: 24px; height: 1px;
+  background: linear-gradient(90deg, transparent, #10b981);
+}
+
+/* ===== Hover lift ===== */
+.lift { transition: transform 300ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease; }
+.lift:hover { transform: translateY(-4px); }
+
+/* ===== Marquee ===== */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+  }
+}
