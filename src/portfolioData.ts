@@ -107,7 +107,7 @@ export const projects: Project[] = [
     context:
       'Backtested 237,867 strategy combinations across 241 stocks (2018–2024) to find which technical indicators actually beat buy-and-hold.',
     stack: ['Python', 'Backtesting', 'HTML', 'GitHub Pages'],
-    impact: '+865.6% alpha discovered on best strategy. Finding: single indicators beat complex combos.',
+    impact: 'Identified alpha-generating strategies across 237K+ backtests; beat buy-and-hold benchmark.',
     link: 'https://ssonal10.github.io/trading-strategy-analysis/',
     size: 'sm',
   },
