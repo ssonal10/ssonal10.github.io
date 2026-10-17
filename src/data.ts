@@ -1,10 +1,11 @@
-// All site content. Facts and wording come from the v9 resume (2026-10-13); see REVIEW.md for
+// All site content. Facts and wording come from the BI Engineering Manager resume
+// (resume/output/2026-10-15_v9-alt-BIEM, edited 2026-10-17); see REVIEW.md for
 // the claims that rest on Shipra's word.
 
 export const profile = {
   name: 'Shipra Sonal',
   headline: 'Data @ Amazon',
-  sub: 'Data engineering manager, 9 years in data. I own the data and AI behind partner deal decisions: an LLM agent that turned weeks of Excel into minutes, and the measurement behind a feature now adding 7M new active members.',
+  sub: 'Business intelligence engineering manager, 9 years in data. I own the data and AI behind partner deal decisions: an LLM agent that turned weeks of Excel into minutes, and the measurement behind a feature now adding 7M new active members.',
   city: 'Seattle',
   email: 'shipra.sonal12@gmail.com',
   github: 'https://github.com/ssonal10',
@@ -15,7 +16,7 @@ export const numbers = [
   { value: 0, display: 'min', was: 'weeks', small: 'per deal model' },
   { value: 7, decimals: 1, suffix: 'M', small: 'new active members, measured' },
   { value: 10, suffix: ' min', was: '10 days', small: 'per Sentinel answer' },
-  { value: 4, small: 'data engineers on my team' },
+  { value: 2, small: 'BI engineers on my team' },
 ] as { value: number; decimals?: number; suffix?: string; display?: string; was?: string; small: string }[];
 
 export type Work = {
@@ -48,34 +49,15 @@ export const work: Work[] = [
     problem: "Leaders wanted several deal models before locking a partnership, and each one took weeks in Excel.",
     built: "A deterministic LLM agent wired to 20+ live data sources. The LLM only routes and a Python engine computes every number; access is IAM-authenticated and personalized per executive, and every run generates a dashboard so leaders change inputs on the spot.",
     result: "Deal models in minutes instead of weeks. It replaced about 6 months of manual modeling in its first week and underwrote deals bringing 4M customers on access plans, 3M general customers and new advertising business.",
-    name: "Partnership financial-modeling agent",
+    name: "Partnership free cash flow agent",
     year: '2026',
-    kind: 'LLM agent · launched',
+    kind: 'LLM agent',
     impact:
       'Built a deterministic LLM agent that gives leaders a full deal model in minutes instead of weeks. It replaced about 6 months of manual modeling in its first week.',
     context:
       'Leaders wanted several models before locking a deal. The agent is wired to 20+ live data sources: the LLM only routes, a Python engine computes every number, access is IAM-authenticated and personalized per executive, and every run generates a dashboard so leaders can change inputs on the spot. It underwrote deals bringing 4M customers on access plans, 3M general customers and new advertising business.',
     stack: ['Strands Agents', 'Bedrock AgentCore', 'Python', 'S3', 'IAM'],
     visual: 'agent',
-  },
-  {
-    id: 'activation',
-    hook: "7M new active members",
-    area: "Experimentation",
-    big: "7M",
-    bigSmall: "new active members",
-    problem: "Every partner launch needed a lift read within a week, from systems that did not share customer IDs.",
-    built: "In about a week, a framework joining experiment, streaming, website and subscription data with custom identity mapping, agreed across 12+ stakeholders in 5 offices. Reused experiment identifiers had put about 30K customers in both control and test; date-bounded assignment fixed it so the VP decision rested on clean cohorts.",
-    result: "The feature today contributes 7M new active members, 5.5M of them engaged, and VPs approved its expansion across 13 partners. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.",
-    name: "Auto-activation measurement",
-    year: '2025',
-    kind: 'Measurement',
-    impact:
-      'Built the measurement framework behind a feature that today contributes 7M new active members, 5.5M of them engaged. It gave VPs the evidence to expand it across 13 partners.',
-    context:
-      'Built in about a week, with results due within a week of each launch. It joins experiment, streaming, website and subscription data through custom identity mapping, and it needed 12+ stakeholders across 5 offices to agree. Reused experiment IDs had put about 30K customers in both control and test, which would have invalidated the lift read; date-bounded assignment fixed it before the VP decision. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.',
-    stack: ['Glue', 'Spark', 'Athena', 'QuickSight'],
-    visual: 'activation',
   },
   {
     id: 'sentinel',
@@ -97,17 +79,36 @@ export const work: Work[] = [
     visual: 'sentinel',
   },
   {
+    id: 'activation',
+    hook: "7M new active members",
+    area: "Experimentation",
+    big: "7M",
+    bigSmall: "new active members",
+    problem: "A new treatment with no counterfactual, and VPs needed evidence before expanding it across partners.",
+    built: "The causal measurement: control and treatment cohorts, lift metrics, one customer identity across experiment, streaming, web and subscription systems, and a segmentation of high- and low-value customers that Product and Marketing now use to decide where to deploy the feature. It caught reused experiment identifiers that had put about 30K customers in both control and test, and fixed the assignment.",
+    result: "The feature today contributes 7M new active members, 5.5M of them engaged, and VPs approved its expansion across 13 partners. Aligned 12+ stakeholders across 5 offices; the framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.",
+    name: "Auto-activation measurement",
+    year: '2025',
+    kind: 'Measurement',
+    impact:
+      'Built the measurement framework behind a feature that today contributes 7M new active members, 5.5M of them engaged. It gave VPs the evidence to expand it across 13 partners.',
+    context:
+      'Built in about a week, with results due within a week of each launch. It joins experiment, streaming, website and subscription data through custom identity mapping, and it needed 12+ stakeholders across 5 offices to agree. Reused experiment IDs had put about 30K customers in both control and test, which would have invalidated the lift read; date-bounded assignment fixed it before the VP decision. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.',
+    stack: ['Glue', 'Spark', 'Athena', 'QuickSight'],
+    visual: 'activation',
+  },
+  {
     id: 'deep-dive',
     hook: "A VP answer in 2 days",
     area: "For a VP's annual plan",
     big: "91%",
-    bigSmall: "of the decline was customer mix",
-    problem: "A VP's annual plan needed to know whether a top Latin American market's biggest telecom deal added members or took them from the core service.",
-    built: "A 41-month, 300M+ row customer-month pipeline validated 3 ways, which caught a benchmark table double-counting partner members 1.7x, and a matched-cohort causal study.",
-    result: "A trusted answer 2 days after the ask: 91% of the engagement decline was customer mix. The business and finance stories went into one document for the VP.",
-    name: "Deal deep dive",
+    bigSmall: "of the drop was customer mix",
+    problem: "A deal with 6M active subscriptions looked like it was losing members' interest and was up for review in the annual plan.",
+    built: "A matched-cohort causal analysis over three years of member history, splitting the engagement drop into customer mix and member behavior.",
+    result: "Saved the deal: 91% of the drop came from a shift toward newer, lighter-viewing customers, not from existing members watching less, so the fix was onboarding those customers instead of ending the deal.",
+    name: "Causal analysis of a partner deal's engagement decline",
     year: '2026',
-    kind: 'Causal analysis',
+    kind: "Causal analysis",
     impact:
       "Gave a VP's annual plan a trusted answer 2 days after the ask: 91% of the engagement decline after a top Latin American market's biggest telecom deal was customer mix.",
     context:
@@ -212,12 +213,11 @@ export const designNotes: DesignNote[] = [
 export const experience = [
   {
     period: 'Dec 2025 to now',
-    role: 'Data Engineering Manager',
+    role: 'Business Intelligence Engineering Manager',
     org: 'Amazon · Seattle',
     lines: [
-      'Manager of 4 data engineers since Jul 2026, 6 months after promotion to the senior level.',
-      "BI owner of 7 of the org's 53 annual goals; wrote promotion assessments for 2 engineers.",
-      'Launched the deal agent; built the auto-activation measurement and Sentinel.',
+      'Manager of 2 BI engineers since Jul 2026, 6 months after promotion to the senior level.',
+      'Built the partnership free cash flow agent, Sentinel and the auto-activation measurement.',
     ],
   },
   {

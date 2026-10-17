@@ -45,12 +45,12 @@ Tech: React + GSAP 3.13 (ScrollTrigger, SplitText, DrawSVG, Draggable, Inertia, 
 
 ## Copy source (2026-10-17)
 
-All write-ups follow the **v9** resume (`resume/output/2026-10-13_v9-marked/`, Data-Engineering-Manager YAML), at your choice over v10-public: impact first, then the hard part, then the stack. So the site carries the internal figures v10-public removed: 7M / 5.5M members, 4M + 3M customers, 4M subscriptions in 3 months, ~30K overlap, 0.9% vs 8.2%, "a major US cable partner", "a top Latin American market's biggest telecom deal". Work list follows your resume ranking: Deal agent, Auto-activation, Sentinel, Deal deep dive, Launch-day model, Activation funnel, then the two side projects. The injury classifier is in Path only.
+All write-ups follow the **BI Engineering Manager** resume (`resume/output/2026-10-15_v9-alt-BIEM/`, your edits of 2026-10-17): title "Business Intelligence Engineering Manager" everywhere, 2 BI engineers, no "launched". Projects in its order: Partnership free cash flow agent, Sentinel, Auto-activation measurement, Causal analysis of a partner deal's engagement decline, CX funnel deep dive, then the two side projects (not on the resume). The cable-partner model was removed.
 
 ## Decisions for you
 
 1. **Headline "Data @ Amazon"** puts the employer in the hero, as you asked. Your LinkedIn voice rule keeps it out of prose; check you're fine with it here, and with employer PR for the 7M figure.
-2. **Claims on your word**, now public: launched, 6 months replaced in week one, 7M / 5.5M, 10 days to 10 min, top 20 of 1,100.
+2. **Claims on your word**, now public: 6 months replaced in week one, 7M / 5.5M, 10 days to 10 min, top 20 of 1,100.
 3. **Mauricio**: the futures card says "with a research partner". Name him?
 4. **Stickers** use a gym mirror selfie and the Naches photo. Swap if you prefer others.
 5. **Game length**: 7 catches or 10 seconds. Shorter or longer?

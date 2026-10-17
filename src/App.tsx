@@ -72,7 +72,7 @@ export default function App() {
         {/* print / reader header: who, what, how to reach */}
         <header className="print-only px-8 pt-8">
           <h1 className="font-display text-5xl font-extrabold">Shipra Sonal</h1>
-          <p className="mt-2 text-xl">Data @ Amazon · Data Engineering Manager · Seattle, WA</p>
+          <p className="mt-2 text-xl">Data @ Amazon · Business Intelligence Engineering Manager · Seattle, WA</p>
           <p className="mt-2">{profile.sub}</p>
           <p className="mt-2 font-mono text-sm">
             {profile.email} · linkedin.com/in/shiprasonal · github.com/ssonal10 · shiprasonal.com
