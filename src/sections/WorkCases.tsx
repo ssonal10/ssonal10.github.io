@@ -90,12 +90,8 @@ function Case({ w, i }: { w: Work; i: number }) {
               <i className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
               {n} · {w.kind} · {w.year}
             </span>
-            <p className="mt-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-[var(--accent)]">
-              {birka && <span className="h-px w-12 bg-[var(--accent)]" />}
-              {w.hook}
-            </p>
             <h3
-              className={`mb-3 mt-3 leading-[0.98] ${
+              className={`mb-7 mt-5 leading-[0.98] ${
                 w.name.length > 20 ? 'text-[clamp(34px,3.9vw,60px)]' : 'text-[clamp(40px,5.2vw,80px)]'
               } ${
                 birka
@@ -105,10 +101,6 @@ function Case({ w, i }: { w: Work; i: number }) {
             >
               {w.name}
             </h3>
-            <p className="mb-7 flex items-center gap-4 text-[15px] font-light uppercase tracking-[0.32em] text-white/85">
-              {w.area}
-              <span className="h-px w-28 bg-white/10" />
-            </p>
             <dl className="grid grid-cols-[86px_1fr] gap-x-[18px] gap-y-3.5 text-[15px] leading-relaxed">
               {(
                 [
