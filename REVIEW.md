@@ -11,8 +11,6 @@ npm run dev          # prints a localhost URL
 
 Already running tonight: **v2 at http://localhost:5174**, v1 at http://localhost:5173.
 
-```text
-```
 
 Add `?play` to replay the intro game; it shows once per browser session.
 
