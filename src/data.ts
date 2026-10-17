@@ -211,16 +211,22 @@ export const designNotes: DesignNote[] = [
 
 export const experience = [
   {
-    period: 'Dec 2025 to now',
+    period: 'Mar 2026 to now',
     role: 'Business Intelligence Engineering Manager',
     org: 'Amazon · Seattle',
     lines: [
-      'Manager of 2 BI engineers since Jul 2026, 6 months after promotion to the senior level.',
+      'Manager of 2 BI engineers, 5 months after promotion to the senior level.',
       'Built the partnership free cash flow agent, Sentinel and the zero-click activation measurement.',
     ],
   },
   {
-    period: 'Jan 2023 to Nov 2025',
+    period: 'Oct 2025 to Mar 2026',
+    role: 'Business Intelligence Engineer III',
+    org: 'Amazon · Seattle',
+    lines: ['Promoted to the senior level.'],
+  },
+  {
+    period: 'Jan 2023 to Oct 2025',
     role: 'Business Intelligence Engineer II',
     org: 'Amazon · Seattle',
     lines: [
