@@ -20,7 +20,7 @@ const photos = ['/life/baker-road.webp', '/life/squamish.webp', '/life/kullu.web
 
 const CAMEL = '#d4a979';
 const themes = {
-  // style 2, after the Birka template: photo, camel, square corners, seal
+  // style 2, after the Birka template: photo, camel, square corners
   birka: { '--fg': '#f2efe9', '--accent': CAMEL, '--accent2': '#8fb8c9', '--on': '#111111' },
   // style 4: Payza black, dotted globe behind the text, gradient title, camel
   globe: { '--fg': '#f2efe9', '--accent': CAMEL, '--accent2': '#e5e5e5', '--on': '#111111' },
@@ -150,13 +150,6 @@ function Case({ w, i }: { w: Work; i: number }) {
             <small className="ml-1.5 font-mono text-[11px] font-normal uppercase tracking-[0.12em] opacity-75">{w.bigSmall}</small>
           </p>
           <Diagram spec={diagrams[diagramFor[w.id]]} title={w.name} themed />
-          {birka && (
-            <div className="absolute bottom-5 right-5 hidden h-[86px] w-[86px] flex-col items-center justify-center rounded-full border border-[var(--accent)] text-[9px] tracking-[0.2em] text-[var(--accent)] md:flex">
-              PROJECT
-              <b className="text-[22px] font-light tracking-normal">{n}</b>
-              {w.year}
-            </div>
-          )}
         </div>
       </div>
     </article>
