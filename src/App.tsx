@@ -6,7 +6,6 @@ import { Nav } from './ui/Nav';
 import { Hero } from './sections/Hero';
 import { Numbers } from './sections/Numbers';
 import { WorkCases } from './sections/WorkCases';
-import { DesignNotes } from './sections/DesignNotes';
 import { Path } from './sections/Path';
 import { Life } from './sections/Life';
 import { Contact } from './sections/Contact';
@@ -82,7 +81,6 @@ export default function App() {
         <Hero ready={ready && fontsReady} />
         <Numbers />
         <WorkCases />
-        <DesignNotes />
         <Path />
         <Life />
       </main>

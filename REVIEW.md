@@ -23,8 +23,7 @@ Built from four rounds of critique (three design, one code review) by a Fable "c
 | Intro game "Fill the model" | your idea | Catch 7 tokens in 10 s with a bar-chart paddle; the red "LLM ≈ ?" bounces off ("Python computes. The LLM only routes."). Skip any time. |
 | Hero | Unseen | "Shipra Sonal" (with "Data @ Amazon" above it) and a cutout of you in front of the type; on scroll the words shrink to the corners and a portrait video window opens. Move the cursor over the window to scrub the clip. |
 | Stack ticker | Obys | Tools strip in lime Bricolage caps, slow drift (the number cells were removed 2026-10-17). |
-| Work | Unseen | Full-screen cases on paper (your pick, 2026-10-17): one screen per project, hero number on the left, Problem / Built / Result on the right. Normal scroll, no pin. Samples you chose from: `/samples.html`, `/samples-b.html`. |
-| Design notes | AWS-style design docs | One page per system (deal agent, Sentinel, measurement): problem, tenets, animated architecture diagram, tradeoff. Generic, no internal names. |
+| Work | Design-notes scroll | Paper cards in a sideways pinned row (slower than before): Problem / Built / Result on the left, an architecture diagram on the right for all 8 projects, headline number as a green pill. Replaces the separate Design notes section (2026-10-17). |
 | Path | Obys index | Numbered roles that open on hover, then Recognition (1st, Top 20, IEEE). |
 | Life | paper theme | Page flips to cream; mono photos turn to color on hover; two throwable stickers of you; short-video reel. |
 | Contact | | "Got a messy dataset?", magnetic Say hi, and **Query me**: type SQL against the site (`select name, impact from work where year = 2026`, or press `/`). Footer echoes what you caught in the game. |

@@ -8,12 +8,24 @@ type Node = { id: string; x: number; y: number; w: number; h: number; label: str
 type Edge = { from: string; to: string; label?: string; dashed?: boolean; loop?: boolean };
 export type DiagramSpec = { nodes: Node[]; edges: Edge[] };
 
-const tones: Record<Tone, { fill: string; stroke: string; text: string; sub: string }> = {
+type Palette = Record<Tone, { fill: string; stroke: string; text: string; sub: string }>;
+
+const tones: Palette = {
   plain: { fill: 'rgba(243,239,230,0.04)', stroke: 'rgba(243,239,230,0.35)', text: '#f3efe6', sub: '#8f8a84' },
   lime: { fill: 'rgba(200,240,90,0.08)', stroke: '#c8f05a', text: '#c8f05a', sub: '#b3ada2' },
   solid: { fill: '#c8f05a', stroke: '#c8f05a', text: '#0b0b09', sub: '#2a2825' },
   glacier: { fill: 'rgba(92,200,194,0.1)', stroke: '#5cc8c2', text: '#5cc8c2', sub: '#8f8a84' },
   ghost: { fill: 'transparent', stroke: 'rgba(243,239,230,0.2)', text: '#f3efe6', sub: '#8f8a84' },
+};
+
+// same roles on paper: green for lime, teal for glacier, ink lines
+const GREEN = '#2f6b1f';
+const lightTones: Palette = {
+  plain: { fill: 'rgba(11,11,9,0.03)', stroke: 'rgba(11,11,9,0.35)', text: '#0b0b09', sub: '#6b665f' },
+  lime: { fill: 'rgba(47,107,31,0.08)', stroke: GREEN, text: GREEN, sub: '#6b665f' },
+  solid: { fill: GREEN, stroke: GREEN, text: '#f3efe6', sub: '#d9e6cf' },
+  glacier: { fill: 'rgba(31,122,116,0.08)', stroke: '#1f7a74', text: '#1f7a74', sub: '#6b665f' },
+  ghost: { fill: 'transparent', stroke: 'rgba(11,11,9,0.22)', text: '#0b0b09', sub: '#6b665f' },
 };
 
 function anchor(a: Node, b: Node) {
@@ -50,13 +62,16 @@ function edgePath(a: Node, b: Node, loop?: boolean) {
   return `M${x1} ${y1} C${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`;
 }
 
-export function Diagram({ spec, title }: { spec: DiagramSpec; title: string }) {
+export function Diagram({ spec, title, light = false }: { spec: DiagramSpec; title: string; light?: boolean }) {
   const byId = Object.fromEntries(spec.nodes.map((n) => [n.id, n]));
+  const pal = light ? lightTones : tones;
+  const accent = light ? GREEN : '#c8f05a';
+  const arrow = light ? 'arrow-light' : 'arrow';
   return (
     <svg viewBox="0 0 1000 560" className="h-auto w-full" role="img" aria-label={`Architecture: ${title}`}>
       <defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="#c8f05a" />
+        <marker id={arrow} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill={accent} />
         </marker>
       </defs>
       {spec.edges.map((e, i) => {
@@ -65,22 +80,22 @@ export function Diagram({ spec, title }: { spec: DiagramSpec; title: string }) {
         const d = edgePath(a, b, e.loop);
         return (
           <g key={i} className="dg-edge">
-            <path d={d} fill="none" stroke="rgba(243,239,230,0.18)" strokeWidth="2" className="dg-base" />
+            <path d={d} fill="none" stroke={light ? 'rgba(11,11,9,0.14)' : 'rgba(243,239,230,0.18)'} strokeWidth="2" className="dg-base" />
             <path
               d={d}
               fill="none"
-              stroke="#c8f05a"
+              stroke={accent}
               strokeWidth="2"
               className={e.dashed ? 'dg-live' : 'flow dg-live'}
               strokeDasharray={e.dashed ? '3 7' : undefined}
-              markerEnd="url(#arrow)"
+              markerEnd={`url(#${arrow})`}
               opacity={e.dashed ? 0.5 : 0.9}
             />
           </g>
         );
       })}
       {spec.nodes.map((n) => {
-        const t = tones[n.tone ?? 'plain'];
+        const t = pal[n.tone ?? 'plain'];
         return (
           <g key={n.id} className="dg-node" style={{ transformOrigin: `${n.x + n.w / 2}px ${n.y + n.h / 2}px` }}>
             <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="12" fill={t.fill} stroke={t.stroke} strokeWidth="1.5" />
@@ -100,7 +115,7 @@ export function Diagram({ spec, title }: { spec: DiagramSpec; title: string }) {
                 x={n.x + n.w / 2}
                 y={n.y + n.h / 2 + 19}
                 textAnchor="middle"
-                fill={n.tone === 'solid' ? '#2a2825' : '#8f8a84'}
+                fill={t.sub}
                 fontFamily="JetBrains Mono"
                 fontSize="13"
               >
@@ -114,7 +129,9 @@ export function Diagram({ spec, title }: { spec: DiagramSpec; title: string }) {
   );
 }
 
-export const diagrams: Record<'agent' | 'sentinel' | 'measure', DiagramSpec> = {
+export type DiagramKey = 'agent' | 'sentinel' | 'measure' | 'deepdive' | 'dealmodel' | 'funnel' | 'futures' | 'spend';
+
+export const diagrams: Record<DiagramKey, DiagramSpec> = {
   agent: {
     nodes: [
       { id: 'leader', x: 10, y: 245, w: 150, h: 70, label: 'Leader', sub: 'asks for a model' },
@@ -185,6 +202,107 @@ export const diagrams: Record<'agent' | 'sentinel' | 'measure', DiagramSpec> = {
       { from: 'g', to: 'a' },
       { from: 'a', to: 'q' },
       { from: 'q', to: 'vp' },
+    ],
+  },
+  deepdive: {
+    nodes: [
+      { id: 'sub', x: 10, y: 70, w: 170, h: 60, label: 'Subscriptions', tone: 'ghost' },
+      { id: 'eng', x: 10, y: 250, w: 170, h: 60, label: 'Engagement', tone: 'ghost' },
+      { id: 'deal', x: 10, y: 430, w: 170, h: 60, label: 'Partner deal', tone: 'ghost' },
+      { id: 'cm', x: 225, y: 230, w: 210, h: 100, label: 'Customer-month', sub: '41 months · 300M+ rows', tone: 'glacier' },
+      { id: 'val', x: 490, y: 60, w: 200, h: 80, label: 'Validated 3 ways', sub: 'caught a 1.7x double count' },
+      { id: 'coh', x: 490, y: 235, w: 200, h: 90, label: 'Matched cohorts', sub: 'causal study', tone: 'lime' },
+      { id: 'mix', x: 760, y: 235, w: 200, h: 90, label: 'Mix vs rate', sub: '91% was mix', tone: 'solid' },
+      { id: 'vp', x: 760, y: 430, w: 200, h: 80, label: 'VP one-pager', sub: '2 days after the ask', tone: 'lime' },
+    ],
+    edges: [
+      { from: 'sub', to: 'cm' },
+      { from: 'eng', to: 'cm' },
+      { from: 'deal', to: 'cm' },
+      { from: 'cm', to: 'val' },
+      { from: 'cm', to: 'coh' },
+      { from: 'val', to: 'coh', dashed: true },
+      { from: 'coh', to: 'mix' },
+      { from: 'mix', to: 'vp' },
+    ],
+  },
+  dealmodel: {
+    nodes: [
+      { id: 'terms', x: 10, y: 70, w: 180, h: 70, label: 'Deal terms', tone: 'ghost' },
+      { id: 'base', x: 10, y: 245, w: 180, h: 70, label: 'Member base', tone: 'ghost' },
+      { id: 'bill', x: 10, y: 420, w: 180, h: 80, label: 'Billing tables', sub: '2 of 1,027', tone: 'ghost' },
+      { id: 'fcf', x: 260, y: 60, w: 200, h: 90, label: 'Cash-flow model', sub: 'free cash flow', tone: 'lime' },
+      { id: 'can', x: 260, y: 235, w: 200, h: 90, label: 'Cannibalization', sub: 'from existing members' },
+      { id: 'glue', x: 260, y: 415, w: 200, h: 90, label: 'Glue pipeline', sub: '5 stages, same day', tone: 'glacier' },
+      { id: 'exec', x: 530, y: 235, w: 190, h: 90, label: 'Exec metrics', sub: 'daily', tone: 'solid' },
+      { id: 'go', x: 790, y: 235, w: 190, h: 90, label: 'Launch call', sub: '0.9%, not 8.2%', tone: 'lime' },
+    ],
+    edges: [
+      { from: 'terms', to: 'fcf' },
+      { from: 'base', to: 'can' },
+      { from: 'bill', to: 'glue' },
+      { from: 'fcf', to: 'exec' },
+      { from: 'can', to: 'exec' },
+      { from: 'exec', to: 'go' },
+      { from: 'glue', to: 'go' },
+    ],
+  },
+  funnel: {
+    nodes: [
+      { id: 'click', x: 10, y: 70, w: 180, h: 80, label: 'Clickstream', sub: '290+ pages', tone: 'ghost' },
+      { id: 'fail', x: 10, y: 240, w: 180, h: 80, label: 'Failure logs', sub: '100+ reasons', tone: 'ghost' },
+      { id: 'subs', x: 10, y: 410, w: 180, h: 80, label: 'Subscriptions', tone: 'ghost' },
+      { id: 'join', x: 245, y: 230, w: 200, h: 100, label: 'Funnel join', sub: '1B+ records a day', tone: 'glacier' },
+      { id: 'cat', x: 500, y: 230, w: 190, h: 100, label: '15 categories', sub: 'where it breaks', tone: 'lime' },
+      { id: 'otp', x: 750, y: 60, w: 220, h: 80, label: 'OTP + CAPTCHA', sub: 'under 1%, not 90%' },
+      { id: 'fix', x: 750, y: 240, w: 220, h: 80, label: 'Issue resolution', sub: '72h to under 1h', tone: 'solid' },
+      { id: 'int', x: 750, y: 420, w: 220, h: 80, label: '15+ integrations', sub: 'measured from launch' },
+    ],
+    edges: [
+      { from: 'click', to: 'join' },
+      { from: 'fail', to: 'join' },
+      { from: 'subs', to: 'join' },
+      { from: 'join', to: 'cat' },
+      { from: 'cat', to: 'otp', dashed: true },
+      { from: 'cat', to: 'fix' },
+      { from: 'cat', to: 'int' },
+    ],
+  },
+  futures: {
+    nodes: [
+      { id: 'data', x: 10, y: 235, w: 170, h: 90, label: '1-min bars', sub: '2014 to 2022', tone: 'ghost' },
+      { id: 'pre', x: 230, y: 230, w: 210, h: 100, label: 'Pre-registered', sub: 'written before results', tone: 'lime' },
+      { id: 'rule', x: 500, y: 80, w: 190, h: 80, label: 'Entry rule', sub: 'the idea' },
+      { id: 'rand', x: 500, y: 400, w: 190, h: 80, label: 'Random entries', sub: 'matched baseline', tone: 'ghost' },
+      { id: 'cost', x: 760, y: 230, w: 200, h: 100, label: 'After costs', sub: 'beat it or fail', tone: 'solid' },
+      { id: 'rep', x: 760, y: 430, w: 200, h: 80, label: 'Report', sub: 'published either way', tone: 'glacier' },
+    ],
+    edges: [
+      { from: 'data', to: 'pre' },
+      { from: 'pre', to: 'rule' },
+      { from: 'pre', to: 'rand' },
+      { from: 'rule', to: 'cost' },
+      { from: 'rand', to: 'cost', dashed: true },
+      { from: 'cost', to: 'rep' },
+    ],
+  },
+  spend: {
+    nodes: [
+      { id: 'a', x: 10, y: 80, w: 170, h: 70, label: 'Account 1', tone: 'ghost' },
+      { id: 'b', x: 10, y: 245, w: 170, h: 70, label: 'Account 2', tone: 'ghost' },
+      { id: 'c', x: 10, y: 410, w: 170, h: 70, label: 'Account 3', tone: 'ghost' },
+      { id: 'parse', x: 240, y: 235, w: 190, h: 90, label: 'Parser', sub: '3 years of statements' },
+      { id: 'cat', x: 490, y: 235, w: 200, h: 90, label: 'Categorizer', sub: 'zero manual entry', tone: 'lime' },
+      { id: 'db', x: 760, y: 90, w: 200, h: 90, label: 'SQLite', sub: '2,811 transactions', tone: 'glacier' },
+      { id: 'pub', x: 760, y: 380, w: 200, h: 90, label: 'Ratios only', sub: 'Chart.js page', tone: 'solid' },
+    ],
+    edges: [
+      { from: 'a', to: 'parse' },
+      { from: 'b', to: 'parse' },
+      { from: 'c', to: 'parse' },
+      { from: 'parse', to: 'cat' },
+      { from: 'cat', to: 'db' },
+      { from: 'db', to: 'pub' },
     ],
   },
 };

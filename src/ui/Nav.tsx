@@ -2,7 +2,6 @@ import { scrollToId } from '../lib/motion';
 
 const links = [
   { id: 'work', label: 'Work' },
-  { id: 'notes', label: 'Design notes' },
   { id: 'path', label: 'Path' },
   { id: 'life', label: 'Life' },
   { id: 'contact', label: 'Contact' },
@@ -36,7 +35,7 @@ export function Nav({ onReplay }: { onReplay: () => void }) {
               e.preventDefault();
               scrollToId(l.id);
             }}
-            className={`label group relative ${l.id === 'notes' || l.id === 'path' ? 'hidden md:inline' : ''}`}
+            className={`label group relative ${l.id === 'path' ? 'hidden md:inline' : ''}`}
           >
             {l.label}
             <span className="absolute -bottom-1 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
