@@ -53,7 +53,7 @@ All write-ups follow the **BI Engineering Manager** resume (`resume/output/2026-
 1. **Headline "Data @ Amazon"** puts the employer in the hero, as you asked. Your LinkedIn voice rule keeps it out of prose; check you're fine with it here, and with employer PR for the 7M figure.
 2. **Claims on your word**, now public: 6 months replaced in week one, 7M / 5.5M, 10 days to 10 min, top 20 of 1,100.
 3. **Mauricio**: the futures card says "with a research partner". Name him?
-4. **Stickers** use a gym mirror selfie and the Naches photo. Swap if you prefer others.
+4. **Stickers** use a sunny balcony photo (your pick, 2026-10-17) and the Naches photo. Swap if you prefer others.
 5. **Game length**: 7 catches or 10 seconds. Shorter or longer?
 6. Which version ships: v1 (`redesign-2026-10`), v2, or a mix.
 
