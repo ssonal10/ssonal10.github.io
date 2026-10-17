@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { startSmoothScroll, getLenis, ScrollTrigger } from './lib/motion';
+import { startSmoothScroll, getLenis, ScrollTrigger, scrollToId } from './lib/motion';
 import { Cursor } from './ui/Cursor';
 import { IntroGame, shouldShowIntro } from './ui/IntroGame';
 import { Nav } from './ui/Nav';
@@ -18,7 +18,12 @@ export default function App() {
   useEffect(() => {
     startSmoothScroll();
     // fonts change line heights; re-measure pins once they load
-    document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    document.fonts?.ready.then(() => {
+      ScrollTrigger.refresh();
+      // honour #work, #life etc. on first load
+      const id = window.location.hash.slice(1);
+      if (id) window.setTimeout(() => scrollToId(id), 300);
+    });
   }, []);
 
   useEffect(() => {

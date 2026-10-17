@@ -46,7 +46,7 @@ export function Hero({ ready }: { ready: boolean }) {
           onEnterBack: () => v.play().catch(() => {}),
         },
       });
-      tl.to('.hero-line-a', { yPercent: -55, scale: 0.42, transformOrigin: 'left top', ease: 'none' }, 0)
+      tl.to('.hero-line-a', { yPercent: -42, scale: 0.42, transformOrigin: 'left top', ease: 'none' }, 0)
         .to('.hero-line-b', { yPercent: 55, scale: 0.42, transformOrigin: 'right bottom', ease: 'none' }, 0)
         .to('.hero-cutout', { yPercent: 40, opacity: 0, ease: 'none' }, 0)
         .to('.hero-meta', { opacity: 0, duration: 0.15, ease: 'none' }, 0)
@@ -107,8 +107,8 @@ export function Hero({ ready }: { ready: boolean }) {
 
       {/* type */}
       <h1 className="absolute inset-0 z-[2] flex flex-col justify-center px-[3vw] font-display font-extrabold leading-[0.82] tracking-[-0.045em]">
-        <span className="hero-line hero-line-a block whitespace-nowrap text-[23vw] md:text-[17vw]">Data</span>
-        <span className="hero-line hero-line-b block self-end whitespace-nowrap text-[23vw] md:text-[17vw]">
+        <span className="hero-line hero-line-a block whitespace-nowrap text-[19vw] md:text-[17vw]">Data</span>
+        <span className="hero-line hero-line-b block self-end whitespace-nowrap text-[19vw] md:text-[17vw]">
           <span className="text-lime">@</span>Amazon
         </span>
       </h1>

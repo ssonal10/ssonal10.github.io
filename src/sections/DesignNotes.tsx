@@ -71,8 +71,8 @@ export function DesignNotes() {
             <span className="font-serif font-normal italic">systems</span> work
           </h2>
           <p className="mt-6 max-w-sm text-paper/70">
-            One page per system, the way I write them at work: the problem, the rules it follows, its shape and what it
-            gives up. Generic on purpose, no internal names.
+            One page per system, written the way I write design docs at work: the problem, the rules it follows, its
+            shape and what it gives up. I kept them generic, with no internal names.
           </p>
           <p ref={hint} className="label mt-8 hidden text-stone transition-opacity md:block">Scroll →</p>
         </div>
