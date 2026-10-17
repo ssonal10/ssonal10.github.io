@@ -269,7 +269,7 @@ export const life: LifePhoto[] = [
   { src: 'seattle-wheel', caption: 'Seattle waterfront' },
   { src: 'squamish', caption: 'Sea to Sky' },
   { src: 'andaman-stars', caption: 'Andaman, night sky' },
-  { src: 'gym-bw', caption: 'Every day', tall: true },
+  { src: 'space-needle', caption: 'Seattle', tall: true },
   { src: 'kullu', caption: 'Kullu, India' },
   { src: 'nyc-wtc', caption: 'One World Trade' },
   { src: 'andaman-blue', caption: 'Andaman Sea', tall: true },

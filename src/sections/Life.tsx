@@ -55,7 +55,7 @@ export function Life() {
           <span className="font-serif font-normal italic">clock.</span>
         </h2>
         <p className="max-w-md text-lg leading-relaxed">
-          I lift, hike whichever mountain is closest and cut short videos of both. Hover a photo for color, and throw the stickers around.
+          I lift, and I cook everything high protein. Hover a photo for color, and throw the stickers around.
         </p>
       </div>
 
