@@ -21,7 +21,9 @@ export function Stickers() {
     const drags = els.flatMap((el) => {
       const tilt = gsap.quickTo(el, 'rotation', { duration: 0.5, ease: 'power3' });
       InertiaPlugin.track(el, 'x');
-      const lean = () => tilt(gsap.utils.clamp(-25, 25, (InertiaPlugin.getVelocity(el, 'x') || 0) / 60));
+      const lean = () => {
+        tilt(gsap.utils.clamp(-25, 25, (InertiaPlugin.getVelocity(el, 'x') || 0) / 60));
+      };
       return Draggable.create(el, {
         type: 'x,y',
         inertia: true,
