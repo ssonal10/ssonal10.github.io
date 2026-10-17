@@ -110,6 +110,7 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
   const [caught, setCaught] = useState(0);
   const [toast, setToast] = useState('');
   const [finished, setFinished] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
   const doneRef = useRef(false);
 
   const close = () => {
@@ -158,9 +159,13 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
     let guesses = 0;
     const started = performance.now();
     const tally: Record<string, number> = { dot: 0, bell: 0, peak: 0, play: 0 };
-    const finish = () => {
+    const finish = (byTime = false) => {
       if (ended) return;
       ended = true;
+      if (byTime) {
+        setTimedOut(true);
+        setCaught(GOAL);
+      }
       try {
         sessionStorage.setItem('intro-tally', JSON.stringify(tally));
       } catch {
@@ -204,7 +209,7 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
       paddle.target = Math.max(paddle.w / 2, Math.min(W - paddle.w / 2, paddle.target));
       paddle.x += (paddle.target - paddle.x) * Math.min(1, dt * 14);
 
-      if (!ended && (now - started) / 1000 > TIME_LIMIT) finish();
+      if (!ended && (now - started) / 1000 > TIME_LIMIT) finish(true);
       if (!ended) {
         spawnIn -= dt;
         if (spawnIn <= 0) {
@@ -318,8 +323,10 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
           </>
         ) : (
           <p className="font-display text-[10vw] font-extrabold leading-[0.85] tracking-tight text-lime sm:text-[6vw]">
-            Model built.
-            <span className="mt-3 block font-serif text-[0.4em] font-normal italic text-paper">Python did the math.</span>
+            {timedOut ? "Time's up." : 'Model built.'}
+            <span className="mt-3 block font-serif text-[0.4em] font-normal italic text-paper">
+              {timedOut ? 'Python built it anyway.' : 'Python did the math.'}
+            </span>
           </p>
         )}
       </div>

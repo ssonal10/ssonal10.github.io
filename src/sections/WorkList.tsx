@@ -101,7 +101,7 @@ export function WorkList() {
     <>
     {/* printable / no-JS-friendly copy of the list */}
     <div className="hidden print:block">
-      <WorkCards />
+      <WorkCards print />
     </div>
     <section ref={root} id="work" aria-label="Work" className="relative h-screen overflow-hidden bg-ink text-paper print:hidden">
       {work.map((p, i) => (
@@ -172,9 +172,9 @@ export function WorkList() {
   );
 }
 
-function WorkCards() {
+function WorkCards({ print = false }: { print?: boolean }) {
   return (
-    <section id="work" aria-label="Work" className="bg-ink px-5 py-20 text-paper">
+    <section id={print ? undefined : 'work'} aria-label="Work" className="bg-ink px-5 py-20 text-paper">
       <p className="label mb-8 text-stone">Selected work ({work.length})</p>
       <ol className="space-y-14">
         {work.map((p, i) => (
