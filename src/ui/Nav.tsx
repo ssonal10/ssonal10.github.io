@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { startAmbient, stopAmbient } from '../lib/ambient';
 import { scrollToId } from '../lib/motion';
 
 const links = [
@@ -9,6 +11,12 @@ const links = [
 
 /** Obys-style nav: plain mono links; colour follows the page theme (ink on the paper section). */
 export function Nav({ onReplay }: { onReplay: () => void }) {
+  const [sound, setSound] = useState(false);
+  const toggleSound = () => {
+    if (sound) stopAmbient();
+    else startAmbient();
+    setSound(!sound);
+  };
   return (
     <>
       {/* logo keeps its colours (themed); the links blend so they read on any photo */}
@@ -43,6 +51,10 @@ export function Nav({ onReplay }: { onReplay: () => void }) {
         ))}
         <button type="button" onClick={onReplay} className="label hidden lg:inline" data-cursor="play">
           ▶ game
+        </button>
+        {/* music starts off; one click turns on the generated "glass piano" */}
+        <button type="button" onClick={toggleSound} aria-pressed={sound} aria-label="Background music" className="label" data-cursor={sound ? 'mute' : 'sound'}>
+          {sound ? '♪ on' : '♪ off'}
         </button>
       </nav>
     </>
