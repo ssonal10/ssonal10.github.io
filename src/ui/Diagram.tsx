@@ -207,7 +207,7 @@ export const diagrams: Record<DiagramKey, DiagramSpec> = {
       { id: 'w', x: 10, y: 280, w: 160, h: 60, label: 'Website', tone: 'ghost' },
       { id: 'su', x: 10, y: 400, w: 160, h: 60, label: 'Subscriptions', tone: 'ghost' },
       { id: 'id', x: 205, y: 210, w: 185, h: 90, label: 'Identity map', sub: 'one customer key', tone: 'glacier' },
-      { id: 'as', x: 435, y: 200, w: 195, h: 110, label: 'Date-bounded', sub: 'control | test', tone: 'solid' },
+      { id: 'as', x: 435, y: 200, w: 195, h: 110, label: 'Cohorts', sub: 'control | treatment', tone: 'solid' },
       { id: 'g', x: 670, y: 90, w: 160, h: 60, label: 'Glue + Spark' },
       { id: 'a', x: 670, y: 225, w: 160, h: 60, label: 'Athena' },
       { id: 'q', x: 670, y: 360, w: 160, h: 60, label: 'QuickSight' },

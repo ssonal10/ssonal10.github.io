@@ -85,7 +85,7 @@ export const work: Work[] = [
     big: "7M",
     bigSmall: "new active members",
     problem: "Auto-activation was a new treatment with no counterfactual, so nobody could yet say what it added or where to deploy it next.",
-    built: "The causal measurement: control and treatment cohorts, lift metrics, one customer identity across experiment, streaming, web and subscription systems, and a segmentation of high- and low-value customers that Product and Marketing now use to decide where to deploy the feature. It caught reused experiment identifiers that had put about 30K customers in both control and test, and fixed the assignment. It also meant aligning 12+ stakeholders across 5 offices.",
+    built: "The causal measurement: control and treatment cohorts, lift metrics, one customer identity across experiment, streaming, web and subscription systems, and a segmentation of high- and low-value customers that Product and Marketing now use to decide where to deploy the feature. It also meant aligning 12+ stakeholders across 5 offices.",
     result: "The feature expanded across 13 partners and today contributes 7M new active members, 5.5M of them engaged. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.",
     name: "Auto-activation measurement",
     year: '2025',
@@ -93,7 +93,7 @@ export const work: Work[] = [
     impact:
       'Built the measurement framework behind a feature that now runs across 13 partners and contributes 7M new active members, 5.5M of them engaged.',
     context:
-      'Causal measurement for a new treatment with no counterfactual: cohorts, lift metrics, one customer identity across systems and a high- and low-value segmentation that Product and Marketing use. Reused experiment IDs had put about 30K customers in both control and test; fixing the assignment kept the lift read clean. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.',
+      'Causal measurement for a new treatment with no counterfactual: cohorts, lift metrics, one customer identity across systems and a high- and low-value segmentation that Product and Marketing use. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.',
     stack: ['Glue', 'Spark', 'Athena', 'QuickSight'],
     visual: 'activation',
   },
