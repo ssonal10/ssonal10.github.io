@@ -57,6 +57,12 @@ All write-ups follow the **BI Engineering Manager** resume (`resume/output/2026-
 5. **Game length**: 7 catches or 10 seconds. Shorter or longer?
 6. Which version ships: v1 (`redesign-2026-10`), v2, or a mix.
 
+## Before publishing to production
+
+- [ ] Take down the old trading report page, https://shiprasonal.com/trading-strategy-analysis/ (published from the separate `ssonal10/trading-strategy-analysis` GitHub Pages repo). The v2 site no longer links to it (2026-10-17).
+- [ ] Delete the sample pages `public/samples*.html`.
+- [ ] Revoke the GitHub token that sits in plain text in the original repo's remote URL.
+
 ## Known gaps
 
 - Phone layout checked only in narrow iframes, not on a real phone.
