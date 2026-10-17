@@ -21,7 +21,7 @@ export function WorkList() {
   const goTo = (i: number) => {
     const t = st.current;
     if (!t) return;
-    const y = t.start + (i / (work.length - 1)) * (t.end - t.start);
+    const y = t.start + (i / (work.length - 1)) * (t.end - t.start); // lands mid-hold
     const lenis = getLenis();
     if (lenis) lenis.scrollTo(y, { duration: 1 });
     else window.scrollTo({ top: y, behavior: 'smooth' });
@@ -47,14 +47,17 @@ export function WorkList() {
         start: 'top top',
         end: () => `+=${work.length * window.innerHeight * 1.1}`,
         pin: true,
-        // snap to the nearest project, never onward: a small scroll while
-        // reading settles back instead of jumping to the next one
-        snap: { snapTo: 1 / (work.length - 1), directional: false, inertia: false, duration: { min: 0.3, max: 0.6 }, delay: 0.6, ease: 'power2.inOut' },
         onRefresh: () => {
           itemH = items[0].offsetHeight;
         },
         onUpdate: (self) => {
-          const f = self.progress * (work.length - 1);
+          // no snap (it fights Lenis and drags the page while reading):
+          // each project holds still for the middle 60% of its scroll
+          // band and hands over to the next only in the 40% between
+          const raw = self.progress * (work.length - 1);
+          const base = Math.floor(raw);
+          const t = gsap.utils.clamp(0, 1, (raw - base - 0.3) / 0.4);
+          const f = Math.min(work.length - 1, base + t * t * (3 - 2 * t));
           y(-f * itemH);
           // items fade and shrink with distance from the centre line
           items.forEach((_, i) => {
