@@ -84,10 +84,10 @@ export const work: Work[] = [
     area: "Experimentation",
     big: "7M",
     bigSmall: "new active members",
-    problem: "Auto-activation was a new treatment with no counterfactual, so nobody could yet say what it added or where to deploy it next.",
+    problem: "Zero-click activation was a new treatment with no counterfactual, so nobody could yet say what it added or where to deploy it next.",
     built: "The causal measurement: control and treatment cohorts, lift metrics, one customer identity across experiment, streaming, web and subscription systems, and a segmentation of high- and low-value customers that Product and Marketing now use to decide where to deploy the feature. It also meant aligning 12+ stakeholders across 5 offices.",
     result: "The feature expanded across 13 partners and today contributes 7M new active members, 5.5M of them engaged. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.",
-    name: "Auto-activation measurement",
+    name: "Zero-click activation measurement",
     year: '2025',
     kind: 'Measurement',
     impact:
@@ -202,7 +202,7 @@ export const designNotes: DesignNote[] = [
   },
   {
     id: 'measure',
-    title: 'Auto-activation measurement',
+    title: 'Zero-click activation measurement',
     problem: 'Each partner launch needed a lift read within a week, from systems that did not share customer IDs.',
     tenets: ['Assignment is bounded by date, so no customer sits in both arms.', 'One framework for every partner.'],
     tradeoff: 'Built in about a week, so it favors a fixed design over custom reads per partner.',
@@ -217,7 +217,7 @@ export const experience = [
     org: 'Amazon · Seattle',
     lines: [
       'Manager of 2 BI engineers since Jul 2026, 6 months after promotion to the senior level.',
-      'Built the partnership free cash flow agent, Sentinel and the auto-activation measurement.',
+      'Built the partnership free cash flow agent, Sentinel and the zero-click activation measurement.',
     ],
   },
   {
