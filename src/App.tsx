@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Spotlight } from './components/Spotlight';
+import { ScrollProgress } from './components/ScrollProgress';
+import { VelocityMarquee } from './components/VelocityMarquee';
 import { TopNav } from './components/TopNav';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -16,22 +18,19 @@ export default function App() {
   const [activeId, setActiveId] = useState<string>('about');
 
   useEffect(() => {
-    const sections = navLinks
-      .map((l) => document.getElementById(l.id))
-      .filter((el): el is HTMLElement => Boolean(el));
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    // Active nav item = last section whose top has passed 40% of the viewport.
+    const onScroll = () => {
+      const line = window.innerHeight * 0.4;
+      let current = navLinks[0].id;
+      for (const l of navLinks) {
+        const el = document.getElementById(l.id);
+        if (el && el.getBoundingClientRect().top < line) current = l.id;
+      }
+      setActiveId(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
@@ -45,11 +44,14 @@ export default function App() {
       {/* Film grain */}
       <div className="grain" aria-hidden="true" />
 
+      <ScrollProgress />
+
       {/* Floating pill nav */}
       <TopNav activeId={activeId} />
 
       <main className="relative z-10">
         <Hero />
+        <VelocityMarquee />
 
         <div className="mx-auto max-w-6xl px-6 md:px-10">
           <About />
@@ -59,7 +61,11 @@ export default function App() {
           <Recognition />
           <Skills />
           <Interests />
-          <PhotoStrip />
+        </div>
+
+        <PhotoStrip />
+
+        <div className="mx-auto max-w-6xl px-6 md:px-10">
 
           <footer className="border-t border-slate-800/60 py-14 text-xs text-slate-500">
             <div className="mb-8 flex flex-col items-center gap-3 text-center">

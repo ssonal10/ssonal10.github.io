@@ -6,6 +6,7 @@ const sizeMap: Record<string, string> = {
   lg: 'md:col-span-2 md:row-span-2 min-h-[340px]',
   md: 'md:col-span-2 min-h-[200px]',
   sm: 'md:col-span-1 min-h-[200px]',
+  full: 'md:col-span-3',
 };
 
 export function Projects() {

@@ -99,7 +99,7 @@ export type Project = {
   stack: string[];
   impact: string;
   link?: string;
-  size: 'lg' | 'md' | 'sm';
+  size: 'lg' | 'md' | 'sm' | 'full';
   accent?: boolean;
 };
 
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     context: 'Root cause and responsible equipment from free-text incident reports.',
     stack: ['Python', 'XGBoost', 'NLP', 'SQL'],
     impact: '87% recall, 93% accuracy. About 1,000 hours of manual review saved.',
-    size: 'sm',
+    size: 'full',
   },
 ];
 

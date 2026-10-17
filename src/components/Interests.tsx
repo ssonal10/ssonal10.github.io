@@ -88,89 +88,93 @@ export function Interests() {
           </div>
         </motion.div>
 
-        {/* Video editing header card */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
-          className="glass lift relative overflow-hidden rounded-3xl p-6 lg:col-span-3"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-500/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-violet-300">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="23 7 16 12 23 17 23 7" /><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                Video Editing
-              </div>
-              <h4 className="mt-4 font-display text-3xl italic leading-tight text-slate-100 sm:text-4xl">
-                Frame by frame.
-              </h4>
-              <p className="mt-2 max-w-md text-sm text-slate-400">
-                Self-taught in CapCut. Travel dumps, GRWMs and birthdays, cut into little
-                9:16 stories.
-              </p>
-            </div>
-            <div className="hidden shrink-0 items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 sm:inline-flex">
-              <span>CapCut</span>
-              <span className="text-slate-600">·</span>
-              <span className="text-emerald-400">9:16</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Video editing grid — 3 clips */}
-        {edits.map((v, i) => (
-          <motion.figure
-            key={v.src}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{
-              duration: 0.7,
-              delay: 0.15 + i * 0.08,
-              ease: [0.2, 0.8, 0.2, 1],
-            }}
-            className="glass lift group relative overflow-hidden rounded-3xl p-2"
-          >
-            <div className="relative aspect-[9/14] w-full overflow-hidden rounded-2xl">
-              <video
-                src={v.src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className={`absolute inset-0 bg-gradient-to-t ${v.tint}`} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-
-              {/* Play ticker */}
-              <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-white backdrop-blur">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" />
-                Live
-              </div>
-
-              {/* Title overlay */}
-              <figcaption className="absolute bottom-0 left-0 right-0 p-4">
-                <div className="flex items-end justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="font-display text-xl italic leading-none text-white">
-                      {v.title}
-                    </div>
-                    <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-300">
-                      {v.meta}
-                    </div>
+        <div className="flex min-w-0 flex-col gap-5 lg:col-span-3">
+            {/* Video editing header card */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+              className="glass lift relative overflow-hidden rounded-3xl p-6 "
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-500/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-violet-300">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="23 7 16 12 23 17 23 7" /><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    Video Editing
                   </div>
-                  <div className="shrink-0 rounded-full border border-white/20 bg-white/10 p-1.5 text-white backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
+                  <h4 className="mt-4 font-display text-3xl italic leading-tight text-slate-100 sm:text-4xl">
+                    Frame by frame.
+                  </h4>
+                  <p className="mt-2 max-w-md text-sm text-slate-400">
+                    Self-taught in CapCut. Travel dumps, GRWMs and birthdays, cut into little
+                    9:16 stories.
+                  </p>
                 </div>
-              </figcaption>
-            </div>
-          </motion.figure>
-        ))}
+                <div className="hidden shrink-0 items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 sm:inline-flex">
+                  <span>CapCut</span>
+                  <span className="text-slate-600">·</span>
+                  <span className="text-emerald-400">9:16</span>
+                </div>
+              </div>
+            </motion.div>
+
+          <div className="-mx-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-2 pb-3 [scrollbar-width:thin]">
+                {/* Clip reel: swipe or shift+scroll */}
+                {edits.map((v, i) => (
+                  <motion.figure
+                    key={v.src}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.15 + i * 0.08,
+                      ease: [0.2, 0.8, 0.2, 1],
+                    }}
+                    className="glass group relative w-[190px] shrink-0 snap-start overflow-hidden rounded-3xl p-2 sm:w-[210px]"
+                  >
+                    <div className="relative aspect-[9/14] w-full overflow-hidden rounded-2xl">
+                      <video
+                        src={v.src}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className={`absolute inset-0 bg-gradient-to-t ${v.tint}`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+
+                      {/* Play ticker */}
+                      <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-white backdrop-blur">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" />
+                        Live
+                      </div>
+
+                      {/* Title overlay */}
+                      <figcaption className="absolute bottom-0 left-0 right-0 p-4">
+                        <div className="flex items-end justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="font-display text-xl italic leading-none text-white">
+                              {v.title}
+                            </div>
+                            <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-300">
+                              {v.meta}
+                            </div>
+                          </div>
+                          <div className="shrink-0 rounded-full border border-white/20 bg-white/10 p-1.5 text-white backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </figcaption>
+                    </div>
+                  </motion.figure>
+                ))}
+          </div>
+        </div>
       </div>
     </section>
   );
