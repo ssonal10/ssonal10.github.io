@@ -215,7 +215,7 @@ export const experience = [
     role: 'Business Intelligence Engineering Manager',
     org: 'Amazon · Seattle',
     lines: [
-      'Manager of 2 BI engineers, 5 months after promotion to the senior level.',
+      'Manager of 2 BI engineers.',
       'Built the partnership free cash flow agent, Sentinel and the zero-click activation measurement.',
     ],
   },
@@ -223,7 +223,7 @@ export const experience = [
     period: 'Oct 2025 to Mar 2026',
     role: 'Business Intelligence Engineer III',
     org: 'Amazon · Seattle',
-    lines: ['Promoted to the senior level.'],
+    lines: [],
   },
   {
     period: 'Jan 2023 to Oct 2025',
