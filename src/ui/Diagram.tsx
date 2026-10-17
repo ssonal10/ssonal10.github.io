@@ -211,7 +211,10 @@ export const diagrams: Record<DiagramKey, DiagramSpec> = {
       { id: 'g', x: 670, y: 90, w: 160, h: 60, label: 'Glue + Spark' },
       { id: 'a', x: 670, y: 225, w: 160, h: 60, label: 'Athena' },
       { id: 'q', x: 670, y: 360, w: 160, h: 60, label: 'QuickSight' },
-      { id: 'vp', x: 865, y: 215, w: 130, h: 80, label: 'VP call', sub: 'expand?', tone: 'lime' },
+      { id: 'o1', x: 855, y: 170, w: 145, h: 70, label: 'Expansion', sub: '13 partners', tone: 'lime' },
+      { id: 'o2', x: 855, y: 265, w: 145, h: 70, label: 'Segments', sub: 'where to deploy', tone: 'lime' },
+      { id: 'o3', x: 855, y: 360, w: 145, h: 70, label: 'Standard', sub: 'every partner', tone: 'lime' },
+      { id: 'o4', x: 855, y: 455, w: 145, h: 70, label: 'Exec metric', sub: 'since 2026', tone: 'lime' },
     ],
     edges: [
       { from: 'e', to: 'id' },
@@ -222,7 +225,10 @@ export const diagrams: Record<DiagramKey, DiagramSpec> = {
       { from: 'as', to: 'g' },
       { from: 'g', to: 'a' },
       { from: 'a', to: 'q' },
-      { from: 'q', to: 'vp' },
+      { from: 'q', to: 'o1' },
+      { from: 'q', to: 'o2' },
+      { from: 'q', to: 'o3' },
+      { from: 'q', to: 'o4' },
     ],
   },
   deepdive: {
