@@ -152,7 +152,6 @@ export const work: Work[] = [
     impact: '149 merged PRs, about 56K lines of Python. No entry rule has beaten costs yet, and we report that as is.',
     stack: ['Python', 'uv', 'pytest', 'Databento', 'Claude Code'],
     visual: 'futures',
-    link: 'https://ssonal10.github.io/trading-strategy-analysis/',
   },
   {
     id: 'finance',
