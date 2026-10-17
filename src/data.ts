@@ -31,6 +31,8 @@ export type Work = {
   // case layout: one hero number, then Problem / Built / Result
   big: string;
   bigSmall: string;
+  hook: string; // eyebrow above the title
+  area: string; // wide-tracked line under the title
   problem: string;
   built: string;
   result: string;
@@ -39,6 +41,8 @@ export type Work = {
 export const work: Work[] = [
   {
     id: 'deal-agent',
+    hook: "Deal models in minutes, not weeks",
+    area: "Financial modeling",
     big: "weeks → min",
     bigSmall: "per deal model",
     problem: "Leaders wanted several deal models before locking a partnership, and each one took weeks in Excel.",
@@ -56,6 +60,8 @@ export const work: Work[] = [
   },
   {
     id: 'activation',
+    hook: "7M new active members",
+    area: "Experimentation",
     big: "7M",
     bigSmall: "new active members",
     problem: "Every partner launch needed a lift read within a week, from systems that did not share customer IDs.",
@@ -73,6 +79,8 @@ export const work: Work[] = [
   },
   {
     id: 'sentinel',
+    hook: "Answers in 10 minutes, not 10 days",
+    area: "Multi-agent assistant",
     big: "10 days → 10 min",
     bigSmall: "per team question",
     problem: "The team's ad-hoc questions waited about 10 days for an answer.",
@@ -90,6 +98,8 @@ export const work: Work[] = [
   },
   {
     id: 'deep-dive',
+    hook: "A VP answer in 2 days",
+    area: "Causal analysis",
     big: "91%",
     bigSmall: "of the decline was customer mix",
     problem: "A VP's annual plan needed to know whether a top Latin American market's biggest telecom deal added members or took them from the core service.",
@@ -107,6 +117,8 @@ export const work: Work[] = [
   },
   {
     id: 'deal-model',
+    hook: "Launch cleared within the hour",
+    area: "Deal finance",
     big: "0.9%",
     bigSmall: "not 8.2%, launch cleared",
     problem: "A major US cable partner's deal needed a free-cash-flow model, a cannibalization read and daily executive metrics. The day before the marketing launch, leadership asked how many members were stuck on app-store billing.",
@@ -124,6 +136,8 @@ export const work: Work[] = [
   },
   {
     id: 'cx-funnel',
+    hook: "72 hours to under 1",
+    area: "Funnel analytics",
     big: "72h → 1h",
     bigSmall: "issue resolution",
     problem: "40% of activation attempts dropped somewhere between sign-in and payment, and the belief was that 90% of drop-offs were OTP or CAPTCHA.",
@@ -141,6 +155,8 @@ export const work: Work[] = [
   },
   {
     id: 'futures',
+    hook: "Pre-registered, published either way",
+    area: "Trading research",
     big: "149",
     bigSmall: "merged PRs · side project",
     problem: "Can any intraday rule on Nasdaq-100 micro futures survive trading costs?",
@@ -158,6 +174,8 @@ export const work: Work[] = [
   },
   {
     id: 'finance',
+    hook: "2,811 transactions, zero manual entry",
+    area: "Personal finance",
     big: "2,811",
     bigSmall: "transactions · side project",
     problem: "Three years of statements across 3 accounts needed categorizing with zero manual entry.",

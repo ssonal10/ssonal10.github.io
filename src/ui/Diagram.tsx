@@ -28,6 +28,16 @@ const lightTones: Palette = {
   ghost: { fill: 'transparent', stroke: 'rgba(11,11,9,0.22)', text: '#0b0b09', sub: '#6b665f' },
 };
 
+// colors from CSS variables on an ancestor (--fg, --accent, --accent2, --on)
+const mix = (v: string, pct: number) => `color-mix(in srgb, var(${v}) ${pct}%, transparent)`;
+const varTones: Palette = {
+  plain: { fill: mix('--fg', 5), stroke: mix('--fg', 30), text: 'var(--fg)', sub: mix('--fg', 55) },
+  lime: { fill: mix('--accent', 12), stroke: 'var(--accent)', text: 'var(--accent)', sub: mix('--fg', 55) },
+  solid: { fill: 'var(--accent)', stroke: 'var(--accent)', text: 'var(--on)', sub: mix('--on', 75) },
+  glacier: { fill: mix('--accent2', 12), stroke: 'var(--accent2)', text: 'var(--accent2)', sub: mix('--fg', 55) },
+  ghost: { fill: 'transparent', stroke: mix('--fg', 20), text: 'var(--fg)', sub: mix('--fg', 55) },
+};
+
 function anchor(a: Node, b: Node) {
   const ax = a.x + a.w / 2;
   const ay = a.y + a.h / 2;
@@ -62,16 +72,27 @@ function edgePath(a: Node, b: Node, loop?: boolean) {
   return `M${x1} ${y1} C${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`;
 }
 
-export function Diagram({ spec, title, light = false }: { spec: DiagramSpec; title: string; light?: boolean }) {
+export function Diagram({
+  spec,
+  title,
+  light = false,
+  themed = false,
+}: {
+  spec: DiagramSpec;
+  title: string;
+  light?: boolean;
+  themed?: boolean;
+}) {
   const byId = Object.fromEntries(spec.nodes.map((n) => [n.id, n]));
-  const pal = light ? lightTones : tones;
-  const accent = light ? GREEN : '#c8f05a';
-  const arrow = light ? 'arrow-light' : 'arrow';
+  const pal = themed ? varTones : light ? lightTones : tones;
+  const accent = themed ? 'var(--accent)' : light ? GREEN : '#c8f05a';
+  const base = themed ? mix('--fg', 14) : light ? 'rgba(11,11,9,0.14)' : 'rgba(243,239,230,0.18)';
+  const arrow = themed ? 'arrow-themed' : light ? 'arrow-light' : 'arrow';
   return (
     <svg viewBox="0 0 1000 560" className="h-auto w-full" role="img" aria-label={`Architecture: ${title}`}>
       <defs>
         <marker id={arrow} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill={accent} />
+          <path d="M0 0 L10 5 L0 10 z" style={{ fill: accent }} />
         </marker>
       </defs>
       {spec.edges.map((e, i) => {
@@ -80,11 +101,11 @@ export function Diagram({ spec, title, light = false }: { spec: DiagramSpec; tit
         const d = edgePath(a, b, e.loop);
         return (
           <g key={i} className="dg-edge">
-            <path d={d} fill="none" stroke={light ? 'rgba(11,11,9,0.14)' : 'rgba(243,239,230,0.18)'} strokeWidth="2" className="dg-base" />
+            <path d={d} fill="none" style={{ stroke: base }} strokeWidth="2" className="dg-base" />
             <path
               d={d}
               fill="none"
-              stroke={accent}
+              style={{ stroke: accent }}
               strokeWidth="2"
               className={e.dashed ? 'dg-live' : 'flow dg-live'}
               strokeDasharray={e.dashed ? '3 7' : undefined}
@@ -98,13 +119,13 @@ export function Diagram({ spec, title, light = false }: { spec: DiagramSpec; tit
         const t = pal[n.tone ?? 'plain'];
         return (
           <g key={n.id} className="dg-node" style={{ transformOrigin: `${n.x + n.w / 2}px ${n.y + n.h / 2}px` }}>
-            <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="12" fill={t.fill} stroke={t.stroke} strokeWidth="1.5" />
+            <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="12" style={{ fill: t.fill, stroke: t.stroke }} strokeWidth="1.5" />
             <text
               x={n.x + n.w / 2}
               y={n.y + n.h / 2 + (n.sub ? -5 : 7)}
               textAnchor="middle"
-              fill={t.text}
-              fontFamily="Bricolage Grotesque"
+              style={{ fill: t.text }}
+              fontFamily={themed ? 'Inter' : 'Bricolage Grotesque'}
               fontWeight="700"
               fontSize="21"
             >
@@ -115,7 +136,7 @@ export function Diagram({ spec, title, light = false }: { spec: DiagramSpec; tit
                 x={n.x + n.w / 2}
                 y={n.y + n.h / 2 + 19}
                 textAnchor="middle"
-                fill={t.sub}
+                style={{ fill: t.sub }}
                 fontFamily="JetBrains Mono"
                 fontSize="13"
               >

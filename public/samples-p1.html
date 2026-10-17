@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project 1 colors</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3efe6;--fg:#0b0b09;--card:#e7e1d3;--accent:#2f6b1f;--accent2:#1f7a74;--on:#f3efe6;--topo:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 'Instrument Sans',sans-serif;transition:background-color .6s,color .6s}
+.label{font:12px 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase}
+.acc{color:var(--accent)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.note{padding:40px 0 0}
+.case{min-height:100vh;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;padding:48px 0 120px}
+.vis{position:relative;overflow:hidden;border-radius:20px;background:var(--card);min-height:70vh;display:flex;flex-direction:column;justify-content:center;padding:28px;transition:background-color .6s}
+.vis::before{content:'';position:absolute;inset:0;background:url(/fx/topo.svg) center/cover;opacity:.10;filter:invert(var(--topo))}
+.vis svg{position:relative}
+.tag{position:relative;align-self:flex-start;background:var(--accent);color:var(--on);border-radius:999px;padding:6px 16px;font:700 18px 'Bricolage Grotesque',sans-serif;margin-bottom:12px}
+.tag small{font:11px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-left:6px}
+h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-.04em;line-height:.95;font-size:clamp(48px,7vw,104px);margin:8px 0 28px}
+.pbr{display:grid;grid-template-columns:90px 1fr;gap:14px 18px}
+.pbr dt{font:12px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding-top:4px}
+.pbr dd{opacity:.85}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.chips span{border:1px solid color-mix(in srgb,var(--fg) 25%,transparent);border-radius:999px;padding:3px 10px;font:11px 'JetBrains Mono',monospace;opacity:.8}
+@keyframes flow{to{stroke-dashoffset:-40}} .flow{stroke-dasharray:6 14;animation:flow 1.2s linear infinite}
+.switch{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:30;display:flex;gap:6px;padding:6px;border-radius:999px;background:rgba(20,20,18,.88);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);max-width:calc(100vw - 24px);overflow-x:auto}
+.switch button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;color:#f3efe6;font:12px 'JetBrains Mono',monospace;white-space:nowrap}
+.switch button.on{background:#f3efe6;color:#0b0b09}
+.sw{width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.3)}
+@media (max-width:760px){.case{grid-template-columns:1fr;min-height:auto}.vis{min-height:auto}}
+</style></head><body>
+<div class="wrap note"><p class="label acc">Sample · project 1 · text left, diagram right · dark palettes · pick one below</p></div>
+<div class="wrap"><article class="case">
+  <div><span class="label acc">01 · LLM agent · launched · 2026</span><h3>Deal agent</h3>
+  <dl class="pbr">
+   <dt>Problem</dt><dd>Leaders wanted several deal models before locking a partnership, and each one took weeks in Excel.</dd>
+   <dt>Built</dt><dd>An LLM agent on 20+ live data sources. The LLM only routes, Python computes every number, and each run ends in a dashboard leaders can change.</dd>
+   <dt>Result</dt><dd>Replaced about 6 months of manual modeling in its first week and underwrote deals bringing 4M access-plan customers and 3M general customers.</dd>
+  </dl>
+  <div class="chips"><span>Strands Agents</span><span>Bedrock AgentCore</span><span>Python</span><span>S3</span><span>IAM</span></div></div>
+  <div class="vis">
+    <p class="tag">weeks → min<small>per deal model</small></p>
+    <svg viewBox="0 0 1000 560" class="h-auto w-full" role="img" aria-label="Architecture: Deal agent"><defs><marker id="arrow-light" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2f6b1f"></path></marker></defs><g class="dg-edge"><path d="M160 280 C180 280, 180 280, 200 280" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M160 280 C180 280, 180 280, 200 280" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M365 280 C387.5 280, 387.5 280, 410 280" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M365 280 C387.5 280, 387.5 280, 410 280" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M600 280 C630 280, 630 280, 660 280" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M600 280 C630 280, 630 280, 660 280" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M760 130 C760 182.5, 760 182.5, 760 235" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M760 130 C760 182.5, 760 182.5, 760 235" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M760 325 C760 377.5, 760 377.5, 760 430" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M760 325 C760 377.5, 760 377.5, 760 430" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M660 465 C630 465, 630 465, 600 465" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M660 465 C630 465, 630 465, 600 465" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M505 500 C505 550, 85 550, 85 315" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M505 500 C505 550, 85 550, 85 315" fill="none" stroke="#2f6b1f" stroke-width="2" class="dg-live" stroke-dasharray="3 7" marker-end="url(#arrow-light)" opacity="0.5"></path></g><g class="dg-node" style="transform-origin:85px 280px"><rect x="10" y="245" width="150" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="85" y="275" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Leader</text><text x="85" y="299" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">asks for a model</text></g><g class="dg-node" style="transform-origin:282.5px 280px"><rect x="200" y="245" width="165" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="282.5" y="275" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Chat + IAM</text><text x="282.5" y="299" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">per-exec access</text></g><g class="dg-node" style="transform-origin:505px 280px"><rect x="410" y="235" width="190" height="90" rx="12" fill="rgba(47,107,31,0.08)" stroke="#2f6b1f" stroke-width="1.5"></rect><text x="505" y="275" text-anchor="middle" fill="#2f6b1f" font-family="Bricolage Grotesque" font-weight="700" font-size="21">LLM router</text><text x="505" y="299" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">Strands · AgentCore</text></g><g class="dg-node" style="transform-origin:760px 280px"><rect x="660" y="235" width="200" height="90" rx="12" fill="#2f6b1f" stroke="#2f6b1f" stroke-width="1.5"></rect><text x="760" y="275" text-anchor="middle" fill="#f3efe6" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Python engine</text><text x="760" y="299" text-anchor="middle" fill="#d9e6cf" font-family="JetBrains Mono" font-size="13">computes every number</text></g><g class="dg-node" style="transform-origin:760px 90px"><rect x="660" y="50" width="200" height="80" rx="12" fill="rgba(31,122,116,0.08)" stroke="#1f7a74" stroke-width="1.5"></rect><text x="760" y="85" text-anchor="middle" fill="#1f7a74" font-family="Bricolage Grotesque" font-weight="700" font-size="21">20+ live sources</text><text x="760" y="109" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">S3 · Athena</text></g><g class="dg-node" style="transform-origin:760px 465px"><rect x="660" y="430" width="200" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="760" y="460" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Validation gates</text><text x="760" y="484" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">tests on every run</text></g><g class="dg-node" style="transform-origin:505px 465px"><rect x="410" y="430" width="190" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="505" y="460" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Dashboard</text><text x="505" y="484" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">one per run</text></g></svg>
+  </div>
+</article></div>
+<div class="switch" id="switch"></div>
+<script>
+// diagram colors follow the palette: map the light-theme colors to CSS variables
+const MAP={'#2f6b1f':'var(--accent)','rgba(47,107,31,0.08)':'color-mix(in srgb,var(--accent) 10%,transparent)',
+ '#f3efe6':'var(--on)','#d9e6cf':'color-mix(in srgb,var(--on) 80%,transparent)',
+ '#1f7a74':'var(--accent2)','rgba(31,122,116,0.08)':'color-mix(in srgb,var(--accent2) 10%,transparent)',
+ '#0b0b09':'var(--fg)','#6b665f':'color-mix(in srgb,var(--fg) 55%,transparent)',
+ 'rgba(11,11,9,0.03)':'color-mix(in srgb,var(--fg) 4%,transparent)','rgba(11,11,9,0.35)':'color-mix(in srgb,var(--fg) 35%,transparent)',
+ 'rgba(11,11,9,0.22)':'color-mix(in srgb,var(--fg) 22%,transparent)','rgba(11,11,9,0.14)':'color-mix(in srgb,var(--fg) 15%,transparent)'};
+document.querySelectorAll('.vis svg *').forEach(el=>['fill','stroke'].forEach(a=>{const v=el.getAttribute(a); if(v&&MAP[v]) el.style[a]=MAP[v];}));
+const PAL={
+ 'Midnight ink':{bg:'#0d1b2a',fg:'#e0e1dd',card:'#1b263b',accent:'#e0e1dd',accent2:'#778da9',on:'#0d1b2a',topo:1},
+ 'Espresso + latte':{bg:'#1a1310',fg:'#f1e6d6',card:'#251b16',accent:'#e8c9a0',accent2:'#c9653a',on:'#1a1310',topo:1},
+ 'Oxblood + gold':{bg:'#160b0d',fg:'#f4e9e6',card:'#24141a',accent:'#d8b25a',accent2:'#e07a5f',on:'#160b0d',topo:1},
+ 'Deep teal + peach':{bg:'#0b1f22',fg:'#eaf3f1',card:'#12302f',accent:'#ffb38a',accent2:'#7fd1c7',on:'#0b1f22',topo:1},
+ 'Aubergine + apricot':{bg:'#1b1022',fg:'#f3eaf5',card:'#281933',accent:'#ffb36b',accent2:'#9fd8cb',on:'#1b1022',topo:1},
+ 'Slate + signal red':{bg:'#15171a',fg:'#eceff1',card:'#1f2226',accent:'#ff3b30',accent2:'#9aa4ad',on:'#fff5f4',topo:1},
+ 'Olive + bone':{bg:'#15170f',fg:'#ece8d9',card:'#20231a',accent:'#d9cfa3',accent2:'#8fa66a',on:'#15170f',topo:1},
+ 'Klein blue + yellow':{bg:'#101c6e',fg:'#f2f2ee',card:'#18258a',accent:'#ffd23f',accent2:'#ff9fbf',on:'#101c6e',topo:1},
+ 'Mono bone':{bg:'#0e0e0e',fg:'#ededed',card:'#191919',accent:'#f5f5f0',accent2:'#8a8a8a',on:'#0e0e0e',topo:1},
+ 'Rust night':{bg:'#1a0f0a',fg:'#f6e7da',card:'#2a1810',accent:'#ff7a1a',accent2:'#ffd8a8',on:'#1a0f0a',topo:1},
+ 'Ink + iris':{bg:'#0f0f14',fg:'#e8e8f0',card:'#17171f',accent:'#8b8cff',accent2:'#5ee6c5',on:'#0f0f14',topo:1},
+ 'Material + teal':{bg:'#121212',fg:'#e0e0e0',card:'#1e1e1e',accent:'#4db6ac',accent2:'#ffb74d',on:'#121212',topo:1},
+};
+const r=document.documentElement.style;
+function set(k){const p=PAL[k]; for(const [n,v] of Object.entries(p)) r.setProperty('--'+n,v);
+ document.querySelectorAll('.switch button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));}
+const sw=document.getElementById('switch');
+sw.innerHTML=Object.entries(PAL).map(([k,p])=>`<button data-k="${k}"><span class="sw" style="background:linear-gradient(135deg,${p.bg} 50%,${p.accent} 50%)"></span>${k}</button>`).join('');
+sw.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));
+set('Midnight ink');
+</script></body></html>

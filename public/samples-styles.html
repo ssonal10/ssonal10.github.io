@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style samples</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#171717;--fg:#f5f5f5;--card:rgba(255,255,255,.04);--line:rgba(255,255,255,.1);--accent:#22c55e;--accent2:#f5b544;--on:#0a0a0a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 Inter,sans-serif;min-height:100vh;overflow-x:hidden;transition:background-color .5s}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;transition:opacity .6s}
+.bg>*{position:absolute;inset:0;opacity:0;transition:opacity .8s}
+[data-s=emerald] .hills,[data-s=birka] .photo,[data-s=payza] .dots,[data-s=hybrid] .dots,[data-s=hybrid] .glow{opacity:1}
+.hills{background:
+ radial-gradient(60% 50% at 30% 75%,rgba(150,40,70,.55),transparent 70%),
+ radial-gradient(50% 45% at 62% 70%,rgba(40,110,120,.5),transparent 70%),
+ radial-gradient(45% 40% at 85% 80%,rgba(120,60,140,.45),transparent 70%),
+ linear-gradient(#1c1b22,#171717);filter:blur(30px)}
+.photo{background:linear-gradient(90deg,rgba(8,8,8,.96) 30%,rgba(8,8,8,.55)),url(/life/baker-road.webp) center/cover}
+.glow{background:radial-gradient(40% 35% at 75% 45%,rgba(212,169,121,.18),transparent 70%)}
+canvas.dots{width:100%;height:100%}
+main{position:relative;z-index:1}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.top{display:flex;justify-content:space-between;align-items:center;height:72px;border-bottom:1px solid var(--line)}
+.top .logo{font-weight:700;letter-spacing:.02em}
+.top nav{display:flex;gap:28px;font-size:13px;opacity:.75}
+.cta{border-radius:999px;padding:8px 18px;font-size:13px;font-weight:500;background:var(--fg);color:var(--bg)}
+[data-s=birka] .cta{border-radius:2px;background:var(--accent);color:#111;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:600}
+.eyebrow{font:12px 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);display:flex;align-items:center;gap:12px}
+[data-s=birka] .eyebrow::before{content:'';width:48px;height:1px;background:var(--accent)}
+[data-s=birka] .eyebrow{color:var(--accent)}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;padding:5px 12px;font-size:12px}
+.badge i{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.case{min-height:calc(100vh - 72px);display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;padding:56px 0 120px}
+h3{font-weight:600;letter-spacing:-.04em;line-height:.95;font-size:clamp(52px,7vw,108px);margin:14px 0 6px}
+[data-s=emerald] h3{text-transform:uppercase;font-weight:500;letter-spacing:-.02em}
+[data-s=emerald] h3 .dot{color:var(--accent)}
+[data-s=birka] h3{text-transform:uppercase;font-weight:700;letter-spacing:-.01em}
+[data-s=payza] h3,[data-s=hybrid] h3{background:linear-gradient(180deg,#fff 30%,#8a8a8a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-weight:300;letter-spacing:.32em;text-transform:uppercase;font-size:15px;opacity:.85;display:flex;align-items:center;gap:18px;margin-bottom:26px}
+.sub::after{content:'';flex:0 0 120px;height:1px;background:var(--line)}
+.dot{color:var(--accent)}
+.pbr{display:grid;grid-template-columns:86px 1fr;gap:14px 18px;font-size:15px}
+.pbr dt{font:11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);padding-top:4px}
+.pbr dd{opacity:.78}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.chips span{border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:999px;padding:4px 11px;font-size:12px;opacity:.85}
+.vis{position:relative;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);min-height:66vh;display:flex;flex-direction:column;justify-content:center;padding:28px}
+[data-s=birka] .vis{border-radius:4px}
+.tag{align-self:flex-start;border-radius:999px;padding:6px 16px;font-weight:600;font-size:17px;margin-bottom:14px;background:var(--fg);color:var(--bg)}
+[data-s=birka] .tag{background:var(--accent);color:#111;border-radius:2px}
+[data-s=emerald] .tag{background:var(--accent);color:#06210f}
+.tag small{font:11px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-left:6px}
+.seal{position:absolute;right:22px;bottom:22px;width:86px;height:86px;border-radius:50%;border:1px solid var(--accent);display:none;align-items:center;justify-content:center;flex-direction:column;font-size:9px;letter-spacing:.2em;color:var(--accent)}
+.seal b{font-size:22px;font-weight:300;letter-spacing:0}
+[data-s=birka] .seal{display:flex}
+@keyframes flow{to{stroke-dashoffset:-40}} .flow{stroke-dasharray:6 14;animation:flow 1.2s linear infinite}
+.vis svg text{font-family:Inter,sans-serif!important}
+.switch{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:30;display:flex;gap:6px;padding:6px;border-radius:999px;background:rgba(30,30,30,.9);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);max-width:calc(100vw - 24px);overflow-x:auto}
+.switch button{all:unset;cursor:pointer;padding:9px 16px;border-radius:999px;color:#f3efe6;font:12px 'JetBrains Mono',monospace;white-space:nowrap}
+.switch button.on{background:#f3efe6;color:#0b0b09}
+.why{font:12px 'JetBrains Mono',monospace;opacity:.6;margin-top:18px;letter-spacing:.04em}
+@media (max-width:860px){.case{grid-template-columns:1fr}.top nav{display:none}.vis{min-height:auto}}
+</style></head><body data-s="emerald">
+<div class="bg"><div class="hills"></div><div class="photo"></div><div class="glow"></div><canvas class="dots" id="dots"></canvas></div>
+<main>
+<div class="wrap top"><span class="logo">SHIPRA SONAL</span><nav><span>Work</span><span>Path</span><span>Life</span><span>Contact</span></nav><span class="cta">Say hi →</span></div>
+<div class="wrap"><article class="case">
+  <div>
+    <span class="badge"><i></i>01 · LLM agent · launched 2026</span>
+    <p class="eyebrow" style="margin-top:22px">Deals in minutes, not weeks</p>
+    <h3>Deal agent<span class="dot">.</span></h3>
+    <p class="sub">Financial modeling</p>
+    <dl class="pbr">
+     <dt>Problem</dt><dd>Leaders wanted several deal models before locking a partnership, and each one took weeks in Excel.</dd>
+     <dt>Built</dt><dd>An LLM agent on 20+ live data sources. The LLM only routes, Python computes every number, and each run ends in a dashboard leaders can change.</dd>
+     <dt>Result</dt><dd>Replaced about 6 months of manual modeling in its first week and underwrote deals bringing 4M access-plan customers and 3M general customers.</dd>
+    </dl>
+    <div class="chips"><span>Strands Agents</span><span>Bedrock AgentCore</span><span>Python</span><span>S3</span><span>IAM</span></div>
+    <p class="why" id="why"></p>
+  </div>
+  <div class="vis">
+    <p class="tag">weeks → min<small>per deal model</small></p>
+    <svg viewBox="0 0 1000 560" class="h-auto w-full" role="img" aria-label="Architecture: Deal agent"><defs><marker id="arrow-light" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2f6b1f"></path></marker></defs><g class="dg-edge"><path d="M160 280 C180 280, 180 280, 200 280" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M160 280 C180 280, 180 280, 200 280" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M365 280 C387.5 280, 387.5 280, 410 280" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M365 280 C387.5 280, 387.5 280, 410 280" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M600 280 C630 280, 630 280, 660 280" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M600 280 C630 280, 630 280, 660 280" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M760 130 C760 182.5, 760 182.5, 760 235" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M760 130 C760 182.5, 760 182.5, 760 235" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M760 325 C760 377.5, 760 377.5, 760 430" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M760 325 C760 377.5, 760 377.5, 760 430" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M660 465 C630 465, 630 465, 600 465" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M660 465 C630 465, 630 465, 600 465" fill="none" stroke="#2f6b1f" stroke-width="2" class="flow dg-live" marker-end="url(#arrow-light)" opacity="0.9"></path></g><g class="dg-edge"><path d="M505 500 C505 550, 85 550, 85 315" fill="none" stroke="rgba(11,11,9,0.14)" stroke-width="2" class="dg-base"></path><path d="M505 500 C505 550, 85 550, 85 315" fill="none" stroke="#2f6b1f" stroke-width="2" class="dg-live" stroke-dasharray="3 7" marker-end="url(#arrow-light)" opacity="0.5"></path></g><g class="dg-node" style="transform-origin:85px 280px"><rect x="10" y="245" width="150" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="85" y="275" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Leader</text><text x="85" y="299" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">asks for a model</text></g><g class="dg-node" style="transform-origin:282.5px 280px"><rect x="200" y="245" width="165" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="282.5" y="275" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Chat + IAM</text><text x="282.5" y="299" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">per-exec access</text></g><g class="dg-node" style="transform-origin:505px 280px"><rect x="410" y="235" width="190" height="90" rx="12" fill="rgba(47,107,31,0.08)" stroke="#2f6b1f" stroke-width="1.5"></rect><text x="505" y="275" text-anchor="middle" fill="#2f6b1f" font-family="Bricolage Grotesque" font-weight="700" font-size="21">LLM router</text><text x="505" y="299" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">Strands · AgentCore</text></g><g class="dg-node" style="transform-origin:760px 280px"><rect x="660" y="235" width="200" height="90" rx="12" fill="#2f6b1f" stroke="#2f6b1f" stroke-width="1.5"></rect><text x="760" y="275" text-anchor="middle" fill="#f3efe6" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Python engine</text><text x="760" y="299" text-anchor="middle" fill="#d9e6cf" font-family="JetBrains Mono" font-size="13">computes every number</text></g><g class="dg-node" style="transform-origin:760px 90px"><rect x="660" y="50" width="200" height="80" rx="12" fill="rgba(31,122,116,0.08)" stroke="#1f7a74" stroke-width="1.5"></rect><text x="760" y="85" text-anchor="middle" fill="#1f7a74" font-family="Bricolage Grotesque" font-weight="700" font-size="21">20+ live sources</text><text x="760" y="109" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">S3 · Athena</text></g><g class="dg-node" style="transform-origin:760px 465px"><rect x="660" y="430" width="200" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="760" y="460" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Validation gates</text><text x="760" y="484" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">tests on every run</text></g><g class="dg-node" style="transform-origin:505px 465px"><rect x="410" y="430" width="190" height="70" rx="12" fill="rgba(11,11,9,0.03)" stroke="rgba(11,11,9,0.35)" stroke-width="1.5"></rect><text x="505" y="460" text-anchor="middle" fill="#0b0b09" font-family="Bricolage Grotesque" font-weight="700" font-size="21">Dashboard</text><text x="505" y="484" text-anchor="middle" fill="#6b665f" font-family="JetBrains Mono" font-size="13">one per run</text></g></svg>
+    <div class="seal">PROJECT<b>01</b>EST. 2026</div>
+  </div>
+</article></div>
+</main>
+<div class="switch" id="switch"></div>
+<script>
+const MAP={'#2f6b1f':'var(--accent)','rgba(47,107,31,0.08)':'color-mix(in srgb,var(--accent) 12%,transparent)',
+ '#f3efe6':'var(--on)','#d9e6cf':'color-mix(in srgb,var(--on) 80%,transparent)',
+ '#1f7a74':'var(--accent2)','rgba(31,122,116,0.08)':'color-mix(in srgb,var(--accent2) 12%,transparent)',
+ '#0b0b09':'var(--fg)','#6b665f':'color-mix(in srgb,var(--fg) 55%,transparent)',
+ 'rgba(11,11,9,0.03)':'color-mix(in srgb,var(--fg) 5%,transparent)','rgba(11,11,9,0.35)':'color-mix(in srgb,var(--fg) 30%,transparent)',
+ 'rgba(11,11,9,0.22)':'color-mix(in srgb,var(--fg) 20%,transparent)','rgba(11,11,9,0.14)':'color-mix(in srgb,var(--fg) 14%,transparent)'};
+document.querySelectorAll('.vis svg *').forEach(el=>['fill','stroke'].forEach(a=>{const v=el.getAttribute(a); if(v&&MAP[v]) el.style[a]=MAP[v];}));
+const STY={
+ emerald:{name:'1 · Emerald hills',bg:'#171717',fg:'#f5f5f5',card:'rgba(255,255,255,.04)',accent:'#22c55e',accent2:'#f5b544',on:'#06210f',
+   why:'From the irrigation template: neutral #171717, blurred wine/teal/purple hills, uppercase title, green dot, amber eyebrow.'},
+ birka:{name:'2 · Birka night (your Mt. Baker photo)',bg:'#0b0b0b',fg:'#f2efe9',card:'rgba(10,10,10,.55)',accent:'#d4a979',accent2:'#8fb8c9',on:'#111111',
+   why:'From Birka: near-black, moody mountain photo (yours, Mt. Baker road), camel accent, wide-tracked subtitle, hairlines, round seal.'},
+ payza:{name:'3 · Payza globe',bg:'#000000',fg:'#f5f5f5',card:'rgba(255,255,255,.035)',accent:'#e5e5e5',accent2:'#7dd3fc',on:'#000000',
+   why:'From Payza: pure black, dotted network globe, white-to-grey gradient title, glass card, white pill buttons.'},
+ hybrid:{name:'4 · Mix: Payza + Birka camel',bg:'#050505',fg:'#f2efe9',card:'rgba(255,255,255,.035)',accent:'#d4a979',accent2:'#e5e5e5',on:'#111111',
+   why:'Payza black, globe and gradient title, warmed up with the Birka camel accent.'},
+};
+const r=document.documentElement.style;
+function set(k){const p=STY[k]; document.body.dataset.s=k; for(const n of ['bg','fg','card','accent','accent2','on']) r.setProperty('--'+n,p[n]);
+ document.getElementById('why').textContent=p.why;
+ document.querySelectorAll('.switch button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));}
+const sw=document.getElementById('switch');
+sw.innerHTML=Object.entries(STY).map(([k,p])=>`<button data-k="${k}">${p.name}</button>`).join('');
+sw.querySelectorAll('button').forEach(b=>b.onclick=()=>set(b.dataset.k));
+set('emerald');
+// dotted globe (Payza): points on a slowly turning sphere, joined when close
+const cv=document.getElementById('dots'),cx=cv.getContext('2d');let W,H,pts=[];
+function size(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio}
+size();addEventListener('resize',size);
+for(let i=0;i<220;i++){const u=Math.random()*2-1,t=Math.random()*Math.PI*2;pts.push([Math.sqrt(1-u*u)*Math.cos(t),u,Math.sqrt(1-u*u)*Math.sin(t)])}
+let a=0;(function draw(){a+=0.0016;cx.clearRect(0,0,W,H);const R=Math.min(W,H)*0.42,ox=W*0.72,oy=H*0.5;
+ const P=pts.map(([x,y,z])=>{const X=x*Math.cos(a)-z*Math.sin(a),Z=x*Math.sin(a)+z*Math.cos(a);return[ox+X*R,oy+y*R,Z]});
+ cx.lineWidth=devicePixelRatio*0.6;
+ for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i][0]-P[j][0],P[i][1]-P[j][1]);if(d<R*0.22){cx.strokeStyle=`rgba(255,255,255,${0.07*(1-d/(R*0.22))*((P[i][2]+P[j][2])/4+0.6)})`;cx.beginPath();cx.moveTo(P[i][0],P[i][1]);cx.lineTo(P[j][0],P[j][1]);cx.stroke()}}
+ P.forEach(p=>{cx.fillStyle=`rgba(255,255,255,${0.25+0.5*(p[2]+1)/2})`;cx.beginPath();cx.arc(p[0],p[1],devicePixelRatio*(1+(p[2]+1)*0.6),0,7);cx.fill()});
+ requestAnimationFrame(draw)})();
+</script></body></html>

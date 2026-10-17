@@ -1,7 +1,9 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import { gsap, ScrollTrigger, isTouch, prefersReducedMotion } from '../lib/motion';
+import type { CSSProperties } from 'react';
+import { useLayoutEffect, useRef } from 'react';
+import { gsap, prefersReducedMotion } from '../lib/motion';
 import { work, type Work } from '../data';
 import { Diagram, diagrams, type DiagramKey } from '../ui/Diagram';
+import { Globe } from '../ui/Globe';
 
 const diagramFor: Record<string, DiagramKey> = {
   'deal-agent': 'agent',
@@ -14,179 +16,154 @@ const diagramFor: Record<string, DiagramKey> = {
   finance: 'spend',
 };
 
+// Birka cases get one of Shipra's own landscapes, darkened
+const photos = ['/life/baker-road.webp', '/life/squamish.webp', '/life/kullu.webp', '/life/andaman-blue.webp'];
+
+const CAMEL = '#d4a979';
+const themes = {
+  // style 2, after the Birka template: photo, camel, square corners, seal
+  birka: { '--fg': '#f2efe9', '--accent': CAMEL, '--accent2': '#8fb8c9', '--on': '#111111' },
+  // style 4: Payza black, dotted globe behind the text, gradient title, camel
+  globe: { '--fg': '#f2efe9', '--accent': CAMEL, '--accent2': '#e5e5e5', '--on': '#111111' },
+} as const;
+
 /**
- * Work on paper, one card per project: Problem / Built / Result on the
- * left, its architecture diagram on the right. On desktop the row pins and
- * scrolls sideways (the old design-notes scroll); each diagram's boxes pop
- * in as its card reaches the centre. Touch and reduced motion get a stack.
+ * Work: one full screen per project, normal scroll, alternating two looks
+ * (Birka photo / black with a globe). Text on the left, the system's
+ * diagram on the right; both rise in and the diagram's boxes pop as the
+ * case arrives.
  */
 export function WorkCases() {
   const root = useRef<HTMLElement>(null);
-  const bar = useRef<HTMLDivElement>(null);
-  const count = useRef<HTMLParagraphElement>(null);
-  const hint = useRef<HTMLParagraphElement>(null);
-  const [pinned] = useState(() => !isTouch() && !prefersReducedMotion());
 
   useLayoutEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
-      // logo and nav switch to ink while the paper section is under them.
-      // Created after the pin so its end includes the pinned scroll length.
-      const themeToggle = (pinEnd?: () => number) =>
-        ScrollTrigger.create({
-          trigger: root.current,
-          start: 'top 55%',
-          // pinned: the section's bottom reaches 45% of the screen 55vh after the pin ends
-          end: pinEnd ? () => pinEnd() + window.innerHeight * 0.55 : 'bottom 45%',
-          onToggle: (self) => {
-            document.body.dataset.theme = self.isActive ? 'paper' : '';
-          },
-        });
-      if (!pinned) {
-        themeToggle();
-        return;
-      }
-
-      const track = root.current!.querySelector<HTMLElement>('.wc-track')!;
-      const distance = () => track.scrollWidth - window.innerWidth;
-      const pages = gsap.utils.toArray<HTMLElement>('.wc-page');
-      // card centres in track coordinates, cached (no layout reads per frame)
-      let centres = pages.map((pg) => pg.offsetLeft + pg.offsetWidth / 2);
-      const slide = gsap.to(track, {
-        x: () => -distance(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: root.current,
-          start: 'top top',
-          // 1.5px of scroll per px of travel: a calm pace for reading
-          end: () => `+=${distance() * 1.5}`,
-          scrub: 0.8,
-          pin: true,
-          invalidateOnRefresh: true,
-          onRefresh: () => {
-            centres = pages.map((pg) => pg.offsetLeft + pg.offsetWidth / 2);
-          },
-          onUpdate: (self) => {
-            bar.current?.style.setProperty('transform', `scaleX(${self.progress})`);
-            if (count.current) {
-              const mid = window.innerWidth / 2 + self.progress * distance();
-              let best = 0;
-              centres.forEach((c, i) => {
-                if (Math.abs(c - mid) < Math.abs(centres[best] - mid)) best = i;
-              });
-              count.current.textContent = `${String(best + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`;
-            }
-            hint.current?.style.setProperty('opacity', self.progress > 0.02 ? '0' : '1');
-          },
-        },
+      gsap.utils.toArray<HTMLElement>('.wc-case').forEach((el) => {
+        const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 65%', once: true } });
+        tl.from(el.querySelectorAll('.wc-reveal'), { y: 48, opacity: 0, duration: 1, stagger: 0.12, ease: 'power3.out' })
+          .from(el.querySelectorAll('.dg-node'), { scale: 0.6, opacity: 0, duration: 0.5, stagger: 0.04, ease: 'back.out(1.6)' }, 0.4)
+          .from(el.querySelectorAll('.dg-base'), { drawSVG: '0%', duration: 0.7, stagger: 0.05, ease: 'power2.inOut' }, '-=0.3')
+          .from(el.querySelectorAll('.dg-live'), { opacity: 0, duration: 0.4, stagger: 0.03 }, '-=0.3');
       });
-      // per card: boxes pop, then edges draw, then the flowing lines fade in
-      pages.forEach((page) => {
-        const tl = gsap.timeline({ scrollTrigger: { trigger: page, containerAnimation: slide, start: 'left 70%' } });
-        tl.from(page.querySelectorAll('.dg-node'), { scale: 0.6, opacity: 0, duration: 0.6, stagger: 0.05, ease: 'back.out(1.6)' })
-          .from(page.querySelectorAll('.dg-base'), { drawSVG: '0%', duration: 0.8, stagger: 0.06, ease: 'power2.inOut' }, '-=0.2')
-          .from(page.querySelectorAll('.dg-live'), { opacity: 0, duration: 0.5, stagger: 0.04 }, '-=0.3');
-      });
-      themeToggle(() => slide.scrollTrigger!.end);
-      ScrollTrigger.refresh();
     }, root);
-    return () => {
-      ctx.revert();
-      document.body.dataset.theme = '';
-    };
-  }, [pinned]);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section ref={root} id="work" aria-label="Work" className="relative overflow-hidden bg-paper text-ink">
-      <div className={`no-print absolute inset-x-5 bottom-6 z-10 hidden items-center gap-4 sm:inset-x-8 ${pinned ? 'md:flex' : ''}`}>
-        <p ref={count} className="label text-ink/60">
-          01 / {String(work.length).padStart(2, '0')}
-        </p>
-        <div className="h-px flex-1 bg-ink/15">
-          <div ref={bar} className="h-px origin-left scale-x-0 bg-[#2f6b1f]" />
-        </div>
+    <section ref={root} id="work" aria-label="Work" className="bg-[#050505] text-[#f2efe9]" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <div className="mx-auto flex max-w-[1240px] items-end justify-between border-b border-white/10 px-5 pb-8 pt-28 sm:px-8">
+        <h2 className="text-[clamp(44px,7vw,104px)] font-semibold leading-[0.95] tracking-[-0.04em]">Selected work</h2>
+        <p className="hidden font-mono text-xs uppercase tracking-[0.18em] text-white/50 sm:block">{work.length} projects</p>
       </div>
-
-      <div
-        className={`wc-track dn-track flex flex-col gap-16 px-5 py-20 ${pinned ? 'md:h-screen md:w-max md:flex-row md:items-center md:gap-10 md:px-8 md:py-0' : ''}`}
-      >
-        <div className={`flex shrink-0 flex-col justify-center ${pinned ? 'md:w-[30vw]' : ''}`}>
-          <p className="label text-[#2f6b1f]">Selected work · {work.length} projects</p>
-          <h2 className="mt-4 font-display text-6xl font-extrabold leading-[0.9] tracking-tight sm:text-7xl">
-            What I
-            <br />
-            <span className="font-serif font-normal italic">built</span>
-          </h2>
-          <p className="mt-6 max-w-sm text-ink/70">
-            Each card has the problem, what I built and what it changed, with the system drawn the way I sketch design docs at work.
-            Generic shapes, no internal names.
-          </p>
-          <p ref={hint} className="label mt-8 hidden text-ink/50 transition-opacity md:block">
-            Scroll →
-          </p>
-        </div>
-
-        {work.map((w, i) => (
-          <Card key={w.id} w={w} i={i} pinned={pinned} />
-        ))}
-      </div>
+      {work.map((w, i) => (
+        <Case key={w.id} w={w} i={i} />
+      ))}
     </section>
   );
 }
 
-function Card({ w, i, pinned }: { w: Work; i: number; pinned: boolean }) {
+function Case({ w, i }: { w: Work; i: number }) {
+  const birka = i % 2 === 0;
+  const n = String(i + 1).padStart(2, '0');
   return (
     <article
       id={`work-${w.id}`}
-      className={`wc-page dn-page flex shrink-0 flex-col rounded-3xl border border-ink/12 bg-[#ebe6da] p-6 md:p-10 ${pinned ? 'md:h-[84vh] md:w-[88vw] md:max-w-[1280px]' : ''}`}
+      className="wc-case relative overflow-hidden border-b border-white/10"
+      style={(birka ? themes.birka : themes.globe) as CSSProperties}
     >
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-ink/12 pb-4">
-        <div>
-          <p className="label text-[#2f6b1f]">
-            {String(i + 1).padStart(2, '0')} · {w.kind} · {w.year}
-          </p>
-          <h3 className="mt-1 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">{w.name}</h3>
-        </div>
-        <p className="rounded-full bg-[#2f6b1f] px-4 py-1.5 font-display text-lg font-bold text-paper">
-          {w.big} <span className="font-mono text-[11px] font-normal uppercase tracking-[0.12em] text-paper/80">{w.bigSmall}</span>
-        </p>
-      </header>
-      <div className="grid flex-1 gap-8 pt-6 md:grid-cols-[1fr_1.6fr]">
-        <div className="flex flex-col">
-          <dl className="space-y-5 text-[15px] leading-relaxed">
-            {(
-              [
-                ['Problem', w.problem],
-                ['Built', w.built],
-                ['Result', w.result],
-              ] as const
-            ).map(([k, v]) => (
-              <div key={k}>
-                <dt className="label mb-1.5 text-[#2f6b1f]">{k}</dt>
-                <dd className="text-ink/85">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <ul className="mt-6 flex flex-wrap gap-1.5">
-            {w.stack.map((t) => (
-              <li key={t} className="rounded-full border border-ink/25 px-2.5 py-1 font-mono text-[11px] text-ink/75">
-                {t}
-              </li>
-            ))}
-          </ul>
-          {w.link && (
-            <a
-              href={w.link}
-              target="_blank"
-              rel="noreferrer"
-              className="label mt-5 inline-block self-start border-b border-[#2f6b1f] text-[#2f6b1f]"
-              data-cursor="open"
+      {/* backdrop */}
+      {birka ? (
+        <>
+          <img src={photos[(i / 2) % photos.length]} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 h-full w-full object-cover print:hidden" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,8,.96)_30%,rgba(8,8,8,.6))]" />
+        </>
+      ) : (
+        <div className="absolute inset-0 bg-[radial-gradient(40%_35%_at_75%_45%,rgba(212,169,121,.16),transparent_70%)]" />
+      )}
+
+      <div className="relative mx-auto grid max-w-[1240px] items-center gap-12 px-5 py-20 sm:px-8 md:min-h-screen md:grid-cols-[1fr_1.1fr] md:gap-14">
+        <div className="wc-reveal relative">
+          {/* style 4: the globe turns behind the write-up */}
+          {!birka && <Globe className="absolute left-1/2 top-1/2 h-[130%] w-[130%] -translate-x-1/2 -translate-y-1/2" />}
+          <div className="relative">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs">
+              <i className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+              {n} · {w.kind} · {w.year}
+            </span>
+            <p className="mt-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-[var(--accent)]">
+              {birka && <span className="h-px w-12 bg-[var(--accent)]" />}
+              {w.hook}
+            </p>
+            <h3
+              className={`mb-2 mt-3 text-[clamp(48px,6.5vw,100px)] leading-[0.95] ${
+                birka
+                  ? 'font-bold uppercase tracking-[-0.01em]'
+                  : 'bg-[linear-gradient(180deg,#fff_30%,#8a8a8a)] bg-clip-text font-semibold tracking-[-0.04em] text-transparent'
+              }`}
             >
-              Open ↗
-            </a>
-          )}
+              {w.name}
+            </h3>
+            <p className="mb-7 flex items-center gap-4 text-[15px] font-light uppercase tracking-[0.32em] text-white/85">
+              {w.area}
+              <span className="h-px w-28 bg-white/10" />
+            </p>
+            <dl className="grid grid-cols-[86px_1fr] gap-x-[18px] gap-y-3.5 text-[15px] leading-relaxed">
+              {(
+                [
+                  ['Problem', w.problem],
+                  ['Built', w.built],
+                  ['Result', w.result],
+                ] as const
+              ).map(([k, v]) => (
+                <div key={k} className="contents">
+                  <dt className="pt-1 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent)]">{k}</dt>
+                  <dd className="text-white/80">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <ul className="mt-6 flex flex-wrap gap-1.5">
+              {w.stack.map((t) => (
+                <li key={t} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-white/85">
+                  {t}
+                </li>
+              ))}
+            </ul>
+            {w.link && (
+              <a
+                href={w.link}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-block border-b border-[var(--accent)] font-mono text-xs uppercase tracking-[0.16em] text-[var(--accent)]"
+                data-cursor="open"
+              >
+                Open ↗
+              </a>
+            )}
+          </div>
         </div>
-        <div className="flex items-center">
-          <Diagram spec={diagrams[diagramFor[w.id]]} title={w.name} light />
+
+        <div
+          className={`wc-reveal relative flex flex-col justify-center border border-white/10 p-7 backdrop-blur-md md:min-h-[66vh] ${
+            birka ? 'rounded bg-[rgba(10,10,10,0.55)]' : 'rounded-[22px] bg-white/[0.035]'
+          }`}
+        >
+          <p
+            className={`mb-3.5 self-start px-4 py-1.5 text-[17px] font-semibold ${
+              birka ? 'rounded-sm bg-[var(--accent)] text-[#111]' : 'rounded-full bg-[#f2efe9] text-[#050505]'
+            }`}
+          >
+            {w.big}
+            <small className="ml-1.5 font-mono text-[11px] font-normal uppercase tracking-[0.12em] opacity-75">{w.bigSmall}</small>
+          </p>
+          <Diagram spec={diagrams[diagramFor[w.id]]} title={w.name} themed />
+          {birka && (
+            <div className="absolute bottom-5 right-5 hidden h-[86px] w-[86px] flex-col items-center justify-center rounded-full border border-[var(--accent)] text-[9px] tracking-[0.2em] text-[var(--accent)] md:flex">
+              PROJECT
+              <b className="text-[22px] font-light tracking-normal">{n}</b>
+              {w.year}
+            </div>
+          )}
         </div>
       </div>
     </article>
