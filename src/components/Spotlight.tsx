@@ -13,7 +13,7 @@ export function Spotlight() {
     <div
       className="pointer-events-none fixed inset-0 z-30 transition-[background] duration-300 ease-out"
       style={{
-        background: `radial-gradient(640px circle at ${pos.x}px ${pos.y}px, rgba(16,185,129,0.09), transparent 70%)`,
+        background: `radial-gradient(640px circle at ${pos.x}px ${pos.y}px, rgba(200,240,90,0.05), transparent 70%)`,
       }}
     />
   );

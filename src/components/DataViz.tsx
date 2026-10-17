@@ -36,7 +36,7 @@ function AnimatedNumber({ value, decimals = 0, prefix = '', suffix = '' }: {
 /* ============================================================
    Sparkline (smooth SVG area + stroke, animated draw-in)
 ============================================================ */
-function Sparkline({ data, color = '#10b981', width = 220, height = 64 }: {
+function Sparkline({ data, color = '#c8f05a', width = 220, height = 64 }: {
   data: number[]; color?: string; width?: number; height?: number;
 }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -109,7 +109,7 @@ function Sparkline({ data, color = '#10b981', width = 220, height = 64 }: {
 /* ============================================================
    Mini bar chart (stagger-in bars)
 ============================================================ */
-function MiniBars({ data, color = '#10b981', height = 64 }: {
+function MiniBars({ data, color = '#c8f05a', height = 64 }: {
   data: number[]; color?: string; height?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -141,7 +141,7 @@ function MiniBars({ data, color = '#10b981', height = 64 }: {
 /* ============================================================
    Radial progress ring
 ============================================================ */
-function RadialRing({ value, size = 88, stroke = 6, color = '#10b981' }: {
+function RadialRing({ value, size = 88, stroke = 6, color = '#c8f05a' }: {
   value: number; size?: number; stroke?: number; color?: string;
 }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -162,7 +162,7 @@ function RadialRing({ value, size = 88, stroke = 6, color = '#10b981' }: {
 
   return (
     <svg ref={ref} width={size} height={size} className="-rotate-90">
-      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(148,163,184,0.15)" strokeWidth={stroke} />
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(179,173,162,0.15)" strokeWidth={stroke} />
       <circle
         cx={size / 2}
         cy={size / 2}
@@ -230,7 +230,7 @@ export function DataViz() {
           </div>
           <p className="mt-1 text-xs text-slate-400">About 6 months of manual modeling replaced in its first week.</p>
           <div className="mt-4">
-            <MiniBars data={modelWeeks} color="#10b981" />
+            <MiniBars data={modelWeeks} color="#c8f05a" />
           </div>
         </Card>
 
@@ -243,14 +243,14 @@ export function DataViz() {
           </div>
           <p className="mt-1 text-xs text-slate-400">Measurement framework built in about a week; VPs approved the expansion on it.</p>
           <div className="mt-4">
-            <Sparkline data={membersData} color="#10b981" width={280} height={64} />
+            <Sparkline data={membersData} color="#c8f05a" width={280} height={64} />
           </div>
         </Card>
 
         <Card label="CX insight · drop-off" chip="changed the plan" delay={0.16}>
           <div className="mt-3 flex items-center gap-5">
             <div className="relative">
-              <RadialRing value={96} size={96} stroke={7} color="#10b981" />
+              <RadialRing value={96} size={96} stroke={7} color="#c8f05a" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="font-serif text-2xl text-gradient">
                   <AnimatedNumber value={96} suffix="%" />
@@ -273,7 +273,7 @@ export function DataViz() {
           </div>
           <p className="mt-1 text-xs text-slate-400">Built alone on Claude Code: 19 scheduled jobs, 5 specialists and a validator.</p>
           <div className="mt-4">
-            <MiniBars data={sentinelBars} color="#8b5cf6" />
+            <MiniBars data={sentinelBars} color="#ff8f63" />
           </div>
         </Card>
       </div>

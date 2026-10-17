@@ -51,12 +51,12 @@ export function Projects() {
                   <>
                     <div
                       className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-50 blur-3xl transition-opacity duration-500 group-hover:opacity-80"
-                      style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.45), transparent 65%)' }}
+                      style={{ background: 'radial-gradient(circle, rgba(200,240,90,0.45), transparent 65%)' }}
                       aria-hidden="true"
                     />
                     <div
                       className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full opacity-30 blur-3xl"
-                      style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.4), transparent 65%)' }}
+                      style={{ background: 'radial-gradient(circle, rgba(255,143,99,0.4), transparent 65%)' }}
                       aria-hidden="true"
                     />
                     <AgentVisual />

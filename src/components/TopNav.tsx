@@ -20,7 +20,7 @@ export function TopNav({ activeId }: { activeId: string }) {
             className="relative inline-flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold text-slate-900"
             style={{
               background:
-                'conic-gradient(from 140deg, #10b981, #8b5cf6, #f43f5e, #10b981)',
+                'conic-gradient(from 140deg, #c8f05a, #ff8f63, #e8b04a, #c8f05a)',
             }}
           >
             <span className="absolute inset-[2px] rounded-full bg-bg" />
@@ -59,7 +59,7 @@ export function TopNav({ activeId }: { activeId: string }) {
         {/* CTA */}
         <a
           href={profile.socials.email}
-          className="group hidden items-center gap-1.5 rounded-full bg-gradient-to-br from-emerald-400/90 to-emerald-500/90 px-3.5 py-1.5 text-[12px] font-semibold text-emerald-950 shadow-[0_0_24px_-4px_rgba(16,185,129,0.55)] transition-all hover:from-emerald-300 hover:to-emerald-400 sm:inline-flex"
+          className="group hidden items-center gap-1.5 rounded-full bg-gradient-to-br from-emerald-400/90 to-emerald-500/90 px-3.5 py-1.5 text-[12px] font-semibold text-emerald-950 shadow-[0_0_24px_-4px_rgba(200,240,90,0.55)] transition-all hover:from-emerald-300 hover:to-emerald-400 sm:inline-flex"
         >
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-950 opacity-60" />

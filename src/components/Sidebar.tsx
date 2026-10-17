@@ -18,14 +18,14 @@ export function Sidebar({ activeId }: Props) {
           transition={{ delay: 0.1, duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
           className="mb-8 inline-block"
         >
-          <div className="group relative h-24 w-24 rounded-full p-[2px]" style={{ background: 'conic-gradient(from 140deg, #10b981, #8b5cf6, #f43f5e, #10b981)' }}>
+          <div className="group relative h-24 w-24 rounded-full p-[2px]" style={{ background: 'conic-gradient(from 140deg, #c8f05a, #ff8f63, #e8b04a, #c8f05a)' }}>
             <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-bg">
               {/* Replace src with your photo path: /src/assets/shipra.jpg or public URL */}
               <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 font-serif text-3xl italic text-slate-500 transition-colors group-hover:text-accent">
                 SS
               </div>
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full border-2 border-bg bg-accent shadow-[0_0_12px_rgba(16,185,129,0.9)]" aria-label="Available" />
+            <span className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full border-2 border-bg bg-accent shadow-[0_0_12px_rgba(200,240,90,0.9)]" aria-label="Available" />
           </div>
         </motion.div>
 

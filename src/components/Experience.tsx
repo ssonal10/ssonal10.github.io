@@ -29,8 +29,8 @@ export function Experience() {
             transition={{ duration: 0.55, delay: i * 0.1 }}
             className="relative mb-10 pl-8 last:mb-0"
           >
-            <span className="absolute left-0 top-2 h-[14px] w-[14px] rounded-full border-2 border-accent bg-bg shadow-[0_0_12px_rgba(16,185,129,0.7)]" />
-            <div className="group relative rounded-2xl p-5 transition-all hover:bg-slate-900/40 hover:shadow-[0_1px_0_0_rgba(148,163,184,0.1)_inset]">
+            <span className="absolute left-0 top-2 h-[14px] w-[14px] rounded-full border-2 border-accent bg-bg shadow-[0_0_12px_rgba(200,240,90,0.7)]" />
+            <div className="group relative rounded-2xl p-5 transition-all hover:bg-slate-900/40 hover:shadow-[0_1px_0_0_rgba(179,173,162,0.1)_inset]">
               <div className="flex items-center justify-between gap-3">
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">{job.period}</p>
                 {job.location && <p className="text-[10px] text-slate-600">{job.location}</p>}

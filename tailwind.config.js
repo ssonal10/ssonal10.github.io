@@ -4,11 +4,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#030712',
+        // Theme: warm black + cream + acid lime, with a warm coral second accent.
+        // To try another accent, change the emerald scale (and the --accent vars in index.css).
+        bg: '#0b0b09',
         accent: {
-          DEFAULT: '#10b981',
-          soft: 'rgba(16,185,129,0.12)',
-          glow: 'rgba(16,185,129,0.35)',
+          DEFAULT: '#c8f05a',
+          soft: 'rgba(200,240,90,0.12)',
+          glow: 'rgba(200,240,90,0.35)',
+        },
+        emerald: {
+          50: '#f7fde8', 100: '#eefbcf', 200: '#e1f7a3', 300: '#d4f56a', 400: '#c8f05a',
+          500: '#b5e03c', 600: '#93ba25', 700: '#6f8d1c', 800: '#4d621a', 900: '#344216', 950: '#1c2509',
+        },
+        violet: {
+          50: '#fff4ee', 100: '#ffe4d6', 200: '#ffc9ad', 300: '#ffab85', 400: '#ff8f63',
+          500: '#f7743f', 600: '#dc5a27', 700: '#b5451d', 800: '#8c361b', 900: '#6b2c19', 950: '#3a140a',
+        },
+        slate: {
+          50: '#faf8f3', 100: '#f3efe6', 200: '#e6e1d6', 300: '#d2ccc0', 400: '#b3ada2',
+          500: '#8f8a84', 600: '#6b6761', 700: '#47443f', 800: '#2a2825', 900: '#1a1917', 950: '#0f0e0c',
         },
       },
       fontFamily: {

@@ -28,13 +28,13 @@ export function Hero() {
           className="h-full w-full object-cover object-center"
         />
         {/* Cinematic gradient overlays — stronger for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-bg/50 via-bg/30 to-bg" />
-        <div className="absolute inset-0 bg-gradient-to-r from-bg/70 via-bg/10 to-bg/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/30 via-transparent to-bg" />
+        <div className="absolute inset-0 bg-gradient-to-r from-bg/50 via-transparent to-bg/50" />
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse at center, rgba(3,7,18,0.15) 0%, rgba(3,7,18,0.4) 45%, #030712 95%)',
+              'radial-gradient(ellipse at center, rgba(11,11,9,0) 0%, rgba(11,11,9,0.25) 55%, #0b0b09 100%)',
           }}
         />
         {/* Dark pedestal behind subline for guaranteed contrast */}
@@ -42,7 +42,7 @@ export function Hero() {
           className="absolute left-1/2 top-[58%] h-[40%] w-[90%] max-w-3xl -translate-x-1/2 rounded-[100%]"
           style={{
             background:
-              'radial-gradient(ellipse at center, rgba(3,7,18,0.7) 0%, rgba(3,7,18,0.4) 40%, transparent 75%)',
+              'radial-gradient(ellipse at center, rgba(11,11,9,0.7) 0%, rgba(11,11,9,0.4) 40%, transparent 75%)',
             filter: 'blur(30px)',
           }}
         />

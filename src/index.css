@@ -11,7 +11,7 @@ html {
 }
 
 html, body {
-  background: #030712;
+  background: #0b0b09;
   overflow-x: hidden;
 }
 
@@ -23,11 +23,11 @@ body {
 
 /* ===== Scrollbar ===== */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: #030712; }
-::-webkit-scrollbar-thumb { background: rgba(16,185,129,0.2); border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(16,185,129,0.45); }
+::-webkit-scrollbar-track { background: #0b0b09; }
+::-webkit-scrollbar-thumb { background: rgba(200,240,90,0.2); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(200,240,90,0.45); }
 
-::selection { background: rgba(16,185,129,0.3); color: #f1f5f9; }
+::selection { background: rgba(200,240,90,0.3); color: #f3efe6; }
 
 /* ===== Aurora mesh background ===== */
 .aurora {
@@ -37,7 +37,7 @@ body {
   pointer-events: none;
   overflow: hidden;
   filter: blur(100px) saturate(140%);
-  opacity: 0.55;
+  opacity: 0.32;
 }
 .aurora::before,
 .aurora::after,
@@ -49,19 +49,19 @@ body {
 .aurora::before {
   width: 620px; height: 620px;
   top: -140px; left: -120px;
-  background: radial-gradient(circle, #10b981 0%, transparent 60%);
+  background: radial-gradient(circle, #c8f05a 0%, transparent 60%);
   animation: aurora1 22s ease-in-out infinite;
 }
 .aurora::after {
   width: 720px; height: 720px;
   bottom: -220px; right: -180px;
-  background: radial-gradient(circle, #8b5cf6 0%, transparent 60%);
+  background: radial-gradient(circle, #ff8f63 0%, transparent 60%);
   animation: aurora2 28s ease-in-out infinite;
 }
 .aurora > span {
   width: 520px; height: 520px;
   top: 35%; left: 40%;
-  background: radial-gradient(circle, #f43f5e 0%, transparent 60%);
+  background: radial-gradient(circle, #e8b04a 0%, transparent 60%);
   animation: aurora3 24s ease-in-out infinite;
   opacity: 0.45;
 }
@@ -80,8 +80,8 @@ body {
 /* ===== Grid texture ===== */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(148,163,184,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148,163,184,0.035) 1px, transparent 1px);
+    linear-gradient(rgba(179,173,162,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(179,173,162,0.035) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
@@ -89,21 +89,21 @@ body {
 
 /* ===== Glass ===== */
 .glass {
-  background: linear-gradient(135deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.35) 100%);
+  background: linear-gradient(135deg, rgba(26,25,23,0.55) 0%, rgba(26,25,23,0.35) 100%);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(148,163,184,0.08);
+  border: 1px solid rgba(179,173,162,0.08);
   box-shadow: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 40px 80px -20px rgba(0,0,0,0.4);
 }
 
 /* ===== Gradient text ===== */
 .text-gradient {
-  background: linear-gradient(135deg, #f8fafc 0%, #10b981 60%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #faf8f3 0%, #c8f05a 60%, #ff8f63 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .text-gradient-2 {
-  background: linear-gradient(180deg, #f1f5f9 0%, #64748b 100%);
+  background: linear-gradient(180deg, #f3efe6 0%, #8f8a84 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -119,7 +119,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: conic-gradient(from var(--angle, 0deg), transparent 0%, #10b981 10%, #8b5cf6 30%, transparent 40%, transparent 100%);
+  background: conic-gradient(from var(--angle, 0deg), transparent 0%, #c8f05a 10%, #ff8f63 30%, transparent 40%, transparent 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -138,7 +138,7 @@ body {
 
 /* ===== Shimmer ===== */
 .shimmer-text {
-  background: linear-gradient(110deg, #64748b 40%, #f1f5f9 50%, #64748b 60%);
+  background: linear-gradient(110deg, #8f8a84 40%, #f3efe6 50%, #8f8a84 60%);
   background-size: 200% 100%;
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -153,27 +153,27 @@ body {
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: #cbd5e1;
-  background: rgba(30,41,59,0.5);
-  border: 1px solid rgba(148,163,184,0.12);
+  color: #d2ccc0;
+  background: rgba(42,40,37,0.5);
+  border: 1px solid rgba(179,173,162,0.12);
   transition: all 0.2s ease;
 }
 .chip:hover {
-  border-color: rgba(16,185,129,0.4);
-  color: #10b981;
+  border-color: rgba(200,240,90,0.4);
+  color: #c8f05a;
 }
 .chip-accent {
-  background: rgba(16,185,129,0.10);
-  border-color: rgba(16,185,129,0.3);
-  color: #34d399;
+  background: rgba(200,240,90,0.10);
+  border-color: rgba(200,240,90,0.3);
+  color: #d4f56a;
 }
 
 /* ===== Dot ===== */
 .dot {
   width: 6px; height: 6px;
   border-radius: 9999px;
-  background: #10b981;
-  box-shadow: 0 0 12px rgba(16,185,129,0.8);
+  background: #c8f05a;
+  box-shadow: 0 0 12px rgba(200,240,90,0.8);
 }
 
 /* ===== Section label ===== */
@@ -182,11 +182,11 @@ body {
   gap: 0.5rem;
   font-size: 11px; font-weight: 600;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: #10b981;
+  color: #c8f05a;
 }
 .section-label::before {
   content: ''; width: 24px; height: 1px;
-  background: linear-gradient(90deg, transparent, #10b981);
+  background: linear-gradient(90deg, transparent, #c8f05a);
 }
 
 /* ===== Hover lift ===== */
