@@ -5,7 +5,7 @@
 export const profile = {
   name: 'Shipra Sonal',
   headline: 'Data @ Amazon',
-  sub: 'Business intelligence engineering manager, 9 years in data. I own the data and AI behind partner deal decisions: an LLM agent that turned weeks of Excel into minutes, and the measurement behind a feature now adding 7M new active members.',
+  sub: 'Business intelligence engineering manager, 9 years in data. I own the data and AI behind partner deal decisions.',
   city: 'Seattle',
   email: 'shipra.sonal12@gmail.com',
   github: 'https://github.com/ssonal10',
