@@ -22,7 +22,7 @@ Built from four rounds of critique (three design, one code review) by a Fable "c
 |---|---|---|
 | Intro game "Fill the model" | your idea | Catch 7 tokens in 10 s with a bar-chart paddle; the red "LLM ≈ ?" bounces off ("Python computes. The LLM only routes."). Skip any time. |
 | Hero | Unseen | "Shipra Sonal" (with "Data @ Amazon" above it) and a cutout of you in front of the type; on scroll the words shrink to the corners and a portrait video window opens. Move the cursor over the window to scrub the clip. |
-| Numbers | Obys | min / 13 partners / 10 min / 4 count up; "weeks" and "10 days" get struck through in lime. Stack ticker speeds up with scroll. |
+| Numbers | Obys | min / 7M / 10 min / 4 count up; "weeks" and "10 days" get struck through in lime. Stack ticker speeds up with scroll. |
 | Work list | by-kin.com/work | Pinned list, the name at the centre fills in, its generative backdrop zooms in, details on the right. |
 | Design notes | AWS-style design docs | One page per system (deal agent, Sentinel, measurement): problem, tenets, animated architecture diagram, tradeoff. Generic, no internal names. |
 | Path | Obys index | Numbered roles that open on hover, then Recognition (1st, Top 20, IEEE). |
@@ -46,7 +46,7 @@ Tech: React + GSAP 3.13 (ScrollTrigger, SplitText, DrawSVG, Draggable, Inertia, 
 
 ## Copy source (2026-10-17)
 
-All write-ups follow the **v10-public** resume (`resume/output/2026-10-15_v10-public/`), the version you approved for external use: impact first, then the hard part, then the stack. Work list now follows your resume ranking: Deal agent, Auto-activation, Sentinel, Deal deep dive, Launch-day model, Activation funnel, then the two side projects. The injury classifier moved to Path only. v10-public has no 7M / 5.5M, 4M + 3M or 0.9% vs 8.2% figures; switching to the v9 wording that has them is a small edit in `src/data.ts`.
+All write-ups follow the **v9** resume (`resume/output/2026-10-13_v9-marked/`, Data-Engineering-Manager YAML), at your choice over v10-public: impact first, then the hard part, then the stack. So the site carries the internal figures v10-public removed: 7M / 5.5M members, 4M + 3M customers, 4M subscriptions in 3 months, ~30K overlap, 0.9% vs 8.2%, "a major US cable partner", "a top Latin American market's biggest telecom deal". Work list follows your resume ranking: Deal agent, Auto-activation, Sentinel, Deal deep dive, Launch-day model, Activation funnel, then the two side projects. The injury classifier is in Path only.
 
 ## Decisions for you
 

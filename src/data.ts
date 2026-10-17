@@ -1,10 +1,10 @@
-// All site content. Facts and wording come from the v10-public resume (2026-10-15); see REVIEW.md for
+// All site content. Facts and wording come from the v9 resume (2026-10-13); see REVIEW.md for
 // the claims that rest on Shipra's word.
 
 export const profile = {
   name: 'Shipra Sonal',
   headline: 'Data @ Amazon',
-  sub: 'Data engineering manager, 9 years in data. I own the data and AI behind partner deal decisions: an LLM agent that turned weeks of Excel into minutes, and the measurement leaders use to approve an expansion.',
+  sub: 'Data engineering manager, 9 years in data. I own the data and AI behind partner deal decisions: an LLM agent that turned weeks of Excel into minutes, and the measurement behind a feature now adding 7M new active members.',
   city: 'Seattle',
   email: 'shipra.sonal12@gmail.com',
   github: 'https://github.com/ssonal10',
@@ -13,7 +13,7 @@ export const profile = {
 
 export const numbers = [
   { value: 0, display: 'min', was: 'weeks', small: 'per deal model' },
-  { value: 13, small: 'partners approved for expansion on my measurement' },
+  { value: 7, decimals: 1, suffix: 'M', small: 'new active members, measured' },
   { value: 10, suffix: ' min', was: '10 days', small: 'per Sentinel answer' },
   { value: 4, small: 'data engineers on my team' },
 ] as { value: number; decimals?: number; suffix?: string; display?: string; was?: string; small: string }[];
@@ -39,7 +39,7 @@ export const work: Work[] = [
     impact:
       'Built a deterministic LLM agent that gives leaders a full deal model in minutes instead of weeks. It replaced about 6 months of manual modeling in its first week.',
     context:
-      'Leaders wanted several models before locking a deal. The agent is wired to 20+ live data sources: the LLM only routes, a Python engine computes every number, access is IAM-authenticated and personalized per executive, and every run generates a dashboard so leaders can change inputs on the spot. It underwrote major partner deals that brought in new customers and new advertising business.',
+      'Leaders wanted several models before locking a deal. The agent is wired to 20+ live data sources: the LLM only routes, a Python engine computes every number, access is IAM-authenticated and personalized per executive, and every run generates a dashboard so leaders can change inputs on the spot. It underwrote deals bringing 4M customers on access plans, 3M general customers and new advertising business.',
     stack: ['Strands Agents', 'Bedrock AgentCore', 'Python', 'S3', 'IAM'],
     visual: 'agent',
   },
@@ -48,9 +48,10 @@ export const work: Work[] = [
     name: 'Auto-activation',
     year: '2025',
     kind: 'Measurement',
-    impact: 'Built the measurement framework that gave VPs the evidence to expand auto-activation across 13 partners.',
+    impact:
+      'Built the measurement framework behind a feature that today contributes 7M new active members, 5.5M of them engaged. It gave VPs the evidence to expand it across 13 partners.',
     context:
-      'Built in about a week, with results due within a week of each launch. It joins experiment, streaming, website and subscription data through custom identity mapping, and it needed 12+ stakeholders across 5 offices to agree. Reused experiment IDs had put the same customers in both control and test, which would have invalidated the lift read; date-bounded assignment fixed it before the VP decision. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.',
+      'Built in about a week, with results due within a week of each launch. It joins experiment, streaming, website and subscription data through custom identity mapping, and it needed 12+ stakeholders across 5 offices to agree. Reused experiment IDs had put about 30K customers in both control and test, which would have invalidated the lift read; date-bounded assignment fixed it before the VP decision. The framework became the standard for every partner and, in 2026, the base of a membership metric senior leadership tracks.',
     stack: ['Glue', 'Spark', 'Athena', 'QuickSight'],
     visual: 'activation',
   },
@@ -72,7 +73,7 @@ export const work: Work[] = [
     year: '2026',
     kind: 'Causal analysis',
     impact:
-      "Gave a VP's annual plan a trusted answer 2 days after the ask: 91% of the engagement decline after a large partner deal was customer mix.",
+      "Gave a VP's annual plan a trusted answer 2 days after the ask: 91% of the engagement decline after a top Latin American market's biggest telecom deal was customer mix.",
     context:
       'The question was whether the deal added members or took them from the core service. Built a 41-month, 300M+ row customer-month pipeline, validated it 3 ways and ran a matched-cohort causal study on top. Along the way the benchmark table turned out to double-count partner members 1.7x. Business and finance stories went into one document for the VP.',
     stack: ['Glue', 'Athena', 'Python', 'Matched cohorts', 'Shapley'],
@@ -84,9 +85,9 @@ export const work: Work[] = [
     year: '2026',
     kind: 'Financial model',
     impact:
-      'Built the free-cash-flow model, the cannibalization analysis and the daily executive metrics for one of the largest partner subscription deals, which scaled quickly after launch.',
+      "Built the free-cash-flow model, the cannibalization analysis and the daily executive metrics for a major US cable partner's deal, which reached 4M subscriptions in its first 3 months and has a 2-year expansion plan across Stores, Ads and other businesses.",
     context:
-      'The day before the marketing launch, leadership asked how many members were stuck on app-store billing. Found the 2 tables out of 1,027 that link billing to entitlements, built a 5-stage Glue pipeline the same day and showed the exposure was a small fraction of what was feared. Leadership cleared the launch within the hour.',
+      'The day before the marketing launch, leadership asked how many members were stuck on app-store billing. Found the 2 tables out of 1,027 that link billing to entitlements, built a 5-stage Glue pipeline the same day and showed the exposure was 0.9%, not 8.2%. Leadership cleared the launch within the hour.',
     stack: ['Glue', 'Athena', 'Redshift', 'QuickSight'],
     visual: 'finance',
   },
