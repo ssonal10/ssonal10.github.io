@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger, isTouch, prefersReducedMotion } from '../lib/motion';
 import { designNotes } from '../data';
 import { Diagram, diagrams } from '../ui/Diagram';
@@ -13,13 +13,17 @@ export function DesignNotes() {
   const bar = useRef<HTMLDivElement>(null);
   const count = useRef<HTMLParagraphElement>(null);
   const hint = useRef<HTMLParagraphElement>(null);
+  // horizontal pinned row only with a fine pointer and motion allowed; else a vertical stack
+  const [pinned] = useState(() => !isTouch() && !prefersReducedMotion());
 
   useLayoutEffect(() => {
-    if (isTouch() || prefersReducedMotion()) return;
+    if (!pinned) return;
     const ctx = gsap.context(() => {
       const track = root.current!.querySelector<HTMLElement>('.dn-track')!;
       const distance = () => track.scrollWidth - window.innerWidth;
       const pages = gsap.utils.toArray<HTMLElement>('.dn-page');
+      // page centres in track coordinates, cached (no layout reads per frame)
+      let centres = pages.map((pg) => pg.offsetLeft + pg.offsetWidth / 2);
       const slide = gsap.to(track, {
         x: () => -distance(),
         ease: 'none',
@@ -30,20 +34,17 @@ export function DesignNotes() {
           scrub: 0.6,
           pin: true,
           invalidateOnRefresh: true,
+          onRefresh: () => {
+            centres = pages.map((pg) => pg.offsetLeft + pg.offsetWidth / 2);
+          },
           onUpdate: (self) => {
             bar.current?.style.setProperty('transform', `scaleX(${self.progress})`);
             if (count.current) {
               // page = the note whose centre is nearest the viewport centre
-              const mid = window.innerWidth / 2;
+              const mid = window.innerWidth / 2 + self.progress * distance();
               let best = 0;
-              let bestD = Infinity;
-              pages.forEach((pg, i) => {
-                const r = pg.getBoundingClientRect();
-                const d = Math.abs(r.left + r.width / 2 - mid);
-                if (d < bestD) {
-                  bestD = d;
-                  best = i;
-                }
+              centres.forEach((c, i) => {
+                if (Math.abs(c - mid) < Math.abs(centres[best] - mid)) best = i;
               });
               count.current.textContent = `0${best + 1} / 0${pages.length}`;
             }
@@ -61,18 +62,20 @@ export function DesignNotes() {
       ScrollTrigger.refresh();
     }, root);
     return () => ctx.revert();
-  }, []);
+  }, [pinned]);
 
   return (
     <section ref={root} id="notes" aria-label="Design notes" className="relative overflow-hidden border-t border-line bg-ink text-paper">
-      <div className="no-print absolute inset-x-5 bottom-6 z-10 hidden items-center gap-4 sm:inset-x-8 md:flex">
+      <div className={`no-print absolute inset-x-5 bottom-6 z-10 hidden items-center gap-4 sm:inset-x-8 ${pinned ? 'md:flex' : ''}`}>
         <p ref={count} className="label text-stone">01 / 03</p>
         <div className="h-px flex-1 bg-line">
           <div ref={bar} className="h-px origin-left scale-x-0 bg-lime" />
         </div>
       </div>
-      <div className="dn-track flex flex-col gap-16 px-5 py-20 md:h-screen md:w-max md:flex-row md:items-center md:gap-10 md:px-8 md:py-0">
-        <div className="flex shrink-0 flex-col justify-center md:w-[34vw]">
+      <div
+        className={`dn-track flex flex-col gap-16 px-5 py-20 ${pinned ? 'md:h-screen md:w-max md:flex-row md:items-center md:gap-10 md:px-8 md:py-0' : ''}`}
+      >
+        <div className={`flex shrink-0 flex-col justify-center ${pinned ? 'md:w-[34vw]' : ''}`}>
           <p className="label text-lime">Design notes</p>
           <h2 className="mt-4 font-display text-6xl font-extrabold leading-[0.9] tracking-tight sm:text-7xl">
             How the
@@ -89,7 +92,7 @@ export function DesignNotes() {
         {designNotes.map((n, i) => (
           <article
             key={n.id}
-            className="dn-page flex shrink-0 flex-col rounded-3xl border border-line bg-[#121210] p-6 md:h-[84vh] md:w-[88vw] md:max-w-[1280px] md:p-10"
+            className={`dn-page flex shrink-0 flex-col rounded-3xl border border-line bg-[#121210] p-6 md:p-10 ${pinned ? 'md:h-[84vh] md:w-[88vw] md:max-w-[1280px]' : ''}`}
           >
             <header className="flex items-baseline justify-between gap-4 border-b border-line pb-4">
               <h3 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{n.title}</h3>

@@ -1,44 +1,50 @@
-# Redesign review (branch `redesign-2026-10`)
+# v2 review: "Data @ Amazon" (branch `redesign-v2`)
 
-Nothing is pushed. `main` and the live site are unchanged.
+Nothing is pushed. `main` and the live site are unchanged. v1 (lime theme) is still on `redesign-2026-10`; its notes are in `REVIEW-v1.md`.
 
-## See it
+## Open it
 
 ```bash
-cd ~/Documents/Claude/Projects/PersonalWebsite-redesign
-npm run dev        # http://localhost:5173
+cd ~/Documents/Claude/Projects/PersonalWebsite-v2
+npm run dev          # http://localhost:5173 (or the port it prints)
 ```
 
-Compare a step: `git diff main..763fcf3` (content), `763fcf3..ce1151f` (colors), `ce1151f..40c6f02` (scroll).
-Drop a step you don't like: `git revert <hash>`.
+Add `?play` to replay the intro game; it shows once per browser session.
 
-## Step 1: write-up, photos, videos (763fcf3)
+## What it is
 
-- Title is now Data Engineering Manager (was "Senior IC", "GenAI × Decision Intelligence").
-- Removed claims your resume retired: 150×, 3h to 20min, 60% cost, 100+ users, "1B+/day pipelines" as a headline.
-- Leads with: deal-modeling agent (launched), auto-activation measurement (7M), Sentinel (10 days to 10 min).
-- New: Recognition (hackathon 1st, poster top 20 of 1,100, IEEE BigData PC), futures research lab card, 4-role Experience timeline.
-- Amazon appears only in the Experience timeline; prose says "in Seattle" (your voice rule).
-- Old trading card said "beat buy-and-hold"; replaced with the honest result from the trading repo.
-- Photos from Photos favorites (GPS stripped): Naches, Maui, One WTC, Squamish, tulips, Kullu, Andaman. Spheres photo removed (a friend is in it).
-- Clips: Squamish, Glacier Highline, Seattle denim (2026).
+Built from three rounds of design critique by a Fable "creative director" agent, using your references:
 
-## Step 2: colors (ce1151f)
+| Piece | Inspired by | What you'll see |
+|---|---|---|
+| Intro game "Fill the model" | your idea | Catch 7 tokens in 10 s with a bar-chart paddle; the red "LLM ≈ ?" bounces off ("Python computes. The LLM only routes."). Skip any time. |
+| Hero | Unseen | "Data @ Amazon" with a cutout of you in front of the type; on scroll the words shrink to the corners and a portrait video window opens. Move the cursor over the window to scrub the clip. |
+| Numbers | Obys | min / 7M / 10 min / 4 count up; "weeks" and "10 days" get struck through in lime. Stack ticker speeds up with scroll. |
+| Work list | by-kin.com/work | Pinned list, the name at the centre fills in, its generative backdrop zooms in, details on the right. |
+| Design notes | AWS-style design docs | One page per system (deal agent, Sentinel, measurement): problem, tenets, animated architecture diagram, tradeoff. Generic, no internal names. |
+| Path | Obys index | Numbered roles that open on hover, then Recognition (1st, Top 20, IEEE). |
+| Life | paper theme | Page flips to cream; mono photos turn to color on hover; two throwable stickers of you; short-video reel. |
+| Contact | | "Got a messy dataset?", magnetic Say hi, and **Query me**: type SQL against the site (`select name, impact from work where year = 2026`, or press `/`). Footer echoes what you caught in the game. |
+| Cursor | Unseen | Dot plus a ring that stretches along its direction; labels on links (open, scrub, throw, run). |
 
-Warm black `#0b0b09`, cream text, lime `#c8f05a`, coral second accent. Body text brighter (old slate-500 on near-black failed contrast). Palette lives in `tailwind.config.js`; change the `emerald` scale to try another accent.
+Tech: React + GSAP 3.13 (ScrollTrigger, SplitText, DrawSVG, Draggable, Inertia, all free now) + Lenis smooth scroll. About 136 KB gzipped JS. Phones get a simpler layout without pinning.
 
-## Step 3: scroll (40c6f02)
+## Photos and video
 
-- Hero pins for one screen: name splits sideways, the video opens from a small card (Lando Norris / Apple style). New clean hero clip `hero-2026.mp4`; the old one had a CapCut watermark.
-- Big type marquee that speeds up with scroll (Weirdos rows).
-- Postcards pin and scroll sideways on desktop (wibe-studio), swipe on phones.
-- Progress bar, nav highlight fixed, clips as a swipe reel.
-- Respects reduced-motion settings.
+- From your Photos library, favorites and non-favorites, location data stripped. New: Bellevue street shoot (hero cutout), gym mirror, Seattle Ferris wheel, Brooklyn Bridge at night, Andaman night sky, Mt. Baker road, plus earlier picks.
+- Cutouts made on your Mac with Apple Vision (free, on-device). Duotones, contour lines and stickers made with ImageMagick and a small script (`scripts/make-topo.mjs`).
+- New hero clip `hero-2026-hd.mp4` (2026 Seattle denim clips, Glacier, Squamish). The old hero clip had a CapCut watermark and is not in v2.
 
 ## Decisions for you
 
-1. Claims that rest on your word, now public: "launched", 6 months replaced in week one, 7M / 5.5M members, 10 days to 10 min, top 20 of 1,100. Also check employer PR comfort with 7M.
-2. Name Mauricio on the trading card, or keep "with a partner"? The card links the old public backtester; the research repo is private.
-3. Smooth scrolling (Lenis, ~3 KB) would match locomotive-scroll sites. Needs `npm i lenis`.
-4. Unused files still in `public/` (old hero clips, hero-maroon, car-beige, lake-pink, nyc-edge, seattle-balcony, lake-sunset, portrait-lake-2026, gym-bw). Delete or use.
-5. Phone layout built but not checked in a real phone-width browser.
+1. **Headline "Data @ Amazon"** puts the employer in the hero, as you asked. Your LinkedIn voice rule keeps it out of prose; check you're fine with it here, and with employer PR for the 7M figure.
+2. **Claims on your word**, now public: launched, 6 months replaced in week one, 7M / 5.5M, 10 days to 10 min, top 20 of 1,100.
+3. **Mauricio**: the futures card says "with a research partner". Name him?
+4. **Stickers** use a gym mirror selfie and the Naches photo. Swap if you prefer others.
+5. **Game length**: 7 catches or 10 seconds. Shorter or longer?
+6. Which version ships: v1 (`redesign-2026-10`), v2, or a mix.
+
+## Known gaps
+
+- Phone layout checked only in narrow iframes, not on a real phone.
+- The browser test tool disconnected late in the night; the last changes were checked by code review and unit tests instead of screenshots.

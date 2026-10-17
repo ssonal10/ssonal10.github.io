@@ -19,6 +19,7 @@ export function Query() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement).tagName;
+      if (document.querySelector('[role=dialog]')) return; // intro game is up
       if (e.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA') {
         e.preventDefault();
         scrollToId('contact');
@@ -40,7 +41,7 @@ export function Query() {
   };
 
   return (
-    <div className="relative mt-16 max-w-3xl rounded-2xl border border-line bg-[#121210] p-4 font-mono text-[13px] sm:p-6">
+    <div className="no-print relative mt-16 max-w-3xl rounded-2xl border border-line bg-[#121210] p-4 font-mono text-[13px] sm:p-6">
       <div className="mb-3 flex items-center justify-between">
         <p className="label text-lime">Query me</p>
         <p className="label hidden text-stone sm:block">press / anywhere</p>
@@ -100,6 +101,13 @@ export function Query() {
                     key={i}
                     className="cursor-pointer border-t border-line align-top text-paper/90 hover:text-lime"
                     onClick={() => scrollToId(res.section)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        scrollToId(res.section);
+                      }
+                    }}
+                    tabIndex={0}
                     data-cursor="go"
                   >
                     {res.cols.map((c) => (

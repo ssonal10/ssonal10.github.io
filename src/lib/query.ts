@@ -20,7 +20,7 @@ export const tables: Record<string, { rows: Row[]; section: string }> = {
     })),
     section: 'numbers',
   },
-  life: { rows: life.map((l) => ({ place: l.caption })), section: 'life' },
+  life: { rows: life.map((l) => ({ caption: l.caption })), section: 'life' },
   stack: { rows: stack.map((s) => ({ tool: s })), section: 'numbers' },
 };
 
@@ -28,7 +28,7 @@ export const chips = [
   { label: 'shipped in 2026', q: "select name, impact from work where year = 2026" },
   { label: 'roles by date', q: 'select role, period from path' },
   { label: 'the numbers', q: 'select * from numbers' },
-  { label: 'places', q: 'select place from life limit 6' },
+  { label: 'photos', q: 'select caption from life limit 6' },
 ];
 
 export type Result = { cols: string[]; rows: Row[]; section: string } | { error: string };

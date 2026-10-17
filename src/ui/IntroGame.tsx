@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap, prefersReducedMotion } from '../lib/motion';
 
 /**
- * "Fill the model": a 15 second catch game before the site.
+ * "Fill the model": a 10 second catch game before the site.
  * Catch data points, dumbbells, mountains and play buttons with a little bar
  * chart. A red "LLM guess" bounces off: Python computes, the LLM only routes.
  * 7 catches (or 10 seconds) build the model, then the gate opens onto the hero.
@@ -279,7 +279,9 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
     <div
       ref={root}
       role="dialog"
+      aria-modal="true"
       aria-label="Intro game: catch the data to build the model, or skip"
+      aria-describedby="intro-help"
       className="no-print fixed inset-0 z-[90] touch-none select-none overflow-hidden bg-ink"
       style={{ clipPath: 'inset(0% 0% 0% 0%)' }}
       data-cursor="catch"
@@ -310,7 +312,7 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
             <p className="font-display text-[11vw] font-extrabold leading-[0.85] tracking-tight text-paper/90 sm:text-[7vw]">
               Fill the model
             </p>
-            <p className="mt-4 text-sm text-stone sm:text-base">
+            <p id="intro-help" className="mt-4 text-sm text-stone sm:text-base">
               Catch {GOAL}. Dodge the red guess. Mouse, finger or arrow keys. 10 seconds.
             </p>
           </>

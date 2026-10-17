@@ -84,6 +84,7 @@ export function Hero({ ready }: { ready: boolean }) {
     });
   };
   const endScrub = () => {
+    cancelAnimationFrame(scrubFrame.current);
     const v = video.current;
     if (!v) return;
     delete v.dataset.scrubbing;
@@ -129,6 +130,7 @@ export function Hero({ ready }: { ready: boolean }) {
 
       {/* type */}
       <h1 className="absolute inset-0 z-[2] flex flex-col justify-center px-[3vw] font-display font-extrabold leading-[0.82] tracking-[-0.045em]">
+        <span className="sr-only">Shipra Sonal, </span>
         <span className="hero-line hero-line-a block whitespace-nowrap text-[19vw] md:text-[17vw]">Data</span>
         <span className="hero-line hero-line-b block self-end whitespace-nowrap text-[19vw] md:text-[17vw]">
           <span className="text-lime">@</span>Amazon
@@ -177,6 +179,7 @@ function HeroStatic({ ready }: { ready: boolean }) {
       <p className="label relative text-paper/70">{profile.name} · {profile.city}</p>
       <div className="relative mt-6 h-[62svh]">
         <h1 className="relative z-[1] font-display font-extrabold leading-[0.85] tracking-[-0.045em]">
+          <span className="sr-only">Shipra Sonal, </span>
           <span className="hero-line block text-[22vw]">Data</span>
           <span className="hero-line block text-[22vw]">
             <span className="text-lime">@</span>Amazon

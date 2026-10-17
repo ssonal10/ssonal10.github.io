@@ -63,7 +63,7 @@ export function Path() {
                 <span className="label hidden text-stone sm:block">{e.period}</span>
               </button>
               <div
-                className="grid transition-[grid-template-rows] duration-500 ease-out"
+                className="path-rows grid transition-[grid-template-rows] duration-500 ease-out"
                 style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
               >
                 <ul className="overflow-hidden pl-[3.5rem] sm:pl-[5rem]">

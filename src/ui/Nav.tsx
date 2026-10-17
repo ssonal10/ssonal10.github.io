@@ -1,5 +1,4 @@
 import { scrollToId } from '../lib/motion';
-import { profile } from '../data';
 
 const links = [
   { id: 'work', label: 'Work' },
@@ -46,9 +45,6 @@ export function Nav({ onReplay }: { onReplay: () => void }) {
         <button type="button" onClick={onReplay} className="label hidden lg:inline" data-cursor="play">
           ▶ game
         </button>
-        <a href={`mailto:${profile.email}`} className="sr-only">
-          Email
-        </a>
       </nav>
     </>
   );

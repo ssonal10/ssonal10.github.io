@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import { gsap, ScrollTrigger, isTouch, prefersReducedMotion } from '../lib/motion';
+import { gsap, ScrollTrigger, getLenis, isTouch, prefersReducedMotion } from '../lib/motion';
 import { work } from '../data';
 import { WorkVisual } from '../ui/WorkVisual';
 
@@ -15,6 +15,17 @@ export function WorkList() {
   const [pinned, setPinned] = useState(true);
   const dir = useRef<1 | -1>(1);
   const counter = useRef<HTMLParagraphElement>(null);
+  const st = useRef<ScrollTrigger | null>(null);
+
+  // jump to project i (click or keyboard on its name)
+  const goTo = (i: number) => {
+    const t = st.current;
+    if (!t) return;
+    const y = t.start + (i / (work.length - 1)) * (t.end - t.start);
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(y, { duration: 1 });
+    else window.scrollTo({ top: y, behavior: 'smooth' });
+  };
 
   useLayoutEffect(() => {
     if (isTouch() || prefersReducedMotion()) {
@@ -24,22 +35,25 @@ export function WorkList() {
     const ctx = gsap.context(() => {
       const list = root.current!.querySelector<HTMLElement>('.wl-list')!;
       const items = gsap.utils.toArray<HTMLElement>('.wl-item');
-      const itemH = () => items[0].offsetHeight;
+      let itemH = items[0].offsetHeight; // cached; refreshed on resize
       const y = gsap.quickTo(list, 'y', { duration: 0.9, ease: 'power3' });
       const op = items.map((el) => gsap.quickTo(el, 'opacity', { duration: 0.6, ease: 'power3' }));
       const sc = items.map((el) => gsap.quickTo(el, 'scale', { duration: 0.6, ease: 'power3' }));
       gsap.set(items, { transformOrigin: 'left center' });
       let current = -1;
 
-      ScrollTrigger.create({
+      st.current = ScrollTrigger.create({
         trigger: root.current,
         start: 'top top',
         end: () => `+=${work.length * window.innerHeight * 0.6}`,
         pin: true,
         snap: { snapTo: 1 / (work.length - 1), duration: { min: 0.3, max: 0.7 }, delay: 0.3, ease: 'power2.inOut' },
+        onRefresh: () => {
+          itemH = items[0].offsetHeight;
+        },
         onUpdate: (self) => {
           const f = self.progress * (work.length - 1);
-          y(-f * itemH());
+          y(-f * itemH);
           // items fade and shrink with distance from the centre line
           items.forEach((_, i) => {
             const d = Math.abs(i - f);
@@ -84,12 +98,17 @@ export function WorkList() {
 
   const w = work[active];
   return (
-    <section ref={root} id="work" aria-label="Work" className="relative h-screen overflow-hidden bg-ink text-paper">
+    <>
+    {/* printable / no-JS-friendly copy of the list */}
+    <div className="hidden print:block">
+      <WorkCards />
+    </div>
+    <section ref={root} id="work" aria-label="Work" className="relative h-screen overflow-hidden bg-ink text-paper print:hidden">
       {work.map((p, i) => (
         <div
           key={p.id}
-          className="wl-bg absolute inset-0 transition-opacity duration-700"
-          style={{ opacity: i === active ? 0.55 : 0 }}
+          className={`wl-bg absolute inset-0 transition-[opacity,visibility] duration-700 ${i === active ? '' : 'wl-off'}`}
+          style={{ opacity: i === active ? 0.55 : 0, visibility: i === active ? 'visible' : 'hidden' }}
           aria-hidden="true"
         >
           <WorkVisual kind={p.visual} />
@@ -110,9 +129,17 @@ export function WorkList() {
         <ol className="wl-list" style={{ marginTop: '-0.5em' }}>
           {work.map((p, i) => (
             <li key={p.id} className="wl-item relative font-display text-[13vw] font-extrabold leading-[1] tracking-[-0.04em] md:text-[7vw]">
-              <span className="block text-transparent [-webkit-text-stroke:1px_rgba(243,239,230,0.28)]">{p.name}</span>
+              <button
+                type="button"
+                onClick={() => goTo(i)}
+                aria-current={i === active ? 'true' : undefined}
+                className="block text-left text-transparent [-webkit-text-stroke:1px_rgba(243,239,230,0.28)] focus-visible:outline-lime"
+                data-cursor="view"
+              >
+                {p.name}
+              </button>
               <span
-                className="wl-fill absolute inset-0 text-paper"
+                className="wl-fill pointer-events-none absolute inset-0 text-paper"
                 style={{ clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)' }}
                 aria-hidden="true"
               >
@@ -141,6 +168,7 @@ export function WorkList() {
         )}
       </aside>
     </section>
+    </>
   );
 }
 

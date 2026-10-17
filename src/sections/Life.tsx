@@ -6,7 +6,7 @@ import { Stickers } from '../ui/Stickers';
 
 /**
  * Life: the page flips to paper. Three photo columns drift at different
- * speeds; photos are ink-and-lime duotones that turn to full color on
+ * speeds; photos are warm mono duotones that turn to full color on
  * hover. Then a swipe reel of short 9:16 edits.
  */
 export function Life() {
@@ -63,7 +63,16 @@ export function Life() {
         {cols.map((col, c) => (
           <div key={c} className={`life-col space-y-4 md:space-y-6 ${c === 2 ? 'hidden md:block' : ''}`}>
             {(c === 1 ? [...col, ...cols[2].filter((_, i) => i % 2 === 0)] : col).map((p) => (
-              <figure key={p.src} className="group relative overflow-hidden rounded-2xl" data-cursor="color">
+              <figure
+                key={p.src}
+                className="group relative overflow-hidden rounded-2xl"
+                data-cursor="color"
+                // load the colour version only when someone actually hovers
+                onPointerEnter={(e) => {
+                  const img = e.currentTarget.querySelector<HTMLImageElement>('img[data-src]');
+                  if (img && !img.src) img.src = img.dataset.src!;
+                }}
+              >
                 <div className={`relative ${p.tall ? 'aspect-[3/4]' : 'aspect-[4/5]'}`}>
                   <img
                     src={`/life/${p.src}-duo.webp`}
@@ -72,10 +81,9 @@ export function Life() {
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <img
-                    src={`/life/${p.src}.webp`}
+                    data-src={`/life/${p.src}.webp`}
                     alt=""
                     aria-hidden="true"
-                    loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover opacity-0 transition-[opacity,transform] duration-700 group-hover:scale-105 group-hover:opacity-100"
                   />
                 </div>

@@ -14,20 +14,27 @@ import { Contact } from './sections/Contact';
 export default function App() {
   const [intro, setIntro] = useState(shouldShowIntro);
   const [ready, setReady] = useState(!intro);
+  // SplitText must measure real Bricolage glyphs, not fallback metrics
+  const [fontsReady, setFontsReady] = useState(false);
 
   useEffect(() => {
     startSmoothScroll();
     // fonts change line heights; re-measure pins once they load
-    document.fonts?.ready.then(() => {
+    (document.fonts?.ready ?? Promise.resolve()).then(() => {
+      setFontsReady(true);
       ScrollTrigger.refresh();
       // honour #work, #life etc. on first load
       const id = window.location.hash.slice(1);
-      if (id) window.setTimeout(() => scrollToId(id), 300);
+      if (id && !document.querySelector('[role=dialog]')) window.setTimeout(() => scrollToId(id), 300);
     });
   }, []);
 
   useEffect(() => {
     const lenis = getLenis();
+    // everything behind the intro dialog is inert while it is up
+    document
+      .querySelectorAll('main, footer, .site-nav, nav[aria-label="Sections"]')
+      .forEach((el) => (intro ? el.setAttribute('inert', '') : el.removeAttribute('inert')));
     if (intro) {
       lenis?.stop();
       document.documentElement.style.overflow = 'hidden';
@@ -54,12 +61,15 @@ export default function App() {
           onDone={() => {
             setIntro(false);
             setReady(true);
+            // a #hash on the URL waited behind the gate; go there now
+            const id = window.location.hash.slice(1);
+            if (id) window.setTimeout(() => scrollToId(id), 400);
           }}
         />
       )}
       <Nav onReplay={replay} />
       <main>
-        <Hero ready={ready} />
+        <Hero ready={ready && fontsReady} />
         <Numbers />
         <WorkList />
         <DesignNotes />
