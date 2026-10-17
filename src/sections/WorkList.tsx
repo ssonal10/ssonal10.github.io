@@ -45,9 +45,11 @@ export function WorkList() {
       st.current = ScrollTrigger.create({
         trigger: root.current,
         start: 'top top',
-        end: () => `+=${work.length * window.innerHeight * 0.6}`,
+        end: () => `+=${work.length * window.innerHeight * 1.1}`,
         pin: true,
-        snap: { snapTo: 1 / (work.length - 1), duration: { min: 0.3, max: 0.7 }, delay: 0.3, ease: 'power2.inOut' },
+        // snap to the nearest project, never onward: a small scroll while
+        // reading settles back instead of jumping to the next one
+        snap: { snapTo: 1 / (work.length - 1), directional: false, inertia: false, duration: { min: 0.3, max: 0.6 }, delay: 0.6, ease: 'power2.inOut' },
         onRefresh: () => {
           itemH = items[0].offsetHeight;
         },
@@ -154,13 +156,25 @@ export function WorkList() {
       </div>
 
       {/* detail column */}
-      <aside className="wl-detail absolute bottom-8 right-5 w-[min(420px,85vw)] space-y-3 sm:right-8" aria-live="polite">
+      <aside
+        className="wl-detail absolute bottom-8 right-5 w-[min(500px,88vw)] space-y-4 rounded-2xl border border-paper/10 border-l-2 border-l-lime bg-ink/85 p-6 shadow-2xl backdrop-blur-md sm:right-8"
+        aria-live="polite"
+      >
         <p className="label text-lime">
           {w.year} · {w.kind}
         </p>
-        <p className="font-serif text-xl italic leading-snug text-paper">{w.impact}</p>
-        <p className="text-[14px] leading-relaxed text-paper/80">{w.context}</p>
-        <p className="label text-stone">{w.stack.join(' · ')}</p>
+        <p className="font-serif text-[22px] italic leading-snug text-paper">
+          <Highlight text={w.impact} />
+        </p>
+        <div className="h-px bg-paper/10" />
+        <p className="text-[15px] leading-[1.65] text-paper/75">{w.context}</p>
+        <ul className="flex flex-wrap gap-1.5">
+          {w.stack.map((t) => (
+            <li key={t} className="rounded-full border border-paper/15 px-2.5 py-1 font-mono text-[11px] text-paper/70">
+              {t}
+            </li>
+          ))}
+        </ul>
         {w.link && (
           <a href={w.link} target="_blank" rel="noreferrer" className="label inline-block border-b border-lime text-lime" data-cursor="open">
             Open ↗
@@ -189,7 +203,9 @@ function WorkCards({ print = false }: { print?: boolean }) {
             <p className="label mt-2 text-lime">
               {p.year} · {p.kind}
             </p>
-            <p className="mt-3 font-serif text-xl italic text-paper">{p.impact}</p>
+            <p className="mt-3 font-serif text-xl italic text-paper">
+              <Highlight text={p.impact} />
+            </p>
             <p className="mt-3 text-[15px] leading-relaxed text-paper/85">{p.context}</p>
             <p className="label mt-3 text-stone">{p.stack.join(' · ')}</p>
             {p.link && (
@@ -201,5 +217,23 @@ function WorkCards({ print = false }: { print?: boolean }) {
         ))}
       </ol>
     </section>
+  );
+}
+
+/** Numbers in an impact line ("10 days", "13 partners", "91%") turn lime. */
+const NUM = /(\d[\d,.]*\+?\s?(?:%|x|M|K|B|hours?|minutes?|days?|weeks?|months?|seconds?|partners)?)/;
+function Highlight({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(NUM).map((part, i) =>
+        i % 2 ? (
+          <span key={i} className="not-italic font-sans font-semibold text-lime">
+            {part}
+          </span>
+        ) : (
+          part
+        ),
+      )}
+    </>
   );
 }
