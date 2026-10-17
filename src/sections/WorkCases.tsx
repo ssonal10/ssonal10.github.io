@@ -52,7 +52,7 @@ export function WorkCases() {
   return (
     <section ref={root} id="work" aria-label="Work" className="bg-[#050505] text-[#f2efe9]" style={{ fontFamily: 'Inter, sans-serif' }}>
       <div className="mx-auto flex max-w-[1240px] items-end justify-between border-b border-white/10 px-5 pb-8 pt-28 sm:px-8">
-        <h2 className="text-[clamp(44px,7vw,104px)] font-semibold leading-[0.95] tracking-[-0.04em]">Selected work</h2>
+        <h2 className="text-[clamp(44px,7vw,104px)] font-semibold leading-[0.95] tracking-[-0.04em]">What I&apos;ve built</h2>
         <p className="hidden font-mono text-xs uppercase tracking-[0.18em] text-white/50 sm:block">{work.length} projects</p>
       </div>
       {work.map((w, i) => (

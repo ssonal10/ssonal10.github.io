@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Music samples</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#050505; color:#f2efe9; font:16px/1.6 Inter,sans-serif; padding:64px 20px 120px; }
+  .wrap { max-width:880px; margin:0 auto; }
+  .label { font:12px 'JetBrains Mono',monospace; letter-spacing:.18em; text-transform:uppercase; color:#d4a979; }
+  h1 { font-size:clamp(36px,6vw,64px); font-weight:600; letter-spacing:-.04em; line-height:1; margin:12px 0 16px; }
+  h2 { font-size:24px; font-weight:600; letter-spacing:-.02em; margin:56px 0 6px; }
+  .muted { color:rgba(242,239,233,.6); max-width:640px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:20px; }
+  .card { border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.03); border-radius:16px; padding:20px; }
+  .card b { display:block; font-size:18px; font-weight:600; margin-bottom:4px; }
+  .card p { font-size:14px; color:rgba(242,239,233,.65); min-height:44px; }
+  button, a.btn { all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:8px 16px; border-radius:999px; background:#d4a979; color:#111; font:500 13px Inter,sans-serif; }
+  button.on { background:#f2efe9; }
+  a.btn { background:transparent; border:1px solid #d4a979; color:#d4a979; }
+  .vol { display:flex; align-items:center; gap:12px; margin-top:24px; font:12px 'JetBrains Mono',monospace; color:rgba(242,239,233,.6); }
+  input[type=range] { accent-color:#d4a979; width:180px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="label">Sample · background music</p>
+  <h1>Listen and pick.</h1>
+  <p class="muted">Part 1 is generated live in the browser: no file, no license, no credit. Part 2 opens free libraries in a new tab, where every track has its own play button. Tell me the name of any track you like and I'll add it.</p>
+  <div class="vol">Volume <input id="vol" type="range" min="0" max="1" step="0.01" value="0.5" /></div>
+
+  <h2>1 · Generated in code</h2>
+  <p class="muted">Play one at a time. On the site it would start off, behind a small sound button.</p>
+  <div class="grid" id="gen"></div>
+
+  <h2>2 · Free libraries (no credit needed)</h2>
+  <p class="muted">Pixabay: free for websites, no credit. Musopen: public-domain classical recordings, so check the "public domain" tag on the track.</p>
+  <div class="grid">
+    <div class="card"><b>Pixabay · ambient</b><p>Calm pads and textures.</p><a class="btn" target="_blank" rel="noreferrer" href="https://pixabay.com/music/search/genre/ambient/">Open ↗</a></div>
+    <div class="card"><b>Pixabay · lo-fi</b><p>Soft beats, study-music feel.</p><a class="btn" target="_blank" rel="noreferrer" href="https://pixabay.com/music/search/lofi/">Open ↗</a></div>
+    <div class="card"><b>Pixabay · cinematic minimal</b><p>Slow piano and strings.</p><a class="btn" target="_blank" rel="noreferrer" href="https://pixabay.com/music/search/minimal%20piano/">Open ↗</a></div>
+    <div class="card"><b>Pixabay · electronic chill</b><p>Modern, techy, light pulse.</p><a class="btn" target="_blank" rel="noreferrer" href="https://pixabay.com/music/search/chill%20electronic/">Open ↗</a></div>
+    <div class="card"><b>Musopen · Satie / Debussy</b><p>Gymnopédies, Clair de lune.</p><a class="btn" target="_blank" rel="noreferrer" href="https://musopen.org/music/composer/erik-satie/">Open ↗</a></div>
+  </div>
+
+  <h2>3 · With a credit line</h2>
+  <div class="grid">
+    <div class="card"><b>Free Music Archive</b><p>Filter to CC BY. Artist name goes in the footer.</p><a class="btn" target="_blank" rel="noreferrer" href="https://freemusicarchive.org/genre/Ambient/">Open ↗</a></div>
+    <div class="card"><b>Kevin MacLeod</b><p>Huge library, often heard on YouTube.</p><a class="btn" target="_blank" rel="noreferrer" href="https://incompetech.com/music/royalty-free/music.html">Open ↗</a></div>
+  </div>
+</div>
+
+<script>
+// Generated ambient: four small engines on Web Audio, each returns a stop()
+let ctx, master, stopCur, curBtn;
+const vol = document.getElementById('vol');
+function audio() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    master = ctx.createGain(); master.gain.value = +vol.value * 0.6;
+    // simple generated reverb
+    const len = ctx.sampleRate * 3, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.5); }
+    const rev = ctx.createConvolver(); rev.buffer = ir;
+    const wet = ctx.createGain(); wet.gain.value = 0.55;
+    master.connect(ctx.destination); master.connect(rev); rev.connect(wet); wet.connect(ctx.destination);
+  }
+  return ctx;
+}
+vol.oninput = () => { if (master) master.gain.value = +vol.value * 0.6; };
+const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+
+function tone(m, t, dur, { type = 'sine', gain = 0.12, attack = 0.02, cutoff = 4000 } = {}) {
+  const o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+  o.type = type; o.frequency.value = hz(m); f.type = 'lowpass'; f.frequency.value = cutoff;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(gain, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(f); f.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.1);
+}
+function loop(stepSec, fn) {
+  let n = 0, next = ctx.currentTime + 0.1;
+  const id = setInterval(() => { while (next < ctx.currentTime + 0.5) { fn(next, n++); next += stepSec; } }, 100);
+  return () => clearInterval(id);
+}
+
+const chords = [[57, 60, 64, 67], [53, 57, 60, 64], [48, 52, 55, 59], [55, 59, 62, 66]]; // Am7 Fmaj7 Cmaj7 G
+const ENGINES = {
+  'Night drift': ['Slow warm pads, no rhythm. Calmest option.', () =>
+    loop(6, (t, n) => chords[n % 4].forEach((m, i) => tone(m, t + i * 0.15, 8, { type: 'triangle', gain: 0.05, attack: 2.5, cutoff: 1200 })))],
+  'Glass piano': ['Sparse bell notes from a pentatonic scale.', () => {
+    const scale = [69, 72, 74, 76, 79, 81, 84];
+    return loop(0.75, (t, n) => { if (Math.random() < 0.55) tone(scale[Math.floor(Math.random() * scale.length)], t, 3.5, { gain: 0.09, attack: 0.005 });
+      if (n % 8 === 0) tone(45 + [0, -4, -9, -2][(n / 8) % 4], t, 6, { type: 'triangle', gain: 0.06, attack: 0.5, cutoff: 600 }); });
+  }],
+  'Lo-fi pulse': ['Soft beat with chords, a study-music feel.', () =>
+    loop(0.5, (t, n) => {
+      if (n % 4 === 0) { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.setValueAtTime(110, t); o.frequency.exponentialRampToValueAtTime(40, t + 0.25);
+        g.gain.setValueAtTime(0.35, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.3); o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.35); }
+      if (n % 2 === 1) { const b = ctx.createBuffer(1, 2205, ctx.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+        const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); f.type = 'highpass'; f.frequency.value = 7000; g.gain.value = 0.05; s.buffer = b; s.connect(f); f.connect(g); g.connect(master); s.start(t); }
+      if (n % 8 === 0) chords[(n / 8) % 4].forEach((m) => tone(m + 12, t, 3.8, { type: 'triangle', gain: 0.035, attack: 0.05, cutoff: 1800 }));
+    })],
+  'Data hum': ['Low drone with a slow arpeggio. Techy, matches the globe.', () =>
+    loop(0.25, (t, n) => {
+      if (n % 32 === 0) [33, 40].forEach((m) => tone(m, t, 9, { type: 'sawtooth', gain: 0.025, attack: 3, cutoff: 400 }));
+      const arp = [57, 64, 69, 71, 72, 71, 69, 64]; if (n % 2 === 0) tone(arp[(n / 2) % 8], t, 0.9, { type: 'square', gain: 0.018, cutoff: 1500 });
+    })],
+};
+
+const gen = document.getElementById('gen');
+Object.entries(ENGINES).forEach(([name, [desc, start]]) => {
+  const card = document.createElement('div'); card.className = 'card';
+  card.innerHTML = `<b>${name}</b><p>${desc}</p>`;
+  const btn = document.createElement('button'); btn.textContent = '▶ Play';
+  btn.onclick = () => {
+    audio(); ctx.resume();
+    if (stopCur) { stopCur(); curBtn.textContent = '▶ Play'; curBtn.classList.remove('on'); }
+    if (curBtn === btn) { stopCur = curBtn = null; return; }
+    stopCur = start(); curBtn = btn; btn.textContent = '■ Stop'; btn.classList.add('on');
+  };
+  card.appendChild(btn); gen.appendChild(card);
+});
+</script>
+</body>
+</html>
