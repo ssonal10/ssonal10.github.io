@@ -33,3 +33,4 @@ yarn-error.log*
 vite.config.js
 vite.config.d.ts
 vite.config.js.timestamp-*.mjs
+print-preview.pdf

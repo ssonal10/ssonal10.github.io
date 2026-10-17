@@ -67,8 +67,11 @@ body[data-theme='paper'] { background: var(--paper); color: var(--ink); }
   * { transform: none !important; opacity: 1 !important; clip-path: none !important; }
   .path-rows { grid-template-rows: 1fr !important; }
   .dn-track { flex-direction: column !important; width: auto !important; height: auto !important; }
-  section { break-inside: avoid-page; min-height: 0 !important; height: auto !important; }
+  section { min-height: 0 !important; height: auto !important; }
+  img[aria-hidden='true'], video, canvas, .print-hide { display: none !important; }
+  .print-only { display: block !important; }
 }
+.print-only { display: none; }
 
 /* Work backdrops */
 @keyframes wv-blink { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.25; } }

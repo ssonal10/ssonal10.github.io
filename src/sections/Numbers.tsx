@@ -64,7 +64,16 @@ export function Numbers() {
         },
       });
     }, root);
-    return () => ctx.revert();
+    // printing mid-count would show 0: snap to final values
+    const settle = () =>
+      root.current?.querySelectorAll<HTMLElement>('.num-value').forEach((el, i) => {
+        el.textContent = fmt(numbers[i], numbers[i].value);
+      });
+    window.addEventListener('beforeprint', settle);
+    return () => {
+      window.removeEventListener('beforeprint', settle);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -77,16 +86,17 @@ export function Numbers() {
                 {n.was ?? ''}
                 {n.was && <i className="num-strike absolute left-0 top-1/2 h-[2px] w-full origin-left scale-x-0 bg-lime" />}
               </p>
-              <p className="num-value mt-2 font-display text-6xl font-extrabold leading-[0.85] tracking-tight text-paper lg:text-[7.5vw]">
+              <p className="num-value print-hide mt-2 font-display text-6xl font-extrabold leading-[0.85] tracking-tight text-paper lg:text-[7.5vw]">
                 {fmt(n, n.value)}
               </p>
+              <p className="print-only mt-2 font-display text-5xl font-extrabold">{fmt(n, n.value)}</p>
               <p className="label mt-4 max-w-[12rem] leading-relaxed text-stone">{n.small}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-20 overflow-hidden border-y border-line py-5" aria-hidden="true">
+      <div className="print-hide mt-20 overflow-hidden border-y border-line py-5" aria-hidden="true">
         <div className="ticker-track flex w-max gap-10 whitespace-nowrap">
           {[...stack, ...stack].map((s, i) => (
             <span key={i} className="flex items-center gap-10 font-serif text-4xl italic text-paper/80 sm:text-6xl">

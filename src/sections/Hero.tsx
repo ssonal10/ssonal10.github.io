@@ -94,7 +94,7 @@ export function Hero({ ready }: { ready: boolean }) {
   if (touch) return <HeroStatic ready={ready} />;
 
   return (
-    <section ref={root} id="top" className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-ink text-paper">
+    <section ref={root} id="top" className="print-hide relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-ink text-paper">
       <img
         src="/fx/topo.svg"
         alt=""
@@ -174,7 +174,7 @@ function HeroStatic({ ready }: { ready: boolean }) {
     return () => ctx.revert();
   }, [ready]);
   return (
-    <section ref={root} id="top" className="relative overflow-hidden bg-ink px-5 pb-16 pt-28 text-paper">
+    <section ref={root} id="top" className="print-hide relative overflow-hidden bg-ink px-5 pb-16 pt-28 text-paper">
       <img src="/fx/topo.svg" alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.09] invert" />
       <p className="label relative text-paper/70">{profile.name} · {profile.city}</p>
       <div className="relative mt-6 h-[62svh]">

@@ -10,6 +10,7 @@ import { DesignNotes } from './sections/DesignNotes';
 import { Path } from './sections/Path';
 import { Life } from './sections/Life';
 import { Contact } from './sections/Contact';
+import { profile } from './data';
 
 export default function App() {
   const [intro, setIntro] = useState(shouldShowIntro);
@@ -69,6 +70,15 @@ export default function App() {
       )}
       <Nav onReplay={replay} />
       <main>
+        {/* print / reader header: who, what, how to reach */}
+        <header className="print-only px-8 pt-8">
+          <h1 className="font-display text-5xl font-extrabold">Shipra Sonal</h1>
+          <p className="mt-2 text-xl">Data @ Amazon · Data Engineering Manager · Seattle, WA</p>
+          <p className="mt-2">{profile.sub}</p>
+          <p className="mt-2 font-mono text-sm">
+            {profile.email} · linkedin.com/in/shiprasonal · github.com/ssonal10 · shiprasonal.com
+          </p>
+        </header>
         <Hero ready={ready && fontsReady} />
         <Numbers />
         <WorkList />

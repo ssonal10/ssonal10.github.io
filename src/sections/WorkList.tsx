@@ -179,7 +179,7 @@ function WorkCards({ print = false }: { print?: boolean }) {
       <ol className="space-y-14">
         {work.map((p, i) => (
           <li key={p.id}>
-            <div className="aspect-[16/10] overflow-hidden rounded-2xl">
+            <div className="print-hide aspect-[16/10] overflow-hidden rounded-2xl">
               <WorkVisual kind={p.visual} />
             </div>
             <h3 className="mt-4 font-display text-5xl font-extrabold tracking-tight">

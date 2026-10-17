@@ -47,8 +47,8 @@ export function Life() {
   const cols = [0, 1, 2].map((c) => life.filter((_, i) => i % 3 === c));
 
   return (
-    <section ref={root} id="life" aria-label="Life" className="relative px-5 py-28 sm:px-8 sm:py-36">
-      <div className="relative mb-24 grid min-h-[70vh] gap-8 pt-[22vh] md:grid-cols-[1.4fr_1fr] md:items-end">
+    <section ref={root} id="life" aria-label="Life" className="relative px-5 py-28 print:py-6 sm:px-8 sm:py-36">
+      <div className="relative mb-24 grid min-h-[70vh] gap-8 pt-[22vh] print:mb-4 print:min-h-0 print:pt-0 md:grid-cols-[1.4fr_1fr] md:items-end">
         <Stickers />
         <h2 className="life-title mask font-display text-[18vw] font-extrabold leading-[0.82] tracking-[-0.045em] md:text-[11vw]">
           <span>Off the</span>
@@ -59,7 +59,7 @@ export function Life() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
+      <div className="print-hide grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
         {cols.map((col, c) => (
           <div key={c} className={`life-col space-y-4 md:space-y-6 ${c === 2 ? 'hidden md:block' : ''}`}>
             {(c === 1 ? [...col, ...cols[2].filter((_, i) => i % 2 === 0)] : col).map((p) => (
@@ -96,7 +96,7 @@ export function Life() {
         ))}
       </div>
 
-      <div className="mt-28">
+      <div className="print-hide mt-28">
         <div className="mb-6 flex items-end justify-between">
           <p className="label">Edits · CapCut · 9:16</p>
           <p className="label hidden opacity-60 sm:block">Drag or shift + scroll →</p>

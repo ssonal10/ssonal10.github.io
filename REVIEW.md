@@ -13,7 +13,7 @@ Add `?play` to replay the intro game; it shows once per browser session.
 
 ## What it is
 
-Built from three rounds of design critique by a Fable "creative director" agent, using your references:
+Built from four rounds of critique (three design, one code review) by a Fable "creative director" agent, using your references:
 
 | Piece | Inspired by | What you'll see |
 |---|---|---|
@@ -28,6 +28,12 @@ Built from three rounds of design critique by a Fable "creative director" agent,
 | Cursor | Unseen | Dot plus a ring that stretches along its direction; labels on links (open, scrub, throw, run). |
 
 Tech: React + GSAP 3.13 (ScrollTrigger, SplitText, DrawSVG, Draggable, Inertia, all free now) + Lenis smooth scroll. About 136 KB gzipped JS. Phones get a simpler layout without pinning.
+
+## Built for reviewers too
+
+- **Print / Save as PDF** gives a clean 10-page document: name, title and contacts first, then numbers, every project, all three design notes with diagrams, path and recognition. Preview: `print-preview.pdf` in this folder.
+- Keyboard: work names are buttons, query rows open with Enter, the intro is a proper dialog with Skip focused first.
+- Reduced-motion users get no pins, no loops and no intro game.
 
 ## Photos and video
 
