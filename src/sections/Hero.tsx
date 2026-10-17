@@ -4,7 +4,7 @@ import { profile } from '../data';
 import { AutoVideo } from '../ui/AutoVideo';
 
 /**
- * Hero: giant "Data @ Amazon" with a cutout of Shipra standing in front of
+ * Hero: giant "Shipra Sonal" with a cutout of Shipra standing in front of
  * the type. Pinned for 150vh: the lines shrink to the corners and frame a
  * portrait video window that opens in the middle. Inside the window the
  * cursor scrubs the clip.
@@ -130,23 +130,25 @@ export function Hero({ ready }: { ready: boolean }) {
 
       {/* type */}
       <h1 className="absolute inset-0 z-[2] flex flex-col justify-center px-[3vw] font-display font-extrabold leading-[0.82] tracking-[-0.045em]">
-        <span className="sr-only">Shipra Sonal, </span>
-        <span className="hero-line hero-line-a block whitespace-nowrap text-[19vw] md:text-[17vw]">Data</span>
+        <span className="hero-line hero-line-a block whitespace-nowrap text-[19vw] md:text-[17vw]">Shipra</span>
         <span className="hero-line hero-line-b block self-end whitespace-nowrap text-[19vw] md:text-[17vw]">
-          <span className="text-lime">@</span>Amazon
+          Sonal<span className="text-lime">.</span>
         </span>
+        <span className="sr-only">, Data @ Amazon</span>
       </h1>
 
       {/* cutout in front of the type */}
       <img
         src="/fx/cutout-3.webp"
         alt="Shipra Sonal"
-        className="hero-cutout pointer-events-none absolute bottom-0 left-1/2 z-[3] h-[78svh] max-w-none -translate-x-[30%] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)] md:-translate-x-[10%]"
+        className="hero-cutout pointer-events-none absolute bottom-0 left-1/2 z-[3] h-[78svh] max-w-none -translate-x-[70%] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)] md:-translate-x-[95%]"
       />
 
       {/* meta */}
       <div className="absolute inset-x-0 top-0 z-[4] flex items-start justify-between p-5 pt-24 sm:p-8 sm:pt-24">
-        <p className="hero-meta label text-paper/70">{profile.name}</p>
+        <p className="hero-meta label text-paper">
+          Data <span className="text-lime">@</span> Amazon
+        </p>
         <p className="hero-meta label hidden text-paper/70 sm:block">{profile.city} · 2026</p>
       </div>
       <div className="absolute inset-x-0 bottom-0 z-[4] flex items-end justify-between p-5 sm:p-8">
@@ -176,14 +178,16 @@ function HeroStatic({ ready }: { ready: boolean }) {
   return (
     <section ref={root} id="top" className="print-hide relative overflow-hidden bg-ink px-5 pb-16 pt-28 text-paper">
       <img src="/fx/topo.svg" alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.09] invert" />
-      <p className="label relative text-paper/70">{profile.name} · {profile.city}</p>
+      <p className="label relative text-paper">
+        Data <span className="text-lime">@</span> Amazon · {profile.city}
+      </p>
       <div className="relative mt-6 h-[62svh]">
         <h1 className="relative z-[1] font-display font-extrabold leading-[0.85] tracking-[-0.045em]">
-          <span className="sr-only">Shipra Sonal, </span>
-          <span className="hero-line block text-[22vw]">Data</span>
+          <span className="hero-line block text-[22vw]">Shipra</span>
           <span className="hero-line block text-[22vw]">
-            <span className="text-lime">@</span>Amazon
+            Sonal<span className="text-lime">.</span>
           </span>
+          <span className="sr-only">, Data @ Amazon</span>
         </h1>
         <img src="/fx/cutout-3.webp" alt="Shipra Sonal" className="hero-cutout absolute bottom-0 right-0 z-[2] h-[48svh] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]" />
       </div>

@@ -21,7 +21,7 @@ Built from four rounds of critique (three design, one code review) by a Fable "c
 | Piece | Inspired by | What you'll see |
 |---|---|---|
 | Intro game "Fill the model" | your idea | Catch 7 tokens in 10 s with a bar-chart paddle; the red "LLM ≈ ?" bounces off ("Python computes. The LLM only routes."). Skip any time. |
-| Hero | Unseen | "Data @ Amazon" with a cutout of you in front of the type; on scroll the words shrink to the corners and a portrait video window opens. Move the cursor over the window to scrub the clip. |
+| Hero | Unseen | "Shipra Sonal" (with "Data @ Amazon" above it) and a cutout of you in front of the type; on scroll the words shrink to the corners and a portrait video window opens. Move the cursor over the window to scrub the clip. |
 | Numbers | Obys | min / 7M / 10 min / 4 count up; "weeks" and "10 days" get struck through in lime. Stack ticker speeds up with scroll. |
 | Work list | by-kin.com/work | Pinned list, the name at the centre fills in, its generative backdrop zooms in, details on the right. |
 | Design notes | AWS-style design docs | One page per system (deal agent, Sentinel, measurement): problem, tenets, animated architecture diagram, tradeoff. Generic, no internal names. |
