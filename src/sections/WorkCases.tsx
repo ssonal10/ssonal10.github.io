@@ -10,7 +10,6 @@ const diagramFor: Record<string, DiagramKey> = {
   activation: 'measure',
   sentinel: 'sentinel',
   'deep-dive': 'deepdive',
-  'deal-model': 'dealmodel',
   'cx-funnel': 'funnel',
   futures: 'futures',
   finance: 'spend',
@@ -96,7 +95,9 @@ function Case({ w, i }: { w: Work; i: number }) {
               {w.hook}
             </p>
             <h3
-              className={`mb-2 mt-3 text-[clamp(48px,6.5vw,100px)] leading-[0.95] ${
+              className={`mb-3 mt-3 leading-[0.98] ${
+                w.name.length > 20 ? 'text-[clamp(34px,3.9vw,60px)]' : 'text-[clamp(40px,5.2vw,80px)]'
+              } ${
                 birka
                   ? 'font-bold uppercase tracking-[-0.01em]'
                   : 'bg-[linear-gradient(180deg,#fff_30%,#8a8a8a)] bg-clip-text font-semibold tracking-[-0.04em] text-transparent'
