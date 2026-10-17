@@ -7,6 +7,7 @@ import { DataViz } from './components/DataViz';
 import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { Skills } from './components/Skills';
+import { Recognition } from './components/Recognition';
 import { PhotoStrip } from './components/PhotoStrip';
 import { Interests } from './components/Interests';
 import { navLinks } from './portfolioData';
@@ -55,6 +56,7 @@ export default function App() {
           <DataViz />
           <Experience />
           <Projects />
+          <Recognition />
           <Skills />
           <Interests />
           <PhotoStrip />
@@ -62,11 +64,11 @@ export default function App() {
           <footer className="border-t border-slate-800/60 py-14 text-xs text-slate-500">
             <div className="mb-8 flex flex-col items-center gap-3 text-center">
               <p className="font-display text-2xl italic leading-tight text-slate-200 sm:text-3xl">
-                P.S. — <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-300 to-violet-300">portfolios don't have to be boring.</span>
+                P.S. <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-300 to-violet-300">portfolios don't have to be boring.</span>
               </p>
               <p className="max-w-md text-[13px] text-slate-500">
-                So I made mine loud, fast, and a little bit extra — like a good deadlift or a
-                well-cut edit. Thanks for scrolling this far.
+                So I made mine loud and a little extra, like a good deadlift or a well-cut
+                edit. Thanks for scrolling this far.
               </p>
             </div>
 

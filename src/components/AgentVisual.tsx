@@ -156,11 +156,9 @@ export function AgentVisual() {
               dur="3s"
               repeatCount="indefinite"
             />
-            <rect x="220" y="20" width="98" height="36" rx="18" fill="url(#nodeBg)" stroke="#10b981" strokeWidth="1.2" strokeOpacity="0.6" />
-            <text x="236" y="43" fill="#34d399" fontSize="18" fontFamily="serif" fontStyle="italic" fontWeight="500">150×</text>
-            <text x="272" y="41" fill="#94a3b8" fontSize="8.5" fontFamily="monospace" letterSpacing="0.12em">FASTER</text>
-            {/* lightning */}
-            <path d="M 302 30 L 298 39 L 301 39 L 299 47 L 304 37 L 301 37 Z" fill="#34d399" opacity="0.95" />
+            <rect x="206" y="20" width="126" height="36" rx="18" fill="url(#nodeBg)" stroke="#10b981" strokeWidth="1.2" strokeOpacity="0.6" />
+            <text x="222" y="43" fill="#34d399" fontSize="17" fontFamily="serif" fontStyle="italic" fontWeight="500">minutes</text>
+            <text x="282" y="41" fill="#94a3b8" fontSize="8" fontFamily="monospace" letterSpacing="0.12em">NOT WEEKS</text>
           </g>
         </motion.g>
 

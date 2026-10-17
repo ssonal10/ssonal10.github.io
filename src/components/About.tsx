@@ -2,10 +2,10 @@ import { motion } from 'framer-motion';
 import { profile } from '../portfolioData';
 
 const stats = [
-  { value: '9+', label: 'Years in data' },
-  { value: '150×', label: 'GenAI agent speedup' },
-  { value: '1B+', label: 'Daily records processed' },
-  { value: '50+', label: 'Countries in prod' },
+  { value: '9 yrs', label: 'In data' },
+  { value: '4', label: 'Data engineers I manage' },
+  { value: '7M', label: 'New active members measured' },
+  { value: '10 min', label: 'Sentinel answer time, was 10 days' },
 ];
 
 export function About() {

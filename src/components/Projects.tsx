@@ -66,7 +66,7 @@ export function Projects() {
                 <div className="relative">
                   <div className="mb-3 flex items-center justify-between">
                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-                      / {String(i + 1).padStart(2, '0')}
+                      / {String(i + 1).padStart(2, '0')} · {p.tag}
                     </span>
                     {p.link && (
                       <svg

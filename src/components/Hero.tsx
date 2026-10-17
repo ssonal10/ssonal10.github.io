@@ -82,7 +82,7 @@ export function Hero() {
         >
           <span className="h-px w-10 bg-slate-300/60 sm:w-16" />
           <span className="text-[13px] font-light tracking-wide text-slate-200 sm:text-base">
-            Senior · GenAI × Data · Amazon
+            Data Engineering Manager · Seattle
           </span>
           <span className="h-px w-10 bg-slate-300/60 sm:w-16" />
         </motion.div>
@@ -95,9 +95,9 @@ export function Hero() {
           className="mt-7 max-w-2xl text-[15px] font-medium leading-relaxed text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] sm:text-[17px]"
           style={{ textShadow: '0 1px 20px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.5)' }}
         >
-          I turn <span className="italic text-emerald-300">billions of records</span> into
-          decisions — building <span className="italic text-violet-300">GenAI agents</span>,
-          1B+/day data pipelines, and measurement platforms that move real numbers.
+          I build <span className="italic text-emerald-300">LLM agents</span> that leave the math to
+          code, and the <span className="italic text-violet-300">measurement</span> that shows leaders
+          what worked.
         </motion.p>
 
         <motion.div

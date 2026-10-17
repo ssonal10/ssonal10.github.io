@@ -182,21 +182,37 @@ function RadialRing({ value, size = 88, stroke = 6, color = '#10b981' }: {
 /* ============================================================
    Section
 ============================================================ */
-const sparkData = [12, 14, 11, 18, 22, 20, 28, 34, 31, 42, 48, 62, 78, 95, 110];
-const adoptionBars = [8, 14, 22, 31, 40, 48, 55, 64, 72, 85, 96, 100];
-const latencyBars = [60, 58, 55, 48, 40, 30, 22, 14, 8, 6, 4, 2];
+const membersData = [0.4, 0.7, 1.1, 1.6, 2.2, 2.9, 3.5, 4.1, 4.8, 5.4, 6.1, 6.6, 7];
+const modelWeeks = [100, 92, 80, 64, 46, 28, 14, 6, 2, 1];
+const sentinelBars = [100, 70, 44, 26, 12, 4, 1];
+
+type CardProps = { label: string; chip: string; delay: number; children: React.ReactNode };
+
+function Card({ label, chip, delay, children }: CardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.55, delay }}
+      className="glass lift cursor-default rounded-2xl p-5"
+    >
+      <div className="mb-2 flex items-center justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">{label}</span>
+        <span className="chip chip-accent">{chip}</span>
+      </div>
+      {children}
+    </motion.div>
+  );
+}
 
 export function DataViz() {
   return (
     <section id="impact" aria-label="Impact by the numbers" className="mb-28 scroll-mt-16 lg:scroll-mt-24">
-      <div className="sticky top-0 z-20 -mx-6 mb-6 w-screen bg-bg/80 px-6 py-4 backdrop-blur-md md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-200">Impact</h2>
-      </div>
-
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
+        viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6 }}
         className="mb-8"
       >
@@ -207,66 +223,31 @@ export function DataViz() {
       </motion.div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {/* Card 1: Latency dropdown (bar chart) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.55 }}
-          className="glass lift cursor-default rounded-2xl p-5"
-        >
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">GenAI Agent · Sensitivity</span>
-            <span className="chip chip-accent">-97%</span>
+        <Card label="Deal-modeling agent" chip="launched" delay={0}>
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="font-serif text-5xl text-gradient">minutes</span>
+            <span className="text-xs text-slate-400">not weeks, per deal model</span>
           </div>
+          <p className="mt-1 text-xs text-slate-400">About 6 months of manual modeling replaced in its first week.</p>
+          <div className="mt-4">
+            <MiniBars data={modelWeeks} color="#10b981" />
+          </div>
+        </Card>
+
+        <Card label="Auto-activation" chip="13 partners" delay={0.08}>
           <div className="mt-2 flex items-baseline gap-2">
             <span className="font-serif text-5xl text-gradient">
-              <AnimatedNumber value={150} suffix="×" />
+              <AnimatedNumber value={7} suffix="M" />
             </span>
-            <span className="text-xs text-slate-500">faster</span>
+            <span className="text-xs text-slate-400">new active members, 5.5M engaged</span>
           </div>
-          <p className="mt-1 text-xs text-slate-500">5 min → 2 seconds after moving math out of LLM.</p>
+          <p className="mt-1 text-xs text-slate-400">Measurement framework built in about a week; VPs approved the expansion on it.</p>
           <div className="mt-4">
-            <MiniBars data={latencyBars} color="#10b981" />
+            <Sparkline data={membersData} color="#10b981" width={280} height={64} />
           </div>
-        </motion.div>
+        </Card>
 
-        {/* Card 2: Records processed (sparkline) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.55, delay: 0.08 }}
-          className="glass lift cursor-default rounded-2xl p-5"
-        >
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">CX Platform · Daily Records</span>
-            <span className="chip chip-accent">+trend</span>
-          </div>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="font-serif text-5xl text-gradient">
-              <AnimatedNumber value={1} decimals={1} suffix="B+" />
-            </span>
-            <span className="text-xs text-slate-500">records / day</span>
-          </div>
-          <p className="mt-1 text-xs text-slate-500">Pipelines processing clickstream across 40+ markets.</p>
-          <div className="mt-4">
-            <Sparkline data={sparkData} color="#10b981" width={280} height={64} />
-          </div>
-        </motion.div>
-
-        {/* Card 3: Radial - drop-off reveal */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.55, delay: 0.16 }}
-          className="glass lift cursor-default rounded-2xl p-5"
-        >
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">CX Insight · Drop-off revealed</span>
-            <span className="chip chip-accent">strategy-shifting</span>
-          </div>
+        <Card label="CX insight · drop-off" chip="changed the plan" delay={0.16}>
           <div className="mt-3 flex items-center gap-5">
             <div className="relative">
               <RadialRing value={96} size={96} stroke={7} color="#10b981" />
@@ -277,35 +258,24 @@ export function DataViz() {
               </div>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-200">Pre-funnel drop-off</p>
-              <p className="mt-1 text-xs text-slate-500">of eligible customers never started. Conversion doubled after action.</p>
+              <p className="text-sm font-semibold text-slate-200">Lost before activation started</p>
+              <p className="mt-1 text-xs text-slate-400">That finding moved the 2024 plan toward same-store growth.</p>
             </div>
           </div>
-        </motion.div>
+        </Card>
 
-        {/* Card 4: ML adoption ramp (bars) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.55, delay: 0.24 }}
-          className="glass lift cursor-default rounded-2xl p-5"
-        >
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Injury Classifier · Recall</span>
-            <span className="chip chip-accent">ML + NLP</span>
-          </div>
+        <Card label="Sentinel · ad-hoc questions" chip="multi-agent" delay={0.24}>
           <div className="mt-2 flex items-baseline gap-2">
             <span className="font-serif text-5xl text-gradient">
-              <AnimatedNumber value={87} suffix="%" />
+              <AnimatedNumber value={10} suffix=" min" />
             </span>
-            <span className="text-xs text-slate-500">recall · 93% accuracy</span>
+            <span className="text-xs text-slate-400">was about 10 days</span>
           </div>
-          <p className="mt-1 text-xs text-slate-500">XGBoost model — ~1,000 manual hours saved per year.</p>
+          <p className="mt-1 text-xs text-slate-400">Built alone on Claude Code: 19 scheduled jobs, 5 specialists and a validator.</p>
           <div className="mt-4">
-            <MiniBars data={adoptionBars} color="#8b5cf6" />
+            <MiniBars data={sentinelBars} color="#8b5cf6" />
           </div>
-        </motion.div>
+        </Card>
       </div>
     </section>
   );

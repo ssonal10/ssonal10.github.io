@@ -3,13 +3,16 @@ import { motion } from 'framer-motion';
 type Media = { src: string; caption: string; tilt: number };
 
 const photos: Media[] = [
+  { src: '/photos/rainier-snow.jpg', caption: 'Naches · Washington', tilt: -2 },
+  { src: '/photos/maui-cliff.jpg', caption: 'Kapalua · Maui', tilt: 2 },
+  { src: '/photos/nyc-wtc.jpg', caption: 'One World Trade · NYC', tilt: -1.5 },
+  { src: '/photos/squamish.jpg', caption: 'Sea to Sky · Squamish', tilt: 1.5 },
   { src: '/photos/nyc-bridge.jpg', caption: 'Brooklyn Bridge · NYC', tilt: -3 },
-  { src: '/photos/nyc-edge.jpg', caption: 'The Edge · NYC', tilt: 2 },
-  { src: '/photos/gasworks.jpg', caption: 'Gas Works Park · Seattle', tilt: -1.5 },
-  { src: '/photos/space-needle.jpg', caption: 'Space Needle · Seattle', tilt: 1.5 },
-  { src: '/photos/spheres.jpg', caption: 'Amazon Spheres', tilt: -2 },
-  { src: '/photos/lake-pink.jpg', caption: 'Lakeside', tilt: 2.5 },
-];
+  { src: '/photos/tulips.jpg', caption: 'Tulip season · 2023', tilt: 2.5 },
+  { src: '/photos/kullu.jpg', caption: 'Kullu · India', tilt: -2 },
+  { src: '/photos/andaman-sunset.jpg', caption: 'Andaman Sea · India', tilt: 1.5 },
+  { src: '/photos/space-needle.jpg', caption: 'Space Needle · Seattle', tilt: -1 },
+]
 
 export function PhotoStrip() {
   return (
@@ -18,11 +21,11 @@ export function PhotoStrip() {
         <div>
           <span className="section-label">Postcards</span>
           <h3 className="mt-4 font-display text-3xl italic leading-tight text-slate-100 sm:text-4xl">
-            Seattle ↔ New York.
+            Seattle, and wherever the weekend goes.
           </h3>
         </div>
         <p className="hidden max-w-xs text-sm text-slate-400 md:block">
-          Weekends I chase skylines, bridges, and good coffee on both coasts.
+          Seattle is home. Most weekends end up on a mountain or a coastline.
         </p>
       </div>
 

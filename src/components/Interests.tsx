@@ -4,6 +4,9 @@ const edits = [
   { src: '/video/ny-loop.mp4', title: 'Travel Dump', meta: 'NYC · 2024', tint: 'from-amber-500/20 to-rose-500/10' },
   { src: '/video/birthday-loop.mp4', title: 'Birthday Cut', meta: 'Self · 2026', tint: 'from-violet-500/20 to-fuchsia-500/10' },
   { src: '/video/car-loop.mp4', title: 'Morning Drive', meta: 'GRWM · 2025', tint: 'from-emerald-500/20 to-cyan-500/10' },
+  { src: '/video/squamish-loop.mp4', title: 'Sea to Sky', meta: 'Squamish · 2024', tint: 'from-sky-500/20 to-emerald-500/10' },
+  { src: '/video/glacier-loop.mp4', title: 'Highline Trail', meta: 'Glacier NP · 2023', tint: 'from-amber-500/20 to-sky-500/10' },
+  { src: '/video/seattle-denim-loop.mp4', title: 'City Fit', meta: 'Seattle · 2026', tint: 'from-violet-500/20 to-sky-500/10' },
 ];
 
 const gymStats = [
@@ -14,7 +17,7 @@ const gymStats = [
 
 export function Interests() {
   return (
-    <section id="interests" className="py-24">
+    <section id="life" aria-label="Life" className="scroll-mt-24 py-24">
       <div className="mb-10 flex items-end justify-between gap-6">
         <div>
           <span className="section-label">Off-Duty</span>
@@ -23,7 +26,7 @@ export function Interests() {
           </h3>
         </div>
         <p className="hidden max-w-sm text-sm text-slate-400 md:block">
-          I lift heavy things and cut vertical videos. Same discipline, different output.
+          I lift, cut short videos and hike whichever mountain is closest. Same habit as work: track the numbers, then adjust.
         </p>
       </div>
 
@@ -66,7 +69,7 @@ export function Interests() {
                 </span>
               </h4>
               <p className="mt-3 max-w-sm text-[13px] leading-relaxed text-slate-200">
-                Strength training keeps the analytical brain honest — numbers don't lie
+                Strength training keeps the analytical brain honest. Numbers don't lie
                 under a loaded bar.
               </p>
               <div className="mt-5 flex items-center gap-5 border-t border-white/10 pt-4">
@@ -103,8 +106,8 @@ export function Interests() {
                 Frame by frame.
               </h4>
               <p className="mt-2 max-w-md text-sm text-slate-400">
-                Self-taught in CapCut — turning travel dumps, GRWMs, and birthday moments
-                into little 9:16 stories.
+                Self-taught in CapCut. Travel dumps, GRWMs and birthdays, cut into little
+                9:16 stories.
               </p>
             </div>
             <div className="hidden shrink-0 items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 sm:inline-flex">

@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { skillTiers } from '../portfolioData';
 
 const marqueeItems = [
-  'Python', 'PySpark', 'SQL', 'AWS Bedrock', 'Lambda', 'Glue', 'Athena', 'Delta Lake',
-  'Airflow', 'NumPy', 'XGBoost', 'QuickSight', 'Tableau', 'CDK', 'GenAI Agents', 'NLP',
+  'Python', 'SQL', 'Spark', 'Glue', 'Athena', 'Redshift', 'Bedrock AgentCore', 'Strands Agents',
+  'Claude Code', 'Lambda', 'QuickSight', 'XGBoost', 'Causal inference', 'Experiment design', 'NLP',
 ];
 
 export function Skills() {
