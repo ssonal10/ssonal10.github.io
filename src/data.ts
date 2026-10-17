@@ -28,11 +28,22 @@ export type Work = {
   stack: string[];
   visual: 'agent' | 'sentinel' | 'activation' | 'futures' | 'finance' | 'classifier';
   link?: string;
+  // case layout: one hero number, then Problem / Built / Result
+  big: string;
+  bigSmall: string;
+  problem: string;
+  built: string;
+  result: string;
 };
 
 export const work: Work[] = [
   {
     id: 'deal-agent',
+    big: "weeks → min",
+    bigSmall: "per deal model",
+    problem: "Leaders wanted several deal models before locking a partnership, and each one took weeks in Excel.",
+    built: "An LLM agent on 20+ live data sources. The LLM only routes, Python computes every number, and each run ends in a dashboard leaders can change.",
+    result: "Replaced about 6 months of manual modeling in its first week and underwrote deals bringing 4M access-plan customers and 3M general customers.",
     name: 'Deal agent',
     year: '2026',
     kind: 'LLM agent · launched',
@@ -45,6 +56,11 @@ export const work: Work[] = [
   },
   {
     id: 'activation',
+    big: "7M",
+    bigSmall: "new active members",
+    problem: "Every partner launch needed a lift read within a week, from systems that did not share customer IDs.",
+    built: "One framework joining experiment, streaming, website and subscription data, plus a fix for about 30K customers sitting in both control and test.",
+    result: "VPs expanded the feature across 13 partners. It now contributes 7M new active members, 5.5M of them engaged.",
     name: 'Auto-activation',
     year: '2025',
     kind: 'Measurement',
@@ -57,6 +73,11 @@ export const work: Work[] = [
   },
   {
     id: 'sentinel',
+    big: "10 days → 10 min",
+    bigSmall: "per team question",
+    problem: "The team's ad-hoc questions waited about 10 days for an answer.",
+    built: "Alone, a 24/7 multi-agent assistant: 19 scheduled jobs, 5 read-only specialists, a validator and a 1,995-concept knowledge base.",
+    result: "Answers in about 10 minutes, and a poster at a company-wide analytics conference, top 20 of 1,100.",
     name: 'Sentinel',
     year: '2026',
     kind: 'Multi-agent · built solo',
@@ -69,6 +90,11 @@ export const work: Work[] = [
   },
   {
     id: 'deep-dive',
+    big: "91%",
+    bigSmall: "of the decline was customer mix",
+    problem: "A VP's annual plan needed to know whether a top Latin American market's biggest telecom deal added members or took them from the core service.",
+    built: "A 41-month, 300M+ row customer-month pipeline validated 3 ways, and a matched-cohort causal study. It also caught a benchmark table double-counting partner members 1.7x.",
+    result: "A trusted answer 2 days after the ask: 91% of the engagement decline was customer mix. Business and finance stories went into one document for the VP.",
     name: 'Deal deep dive',
     year: '2026',
     kind: 'Causal analysis',
@@ -81,6 +107,11 @@ export const work: Work[] = [
   },
   {
     id: 'deal-model',
+    big: "0.9%",
+    bigSmall: "not 8.2%, launch cleared",
+    problem: "A major US cable partner's deal needed a free-cash-flow model, a cannibalization read and daily executive metrics. The day before the marketing launch, leadership asked how many members were stuck on app-store billing.",
+    built: "The deal's financial model and metrics. On launch eve, a 5-stage Glue pipeline built the same day from the 2 tables out of 1,027 that link billing to entitlements.",
+    result: "Exposure was 0.9%, not 8.2%, and leadership cleared the launch within the hour. The deal reached 4M subscriptions in its first 3 months.",
     name: 'Launch-day model',
     year: '2026',
     kind: 'Financial model',
@@ -93,6 +124,11 @@ export const work: Work[] = [
   },
   {
     id: 'cx-funnel',
+    big: "72h → 1h",
+    bigSmall: "issue resolution",
+    problem: "40% of activation attempts dropped somewhere between sign-in and payment, and the belief was that 90% of drop-offs were OTP or CAPTCHA.",
+    built: "With 3 colleagues, a funnel over 3 sources and 1B+ daily records that sorts 290+ clickstream pages and 100+ failure reasons into 15 categories.",
+    result: "OTP and CAPTCHA turned out to be under 1%. Issue resolution went from 72 hours to under 1, and 15+ new partner integrations got their measurement framework.",
     name: 'Activation funnel',
     year: '2024',
     kind: 'Funnel analytics',
@@ -105,6 +141,11 @@ export const work: Work[] = [
   },
   {
     id: 'futures',
+    big: "149",
+    bigSmall: "merged PRs · side project",
+    problem: "Can any intraday rule on Nasdaq-100 micro futures survive trading costs?",
+    built: "With a research partner, about 56K lines of Python. Every test is pre-registered and scored against matched random entries on 1-minute data from 2014 to 2022.",
+    result: "No entry rule has beaten costs yet, and the reports say so.",
     name: 'Futures lab',
     year: '2026',
     kind: 'Side project · research',
@@ -117,6 +158,11 @@ export const work: Work[] = [
   },
   {
     id: 'finance',
+    big: "2,811",
+    bigSmall: "transactions · side project",
+    problem: "Three years of statements across 3 accounts needed categorizing with zero manual entry.",
+    built: "A Python and SQLite pipeline that categorizes every transaction and publishes ratios only.",
+    result: "2,811 transactions categorized in 2 days.",
     name: 'Spend map',
     year: '2025',
     kind: 'Side project · privacy',

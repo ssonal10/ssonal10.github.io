@@ -5,7 +5,7 @@ import { IntroGame, shouldShowIntro } from './ui/IntroGame';
 import { Nav } from './ui/Nav';
 import { Hero } from './sections/Hero';
 import { Numbers } from './sections/Numbers';
-import { WorkList } from './sections/WorkList';
+import { WorkCases } from './sections/WorkCases';
 import { DesignNotes } from './sections/DesignNotes';
 import { Path } from './sections/Path';
 import { Life } from './sections/Life';
@@ -81,7 +81,7 @@ export default function App() {
         </header>
         <Hero ready={ready && fontsReady} />
         <Numbers />
-        <WorkList />
+        <WorkCases />
         <DesignNotes />
         <Path />
         <Life />
