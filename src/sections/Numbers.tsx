@@ -2,7 +2,14 @@ import { useLayoutEffect, useRef } from 'react';
 import { gsap, prefersReducedMotion } from '../lib/motion';
 import { numbers, stack } from '../data';
 
-/** Four headline numbers that rise in, then a stack ticker that leans with scroll speed. */
+// counts with decimals on the way up, lands on the clean value ("7M", not "7.0M")
+const fmt = (n: (typeof numbers)[number], v: number) =>
+  n.display ?? `${v >= n.value ? n.value : v.toFixed(n.decimals ?? 0)}${n.suffix ?? ''}`;
+
+/**
+ * Headline numbers: each counts up once on enter, with what it used to be
+ * struck through above it. Then a stack ticker that leans with scroll speed.
+ */
 export function Numbers() {
   const root = useRef<HTMLElement>(null);
 
@@ -16,7 +23,22 @@ export function Numbers() {
         stagger: 0.08,
         scrollTrigger: { trigger: root.current, start: 'top 75%' },
       });
-      // ticker: constant drift, skews with scroll velocity
+      root.current!.querySelectorAll<HTMLElement>('.num-value').forEach((el, i) => {
+        const n = numbers[i];
+        if (n.display) return;
+        const o = { v: 0 };
+        gsap.to(o, {
+          v: n.value,
+          duration: 1.6,
+          ease: 'expo.out',
+          scrollTrigger: { trigger: root.current, start: 'top 70%' },
+          onUpdate: () => {
+            el.textContent = fmt(n, o.v);
+          },
+        });
+      });
+
+      // ticker: constant drift, speeds up and leans with scroll velocity
       const track = root.current!.querySelector<HTMLElement>('.ticker-track')!;
       const loop = gsap.to(track, { xPercent: -50, duration: 40, ease: 'none', repeat: -1 });
       const skew = gsap.quickTo(track, 'skewX', { duration: 0.4, ease: 'power3' });
@@ -28,7 +50,7 @@ export function Numbers() {
           onUpdate: (self) => {
             const v = self.getVelocity();
             loop.timeScale(1 + Math.min(Math.abs(v) / 400, 6) * (v < 0 ? -1 : 1));
-            skew(gsap.utils.clamp(-8, 8, v / -300));
+            skew(Math.abs(v) < 50 ? 0 : gsap.utils.clamp(-8, 8, v / -300));
           },
         },
       });
@@ -38,14 +60,15 @@ export function Numbers() {
 
   return (
     <section ref={root} aria-label="Numbers" className="relative border-t border-line bg-ink py-20 text-paper sm:py-28">
-      <div className="grid grid-cols-2 gap-y-12 px-5 sm:px-8 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-y-14 px-5 sm:px-8 lg:grid-cols-4">
         {numbers.map((n) => (
           <div key={n.small} className="overflow-hidden border-l border-line pl-4">
             <div className="num-cell">
-              <p className="font-display text-5xl font-extrabold tracking-tight text-paper sm:text-7xl">
-                {n.big}
+              <p className="label h-4 text-stone line-through decoration-lime/70">{n.was ?? ''}</p>
+              <p className="num-value mt-2 font-display text-6xl font-extrabold leading-[0.85] tracking-tight text-paper lg:text-[7.5vw]">
+                {fmt(n, n.value)}
               </p>
-              <p className="label mt-3 max-w-[12rem] leading-relaxed text-stone">{n.small}</p>
+              <p className="label mt-4 max-w-[12rem] leading-relaxed text-stone">{n.small}</p>
             </div>
           </div>
         ))}
@@ -54,8 +77,11 @@ export function Numbers() {
       <div className="mt-20 overflow-hidden border-y border-line py-5" aria-hidden="true">
         <div className="ticker-track flex w-max gap-10 whitespace-nowrap">
           {[...stack, ...stack].map((s, i) => (
-            <span key={i} className="font-serif text-4xl italic text-paper/80 sm:text-6xl">
-              {s} <span className="not-italic text-lime">✳</span>
+            <span key={i} className="flex items-center gap-10 font-serif text-4xl italic text-paper/80 sm:text-6xl">
+              {s}
+              <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-lime sm:h-8 sm:w-8" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" />
+              </svg>
             </span>
           ))}
         </div>

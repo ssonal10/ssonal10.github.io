@@ -29,6 +29,8 @@ export default function App() {
     } else {
       lenis?.start();
       document.documentElement.style.overflow = '';
+      // pins were measured while the page was locked
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     }
   }, [intro]);
 

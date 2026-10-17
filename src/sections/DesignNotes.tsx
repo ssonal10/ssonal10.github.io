@@ -10,6 +10,9 @@ import { Diagram, diagrams } from '../ui/Diagram';
  */
 export function DesignNotes() {
   const root = useRef<HTMLElement>(null);
+  const bar = useRef<HTMLDivElement>(null);
+  const count = useRef<HTMLParagraphElement>(null);
+  const hint = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
     if (isTouch() || prefersReducedMotion()) return;
@@ -26,6 +29,14 @@ export function DesignNotes() {
           scrub: 0.6,
           pin: true,
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            bar.current?.style.setProperty('transform', `scaleX(${self.progress})`);
+            if (count.current) {
+              const page = Math.min(3, Math.max(1, Math.ceil(self.progress * 3.2)));
+              count.current.textContent = `0${page} / 03`;
+            }
+            hint.current?.style.setProperty('opacity', self.progress > 0.02 ? '0' : '1');
+          },
         },
       });
       gsap.utils.toArray<HTMLElement>('.dn-page').forEach((page) => {
@@ -45,6 +56,12 @@ export function DesignNotes() {
 
   return (
     <section ref={root} id="notes" aria-label="Design notes" className="relative overflow-hidden border-t border-line bg-ink text-paper">
+      <div className="no-print absolute inset-x-5 bottom-6 z-10 hidden items-center gap-4 sm:inset-x-8 md:flex">
+        <p ref={count} className="label text-stone">01 / 03</p>
+        <div className="h-px flex-1 bg-line">
+          <div ref={bar} className="h-px origin-left scale-x-0 bg-lime" />
+        </div>
+      </div>
       <div className="dn-track flex flex-col gap-16 px-5 py-20 md:h-screen md:w-max md:flex-row md:items-center md:gap-10 md:px-8 md:py-0">
         <div className="flex shrink-0 flex-col justify-center md:w-[34vw]">
           <p className="label text-lime">Design notes</p>
@@ -57,19 +74,19 @@ export function DesignNotes() {
             One page per system, the way I write them at work: the problem, the rules it follows, its shape and what it
             gives up. Generic on purpose, no internal names.
           </p>
-          <p className="label mt-8 hidden text-stone md:block">Scroll →</p>
+          <p ref={hint} className="label mt-8 hidden text-stone transition-opacity md:block">Scroll →</p>
         </div>
 
         {designNotes.map((n, i) => (
           <article
             key={n.id}
-            className="dn-page flex shrink-0 flex-col rounded-3xl border border-line bg-[#121210] p-6 md:h-[82vh] md:w-[78vw] md:max-w-[1100px] md:p-10"
+            className="dn-page flex shrink-0 flex-col rounded-3xl border border-line bg-[#121210] p-6 md:h-[84vh] md:w-[88vw] md:max-w-[1280px] md:p-10"
           >
             <header className="flex items-baseline justify-between gap-4 border-b border-line pb-4">
               <h3 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{n.title}</h3>
               <span className="label text-stone">Note {String(i + 1).padStart(2, '0')}</span>
             </header>
-            <div className="grid flex-1 gap-8 pt-6 md:grid-cols-[1fr_2fr]">
+            <div className="grid flex-1 gap-8 pt-6 md:grid-cols-[1fr_1.7fr]">
               <div className="space-y-6 text-[15px] leading-relaxed">
                 <div>
                   <p className="label mb-2 text-lime">Problem</p>

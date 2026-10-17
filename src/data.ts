@@ -12,11 +12,11 @@ export const profile = {
 };
 
 export const numbers = [
-  { big: 'minutes', small: 'not weeks, per deal model' },
-  { big: '7M', small: 'new active members, measured' },
-  { big: '10 min', small: 'Sentinel answers, was 10 days' },
-  { big: '4', small: 'data engineers on my team' },
-];
+  { value: 0, display: 'min', was: 'weeks', small: 'per deal model' },
+  { value: 7, decimals: 1, suffix: 'M', small: 'new active members, measured' },
+  { value: 10, suffix: ' min', was: '10 days', small: 'per Sentinel answer' },
+  { value: 4, small: 'data engineers on my team' },
+] as { value: number; decimals?: number; suffix?: string; display?: string; was?: string; small: string }[];
 
 export type Work = {
   id: string;
@@ -143,7 +143,7 @@ export const experience = [
     lines: [
       'Manager of 4 data engineers since Jul 2026.',
       'Launched the deal agent; built auto-activation measurement and Sentinel.',
-      'Gave a VP plan a trusted answer in 2 days from a 300M+ row pipeline.',
+      'Answered a VP planning question in 2 days, from a 300M+ row pipeline.',
     ],
   },
   {
@@ -173,7 +173,7 @@ export const experience = [
 export const recognition = [
   { big: '1st', text: 'prize, internal AI hackathon', when: 'Dec 2025' },
   { big: 'Top 20', text: 'of 1,100, company-wide analytics conference poster', when: '2026' },
-  { big: 'PC', text: 'Program Committee, HBDA-LLM workshop at IEEE BigData', when: '2026' },
+  { big: 'IEEE', text: 'Program Committee, HBDA-LLM workshop at IEEE BigData', when: '2026' },
 ];
 
 export const stack = [

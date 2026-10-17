@@ -9,10 +9,10 @@ const links = [
   { id: 'contact', label: 'Contact' },
 ];
 
-/** Obys-style nav: plain mono links in difference blend, so it reads on any section. */
+/** Obys-style nav: plain mono links; colour follows the page theme (ink on the paper section). */
 export function Nav({ onReplay }: { onReplay: () => void }) {
   return (
-    <header className="no-print fixed inset-x-0 top-0 z-50 flex items-center justify-between p-5 text-white mix-blend-difference sm:p-8">
+    <header className="site-nav no-print fixed inset-x-0 top-0 z-50 flex items-center justify-between p-5 text-paper transition-colors duration-500 sm:p-8">
       <a
         href="#top"
         onClick={(e) => {
@@ -22,7 +22,7 @@ export function Nav({ onReplay }: { onReplay: () => void }) {
         className="font-display text-lg font-extrabold tracking-tight"
         data-cursor="top"
       >
-        S<span className="text-lime">@</span>S
+        S<span className="text-lime [text-shadow:0_0_1px_currentColor]">@</span>S
       </a>
       <nav aria-label="Sections" className="flex items-center gap-4 sm:gap-7">
         {links.map((l) => (
@@ -36,10 +36,10 @@ export function Nav({ onReplay }: { onReplay: () => void }) {
             className={`label group relative ${l.id === 'notes' || l.id === 'path' ? 'hidden md:inline' : ''}`}
           >
             {l.label}
-            <span className="absolute -bottom-1 left-0 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
+            <span className="absolute -bottom-1 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
           </a>
         ))}
-        <button type="button" onClick={onReplay} className="label hidden text-lime lg:inline" data-cursor="play">
+        <button type="button" onClick={onReplay} className="label hidden hover:text-lime lg:inline" data-cursor="play">
           ▶ game
         </button>
         <a href={`mailto:${profile.email}`} className="sr-only">

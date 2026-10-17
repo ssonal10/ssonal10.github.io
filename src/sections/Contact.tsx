@@ -1,10 +1,35 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap, isTouch } from '../lib/motion';
 import { profile } from '../data';
 
 /** Footer with a magnetic "Say hi" button that leans toward the cursor. */
 export function Contact({ onReplay }: { onReplay: () => void }) {
   const btn = useRef<HTMLAnchorElement>(null);
+  const [tally, setTally] = useState('');
+
+  // echo the intro game: what did this visitor catch?
+  useEffect(() => {
+    const read = () => {
+      try {
+        const t = JSON.parse(sessionStorage.getItem('intro-tally') || 'null') as Record<string, number> | null;
+        if (!t) return setTally('');
+        const parts = [
+          [t.dot, 'data point', 'data points'],
+          [t.bell, 'dumbbell', 'dumbbells'],
+          [t.peak, 'peak', 'peaks'],
+          [t.play, 'play button', 'play buttons'],
+        ]
+          .filter(([n]) => (n as number) > 0)
+          .map(([n, one, many]) => `${n} ${n === 1 ? one : many}`);
+        setTally(parts.length ? `You caught ${parts.join(', ')}. Python did the math.` : '');
+      } catch {
+        setTally('');
+      }
+    };
+    read();
+    const id = window.setInterval(read, 2000);
+    return () => window.clearInterval(id);
+  }, []);
 
   const onMove = (e: React.PointerEvent) => {
     if (isTouch() || !btn.current) return;
@@ -53,7 +78,8 @@ export function Contact({ onReplay }: { onReplay: () => void }) {
         </ul>
       </div>
 
-      <div className="relative mt-24 flex flex-col justify-between gap-4 border-t border-line pt-6 sm:flex-row">
+      {tally && <p className="label relative mt-20 text-lime">{tally}</p>}
+      <div className="relative mt-6 flex flex-col justify-between gap-4 border-t border-line pt-6 sm:flex-row">
         <p className="label text-stone">© 2026 {profile.name} · Seattle</p>
         <button type="button" onClick={onReplay} className="label text-left text-stone hover:text-lime" data-cursor="play">
           Replay the intro game ▶

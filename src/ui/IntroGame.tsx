@@ -5,7 +5,8 @@ import { gsap, prefersReducedMotion } from '../lib/motion';
  * "Fill the model": a 15 second catch game before the site.
  * Catch data points, dumbbells, mountains and play buttons with a little bar
  * chart. A red "LLM guess" bounces off: Python computes, the LLM only routes.
- * 10 catches build the model, then the gate opens onto the hero.
+ * 7 catches (or 10 seconds) build the model, then the gate opens onto the hero.
+ * What you caught is kept in sessionStorage for the footer.
  * Skippable at any time, shown once per session (?play replays it), skipped
  * for reduced motion and Save-Data.
  */
@@ -13,7 +14,8 @@ import { gsap, prefersReducedMotion } from '../lib/motion';
 type Kind = 'dot' | 'bell' | 'peak' | 'play' | 'guess';
 type Token = { x: number; y: number; vy: number; vx: number; kind: Kind; spin: number; bounced?: boolean };
 
-const GOAL = 10;
+const GOAL = 7;
+const TIME_LIMIT = 10; // seconds; the model finishes itself after this
 const LIME = '#c8f05a';
 const PAPER = '#f3efe6';
 const RED = '#ff5a4e';
@@ -154,6 +156,19 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
     let raf = 0;
     let ended = false;
     let guesses = 0;
+    const started = performance.now();
+    const tally: Record<string, number> = { dot: 0, bell: 0, peak: 0, play: 0 };
+    const finish = () => {
+      if (ended) return;
+      ended = true;
+      try {
+        sessionStorage.setItem('intro-tally', JSON.stringify(tally));
+      } catch {
+        /* private mode */
+      }
+      setFinished(true);
+      window.setTimeout(close, 1300);
+    };
     const keys = { left: false, right: false };
 
     const onPointer = (e: PointerEvent) => {
@@ -188,6 +203,7 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
       paddle.target = Math.max(paddle.w / 2, Math.min(W - paddle.w / 2, paddle.target));
       paddle.x += (paddle.target - paddle.x) * Math.min(1, dt * 14);
 
+      if (!ended && (now - started) / 1000 > TIME_LIMIT) finish();
       if (!ended) {
         spawnIn -= dt;
         if (spawnIn <= 0) {
@@ -228,12 +244,9 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
           } else if (!ended) {
             tokens.splice(i, 1);
             score++;
+            tally[t.kind]++;
             setCaught(score);
-            if (score >= GOAL) {
-              ended = true;
-              setFinished(true);
-              window.setTimeout(close, 1300);
-            }
+            if (score >= GOAL) finish();
             continue;
           }
         }
@@ -297,7 +310,7 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
               Fill the model
             </p>
             <p className="mt-4 text-sm text-stone sm:text-base">
-              Catch {GOAL}. Dodge the red guess. Mouse, finger or arrow keys.
+              Catch {GOAL}. Dodge the red guess. Mouse, finger or arrow keys. 10 seconds.
             </p>
           </>
         ) : (

@@ -79,3 +79,5 @@ body[data-theme='paper'] { background: var(--paper); color: var(--ink); }
 /* Diagram edges: data flowing */
 @keyframes flow { to { stroke-dashoffset: -40; } }
 .flow { stroke-dasharray: 6 14; animation: flow 1.2s linear infinite; }
+
+body[data-theme='paper'] .site-nav { color: var(--ink); }

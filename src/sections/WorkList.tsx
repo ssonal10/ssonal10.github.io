@@ -14,6 +14,7 @@ export function WorkList() {
   const [active, setActive] = useState(0);
   const [pinned, setPinned] = useState(true);
   const dir = useRef<1 | -1>(1);
+  const counter = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
     if (isTouch() || prefersReducedMotion()) {
@@ -25,6 +26,9 @@ export function WorkList() {
       const items = gsap.utils.toArray<HTMLElement>('.wl-item');
       const itemH = () => items[0].offsetHeight;
       const y = gsap.quickTo(list, 'y', { duration: 0.9, ease: 'power3' });
+      const op = items.map((el) => gsap.quickTo(el, 'opacity', { duration: 0.6, ease: 'power3' }));
+      const sc = items.map((el) => gsap.quickTo(el, 'scale', { duration: 0.6, ease: 'power3' }));
+      gsap.set(items, { transformOrigin: 'left center' });
       let current = -1;
 
       ScrollTrigger.create({
@@ -36,6 +40,13 @@ export function WorkList() {
         onUpdate: (self) => {
           const f = self.progress * (work.length - 1);
           y(-f * itemH());
+          // items fade and shrink with distance from the centre line
+          items.forEach((_, i) => {
+            const d = Math.abs(i - f);
+            op[i](1 - gsap.utils.clamp(0, 0.85, d * 0.38));
+            sc[i](1 - Math.min(d, 3) * 0.06);
+          });
+          if (counter.current) counter.current.textContent = `${String(Math.round(f) + 1).padStart(2, '0')} / ${String(work.length).padStart(2, '0')}`;
           const idx = Math.round(f);
           if (idx !== current) {
             dir.current = idx > current ? 1 : -1;
@@ -86,13 +97,19 @@ export function WorkList() {
       ))}
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-ink/20" />
 
-      <p className="label absolute left-5 top-24 text-stone sm:left-8">Selected work ({work.length})</p>
+      <p className="label absolute left-5 top-24 text-lime sm:left-8">Selected work</p>
+      <p ref={counter} className="label absolute bottom-8 left-5 text-stone sm:left-8">
+        01 / {String(work.length).padStart(2, '0')}
+      </p>
 
       {/* list: item at index `active` sits on the centre line */}
-      <div className="absolute inset-x-0 top-1/2 px-5 sm:px-8">
+      <div
+        className="absolute inset-0 px-5 [mask-image:linear-gradient(to_bottom,transparent_6%,black_28%,black_72%,transparent_94%)] sm:px-8"
+        style={{ paddingTop: '50vh' }}
+      >
         <ol className="wl-list" style={{ marginTop: '-0.5em' }}>
           {work.map((p, i) => (
-            <li key={p.id} className="wl-item relative font-display text-[13vw] font-extrabold leading-[1] tracking-[-0.04em] md:text-[8vw]">
+            <li key={p.id} className="wl-item relative font-display text-[13vw] font-extrabold leading-[1] tracking-[-0.04em] md:text-[7vw]">
               <span className="block text-transparent [-webkit-text-stroke:1px_rgba(243,239,230,0.28)]">{p.name}</span>
               <span
                 className="wl-fill absolute inset-0 text-paper"

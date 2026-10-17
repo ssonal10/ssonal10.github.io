@@ -86,23 +86,23 @@ export function Diagram({ spec, title }: { spec: DiagramSpec; title: string }) {
             <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="12" fill={t.fill} stroke={t.stroke} strokeWidth="1.5" />
             <text
               x={n.x + n.w / 2}
-              y={n.y + n.h / 2 + (n.sub ? -4 : 6)}
+              y={n.y + n.h / 2 + (n.sub ? -5 : 7)}
               textAnchor="middle"
               fill={t.text}
               fontFamily="Bricolage Grotesque"
               fontWeight="700"
-              fontSize="17"
+              fontSize="21"
             >
               {n.label}
             </text>
             {n.sub && (
               <text
                 x={n.x + n.w / 2}
-                y={n.y + n.h / 2 + 17}
+                y={n.y + n.h / 2 + 19}
                 textAnchor="middle"
                 fill={n.tone === 'solid' ? '#2a2825' : '#8f8a84'}
                 fontFamily="JetBrains Mono"
-                fontSize="11"
+                fontSize="13"
               >
                 {n.sub}
               </text>
@@ -117,13 +117,13 @@ export function Diagram({ spec, title }: { spec: DiagramSpec; title: string }) {
 export const diagrams: Record<'agent' | 'sentinel' | 'measure', DiagramSpec> = {
   agent: {
     nodes: [
-      { id: 'leader', x: 20, y: 245, w: 140, h: 70, label: 'Leader', sub: 'asks for a model' },
-      { id: 'auth', x: 215, y: 245, w: 150, h: 70, label: 'Chat + IAM', sub: 'per-exec access' },
-      { id: 'router', x: 420, y: 235, w: 170, h: 90, label: 'LLM router', sub: 'Strands · AgentCore', tone: 'lime' },
-      { id: 'engine', x: 660, y: 235, w: 180, h: 90, label: 'Python engine', sub: 'computes every number', tone: 'solid' },
-      { id: 'sources', x: 660, y: 50, w: 180, h: 80, label: '20+ live sources', sub: 'S3 · Athena', tone: 'glacier' },
-      { id: 'gates', x: 660, y: 430, w: 180, h: 70, label: 'Validation gates', sub: 'tests on every run' },
-      { id: 'dash', x: 420, y: 430, w: 170, h: 70, label: 'Dashboard', sub: 'one per run' },
+      { id: 'leader', x: 10, y: 245, w: 150, h: 70, label: 'Leader', sub: 'asks for a model' },
+      { id: 'auth', x: 200, y: 245, w: 165, h: 70, label: 'Chat + IAM', sub: 'per-exec access' },
+      { id: 'router', x: 410, y: 235, w: 190, h: 90, label: 'LLM router', sub: 'Strands · AgentCore', tone: 'lime' },
+      { id: 'engine', x: 660, y: 235, w: 200, h: 90, label: 'Python engine', sub: 'computes every number', tone: 'solid' },
+      { id: 'sources', x: 660, y: 50, w: 200, h: 80, label: '20+ live sources', sub: 'S3 · Athena', tone: 'glacier' },
+      { id: 'gates', x: 660, y: 430, w: 200, h: 70, label: 'Validation gates', sub: 'tests on every run' },
+      { id: 'dash', x: 410, y: 430, w: 190, h: 70, label: 'Dashboard', sub: 'one per run' },
     ],
     edges: [
       { from: 'leader', to: 'auth' },
@@ -137,17 +137,17 @@ export const diagrams: Record<'agent' | 'sentinel' | 'measure', DiagramSpec> = {
   },
   sentinel: {
     nodes: [
-      { id: 'ask', x: 20, y: 200, w: 140, h: 70, label: 'Slack ask', sub: 'any teammate' },
-      { id: 'cron', x: 20, y: 330, w: 140, h: 70, label: '19 jobs', sub: 'scheduled' },
-      { id: 'orch', x: 210, y: 235, w: 170, h: 90, label: 'Orchestrator', sub: 'Claude Code', tone: 'lime' },
+      { id: 'ask', x: 10, y: 200, w: 150, h: 70, label: 'Slack ask', sub: 'any teammate' },
+      { id: 'cron', x: 10, y: 330, w: 150, h: 70, label: '19 jobs', sub: 'scheduled' },
+      { id: 'orch', x: 195, y: 235, w: 185, h: 90, label: 'Orchestrator', sub: 'Claude Code', tone: 'lime' },
       { id: 's1', x: 440, y: 30, w: 150, h: 60, label: 'Slack', sub: 'read-only', tone: 'ghost' },
       { id: 's2', x: 440, y: 130, w: 150, h: 60, label: 'Tickets', sub: 'read-only', tone: 'ghost' },
       { id: 's3', x: 440, y: 230, w: 150, h: 60, label: 'Docs', sub: 'read-only', tone: 'ghost' },
       { id: 's4', x: 440, y: 330, w: 150, h: 60, label: 'Email', sub: 'read-only', tone: 'ghost' },
       { id: 's5', x: 440, y: 430, w: 150, h: 60, label: 'Code', sub: 'read-only', tone: 'ghost' },
-      { id: 'kb', x: 650, y: 40, w: 160, h: 70, label: 'Knowledge base', sub: '1,995 concepts', tone: 'glacier' },
-      { id: 'val', x: 650, y: 235, w: 160, h: 90, label: 'Validator', sub: 'checks claims', tone: 'solid' },
-      { id: 'human', x: 850, y: 235, w: 130, h: 90, label: 'Human', sub: 'approves, sends' },
+      { id: 'kb', x: 640, y: 40, w: 180, h: 70, label: 'Knowledge base', sub: '1,995 concepts', tone: 'glacier' },
+      { id: 'val', x: 640, y: 235, w: 180, h: 90, label: 'Validator', sub: 'checks claims', tone: 'solid' },
+      { id: 'human', x: 850, y: 235, w: 145, h: 90, label: 'Human', sub: 'approves, sends' },
     ],
     edges: [
       { from: 'ask', to: 'orch' },
@@ -164,16 +164,16 @@ export const diagrams: Record<'agent' | 'sentinel' | 'measure', DiagramSpec> = {
   },
   measure: {
     nodes: [
-      { id: 'e', x: 20, y: 40, w: 150, h: 60, label: 'Experiments', tone: 'ghost' },
-      { id: 'st', x: 20, y: 160, w: 150, h: 60, label: 'Streaming', tone: 'ghost' },
-      { id: 'w', x: 20, y: 280, w: 150, h: 60, label: 'Website', tone: 'ghost' },
-      { id: 'su', x: 20, y: 400, w: 150, h: 60, label: 'Subscriptions', tone: 'ghost' },
-      { id: 'id', x: 225, y: 210, w: 160, h: 90, label: 'Identity map', sub: 'one customer key', tone: 'glacier' },
-      { id: 'as', x: 440, y: 200, w: 180, h: 110, label: 'Date-bounded', sub: 'control | test', tone: 'solid' },
-      { id: 'g', x: 680, y: 90, w: 140, h: 60, label: 'Glue + Spark' },
-      { id: 'a', x: 680, y: 225, w: 140, h: 60, label: 'Athena' },
-      { id: 'q', x: 680, y: 360, w: 140, h: 60, label: 'QuickSight' },
-      { id: 'vp', x: 860, y: 215, w: 120, h: 80, label: 'VP call', sub: 'expand?', tone: 'lime' },
+      { id: 'e', x: 10, y: 40, w: 160, h: 60, label: 'Experiments', tone: 'ghost' },
+      { id: 'st', x: 10, y: 160, w: 160, h: 60, label: 'Streaming', tone: 'ghost' },
+      { id: 'w', x: 10, y: 280, w: 160, h: 60, label: 'Website', tone: 'ghost' },
+      { id: 'su', x: 10, y: 400, w: 160, h: 60, label: 'Subscriptions', tone: 'ghost' },
+      { id: 'id', x: 205, y: 210, w: 185, h: 90, label: 'Identity map', sub: 'one customer key', tone: 'glacier' },
+      { id: 'as', x: 435, y: 200, w: 195, h: 110, label: 'Date-bounded', sub: 'control | test', tone: 'solid' },
+      { id: 'g', x: 670, y: 90, w: 160, h: 60, label: 'Glue + Spark' },
+      { id: 'a', x: 670, y: 225, w: 160, h: 60, label: 'Athena' },
+      { id: 'q', x: 670, y: 360, w: 160, h: 60, label: 'QuickSight' },
+      { id: 'vp', x: 865, y: 215, w: 130, h: 80, label: 'VP call', sub: 'expand?', tone: 'lime' },
     ],
     edges: [
       { from: 'e', to: 'id' },
