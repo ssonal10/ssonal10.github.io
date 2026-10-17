@@ -263,7 +263,7 @@ export type LifePhoto = { src: string; caption: string; tall?: boolean };
 
 export const life: LifePhoto[] = [
   { src: 'rainier', caption: 'Naches, WA', tall: true },
-  { src: 'gym-mirror', caption: 'Leg day' },
+  { src: 'gym', caption: 'Every day' },
   { src: 'brooklyn-night', caption: 'Brooklyn Bridge' },
   { src: 'maui', caption: 'Kapalua, Maui', tall: true },
   { src: 'seattle-wheel', caption: 'Seattle waterfront' },
