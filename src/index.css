@@ -3,212 +3,79 @@
 @tailwind utilities;
 
 :root {
+  --ink: #0b0b09;
+  --paper: #f3efe6;
+  --lime: #c8f05a;
+  --glacier: #5cc8c2;
+  --stone: #8f8a84;
   color-scheme: dark;
 }
 
 html {
-  scroll-behavior: smooth;
-}
-
-html, body {
-  background: #0b0b09;
+  background: var(--ink);
+  color: var(--paper);
   overflow-x: clip;
 }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 body {
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  background: var(--ink);
+  color: var(--paper);
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: 'ss01', 'cv11';
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+body[data-theme='paper'] { background: var(--paper); color: var(--ink); }
+
+::selection { background: var(--lime); color: var(--ink); }
+
+/* Hide native cursor only where the custom one runs */
+@media (pointer: fine) {
+  html.has-cursor, html.has-cursor * { cursor: none !important; }
 }
 
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: #0b0b09; }
-::-webkit-scrollbar-thumb { background: rgba(200,240,90,0.2); border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(200,240,90,0.45); }
+/* Line-mask reveal helper (Obys) */
+.mask { overflow: hidden; display: block; }
+.mask > * { display: block; }
 
-::selection { background: rgba(200,240,90,0.3); color: #f3efe6; }
-
-/* ===== Aurora mesh background ===== */
-.aurora {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  filter: blur(100px) saturate(140%);
-  opacity: 0.32;
-}
-.aurora::before,
-.aurora::after,
-.aurora > span {
-  content: '';
-  position: absolute;
-  border-radius: 9999px;
-}
-.aurora::before {
-  width: 620px; height: 620px;
-  top: -140px; left: -120px;
-  background: radial-gradient(circle, #c8f05a 0%, transparent 60%);
-  animation: aurora1 22s ease-in-out infinite;
-}
-.aurora::after {
-  width: 720px; height: 720px;
-  bottom: -220px; right: -180px;
-  background: radial-gradient(circle, #ff8f63 0%, transparent 60%);
-  animation: aurora2 28s ease-in-out infinite;
-}
-.aurora > span {
-  width: 520px; height: 520px;
-  top: 35%; left: 40%;
-  background: radial-gradient(circle, #e8b04a 0%, transparent 60%);
-  animation: aurora3 24s ease-in-out infinite;
-  opacity: 0.45;
+.label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-/* ===== Film grain ===== */
 .grain {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  pointer-events: none;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
+  position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ===== Grid texture ===== */
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(179,173,162,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(179,173,162,0.035) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-}
+:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 4px; }
 
-/* ===== Glass ===== */
-.glass {
-  background: linear-gradient(135deg, rgba(26,25,23,0.55) 0%, rgba(26,25,23,0.35) 100%);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(179,173,162,0.08);
-  box-shadow: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 40px 80px -20px rgba(0,0,0,0.4);
-}
-
-/* ===== Gradient text ===== */
-.text-gradient {
-  background: linear-gradient(135deg, #faf8f3 0%, #c8f05a 60%, #ff8f63 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.text-gradient-2 {
-  background: linear-gradient(180deg, #f3efe6 0%, #8f8a84 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ===== Conic animated border (for hero project card) ===== */
-.conic-border {
-  position: relative;
-  isolation: isolate;
-}
-.conic-border::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(from var(--angle, 0deg), transparent 0%, #c8f05a 10%, #ff8f63 30%, transparent 40%, transparent 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: spin-angle 6s linear infinite;
-  z-index: -1;
-}
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes spin-angle {
-  to { --angle: 360deg; }
-}
-
-/* ===== Shimmer ===== */
-.shimmer-text {
-  background: linear-gradient(110deg, #8f8a84 40%, #f3efe6 50%, #8f8a84 60%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 2.5s linear infinite;
-}
-
-/* ===== Chip ===== */
-.chip {
-  display: inline-flex; align-items: center;
-  padding: 0.2rem 0.625rem;
-  border-radius: 9999px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: #d2ccc0;
-  background: rgba(42,40,37,0.5);
-  border: 1px solid rgba(179,173,162,0.12);
-  transition: all 0.2s ease;
-}
-.chip:hover {
-  border-color: rgba(200,240,90,0.4);
-  color: #c8f05a;
-}
-.chip-accent {
-  background: rgba(200,240,90,0.10);
-  border-color: rgba(200,240,90,0.3);
-  color: #d4f56a;
-}
-
-/* ===== Dot ===== */
-.dot {
-  width: 6px; height: 6px;
-  border-radius: 9999px;
-  background: #c8f05a;
-  box-shadow: 0 0 12px rgba(200,240,90,0.8);
-}
-
-/* ===== Section label ===== */
-.section-label {
-  display: inline-flex; align-items: center;
-  gap: 0.5rem;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: #c8f05a;
-}
-.section-label::before {
-  content: ''; width: 24px; height: 1px;
-  background: linear-gradient(90deg, transparent, #c8f05a);
-}
-
-/* ===== Hover lift ===== */
-.lift { transition: transform 300ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease; }
-.lift:hover { transform: translateY(-4px); }
-
-/* ===== Marquee ===== */
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 40s linear infinite;
-}
-.marquee-mask {
-  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-}
-
-/* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0s !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0s !important;
-  }
+  *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
 }
+
+/* EB-1 reviewers and recruiters print: flatten everything */
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  .no-print, .grain { display: none !important; }
+  .pin-spacer { height: auto !important; padding: 0 !important; }
+  * { transform: none !important; opacity: 1 !important; clip-path: none !important; }
+}
+
+/* Work backdrops */
+@keyframes wv-blink { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.25; } }
+.wv-blink { animation: wv-blink 2.4s ease-in-out infinite; }
+@keyframes wv-spin { to { transform: rotate(360deg); } }
+.wv-spin { animation: wv-spin 6s linear infinite; }
+@keyframes wv-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.wv-pulse { animation: wv-pulse 2.5s ease-in-out infinite; }
+@keyframes wv-draw { from { stroke-dasharray: 0 1; } to { stroke-dasharray: 1 0; } }
+.wv-draw { animation: wv-draw 2.4s cubic-bezier(.2,.8,.2,1) both; }
+
+/* Diagram edges: data flowing */
+@keyframes flow { to { stroke-dashoffset: -40; } }
+.flow { stroke-dasharray: 6 14; animation: flow 1.2s linear infinite; }
