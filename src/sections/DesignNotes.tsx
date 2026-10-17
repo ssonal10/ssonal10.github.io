@@ -19,6 +19,7 @@ export function DesignNotes() {
     const ctx = gsap.context(() => {
       const track = root.current!.querySelector<HTMLElement>('.dn-track')!;
       const distance = () => track.scrollWidth - window.innerWidth;
+      const pages = gsap.utils.toArray<HTMLElement>('.dn-page');
       const slide = gsap.to(track, {
         x: () => -distance(),
         ease: 'none',
@@ -32,22 +33,30 @@ export function DesignNotes() {
           onUpdate: (self) => {
             bar.current?.style.setProperty('transform', `scaleX(${self.progress})`);
             if (count.current) {
-              const page = Math.min(3, Math.max(1, Math.ceil(self.progress * 3.2)));
-              count.current.textContent = `0${page} / 03`;
+              // page = the note whose centre is nearest the viewport centre
+              const mid = window.innerWidth / 2;
+              let best = 0;
+              let bestD = Infinity;
+              pages.forEach((pg, i) => {
+                const r = pg.getBoundingClientRect();
+                const d = Math.abs(r.left + r.width / 2 - mid);
+                if (d < bestD) {
+                  bestD = d;
+                  best = i;
+                }
+              });
+              count.current.textContent = `0${best + 1} / 0${pages.length}`;
             }
             hint.current?.style.setProperty('opacity', self.progress > 0.02 ? '0' : '1');
           },
         },
       });
-      gsap.utils.toArray<HTMLElement>('.dn-page').forEach((page) => {
-        gsap.from(page.querySelectorAll('.dg-node'), {
-          scale: 0.6,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.05,
-          ease: 'back.out(1.6)',
-          scrollTrigger: { trigger: page, containerAnimation: slide, start: 'left 70%' },
-        });
+      // per page: boxes pop, then edges draw, then the flowing lime + arrowheads fade in
+      pages.forEach((page) => {
+        const tl = gsap.timeline({ scrollTrigger: { trigger: page, containerAnimation: slide, start: 'left 70%' } });
+        tl.from(page.querySelectorAll('.dg-node'), { scale: 0.6, opacity: 0, duration: 0.6, stagger: 0.05, ease: 'back.out(1.6)' })
+          .from(page.querySelectorAll('.dg-base'), { drawSVG: '0%', duration: 0.8, stagger: 0.06, ease: 'power2.inOut' }, '-=0.2')
+          .from(page.querySelectorAll('.dg-live'), { opacity: 0, duration: 0.5, stagger: 0.04 }, '-=0.3');
       });
       ScrollTrigger.refresh();
     }, root);

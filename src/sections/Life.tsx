@@ -26,8 +26,8 @@ export function Life() {
       gsap.utils.toArray<HTMLElement>('.life-col').forEach((col, i) => {
         gsap.fromTo(
           col,
-          { yPercent: [6, -4, 10][i] },
-          { yPercent: [-10, 6, -14][i], ease: 'none', scrollTrigger: { trigger: root.current, scrub: true } },
+          { yPercent: [4, 2, 8][i] },
+          { yPercent: [-10, -6, -14][i], ease: 'none', scrollTrigger: { trigger: root.current, scrub: true } },
         );
       });
       gsap.from('.life-title > *', {
@@ -48,7 +48,7 @@ export function Life() {
 
   return (
     <section ref={root} id="life" aria-label="Life" className="relative px-5 py-28 sm:px-8 sm:py-36">
-      <div className="relative mb-16 grid min-h-[70vh] gap-8 pt-[22vh] md:grid-cols-[1.4fr_1fr] md:items-end">
+      <div className="relative mb-24 grid min-h-[70vh] gap-8 pt-[22vh] md:grid-cols-[1.4fr_1fr] md:items-end">
         <Stickers />
         <h2 className="life-title mask font-display text-[18vw] font-extrabold leading-[0.82] tracking-[-0.045em] md:text-[11vw]">
           <span>Off the</span>

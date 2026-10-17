@@ -65,13 +65,13 @@ export function Diagram({ spec, title }: { spec: DiagramSpec; title: string }) {
         const d = edgePath(a, b, e.loop);
         return (
           <g key={i} className="dg-edge">
-            <path d={d} fill="none" stroke="rgba(243,239,230,0.18)" strokeWidth="2" />
+            <path d={d} fill="none" stroke="rgba(243,239,230,0.18)" strokeWidth="2" className="dg-base" />
             <path
               d={d}
               fill="none"
               stroke="#c8f05a"
               strokeWidth="2"
-              className={e.dashed ? undefined : 'flow'}
+              className={e.dashed ? 'dg-live' : 'flow dg-live'}
               strokeDasharray={e.dashed ? '3 7' : undefined}
               markerEnd="url(#arrow)"
               opacity={e.dashed ? 0.5 : 0.9}

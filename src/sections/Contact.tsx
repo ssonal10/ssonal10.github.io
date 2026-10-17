@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap, isTouch } from '../lib/motion';
 import { profile } from '../data';
+import { Query } from '../ui/Query';
 
 /** Footer with a magnetic "Say hi" button that leans toward the cursor. */
 export function Contact({ onReplay }: { onReplay: () => void }) {
@@ -27,8 +28,8 @@ export function Contact({ onReplay }: { onReplay: () => void }) {
       }
     };
     read();
-    const id = window.setInterval(read, 2000);
-    return () => window.clearInterval(id);
+    window.addEventListener('intro-tally', read);
+    return () => window.removeEventListener('intro-tally', read);
   }, []);
 
   const onMove = (e: React.PointerEvent) => {
@@ -49,6 +50,8 @@ export function Contact({ onReplay }: { onReplay: () => void }) {
         <br />
         <span className="font-serif font-normal italic">dataset?</span>
       </h2>
+
+      <Query />
 
       <div className="relative mt-16 flex flex-col items-start gap-10 sm:flex-row sm:items-center sm:justify-between" onPointerMove={onMove} onPointerLeave={onLeave}>
         <a

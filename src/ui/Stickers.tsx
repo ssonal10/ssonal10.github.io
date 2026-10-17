@@ -6,7 +6,7 @@ import { InertiaPlugin } from 'gsap/InertiaPlugin';
 gsap.registerPlugin(Draggable, InertiaPlugin);
 
 const stickers = [
-  { src: '/fx/sticker-gym.webp', alt: 'Shipra at the gym, sticker', className: 'left-[4%] top-[8%] w-[150px] -rotate-6 md:w-[200px]' },
+  { src: '/fx/sticker-gym.webp', alt: 'Shipra at the gym, sticker', className: 'left-[40%] top-[4%] w-[140px] -rotate-6 md:w-[190px]' },
   { src: '/fx/sticker-peak.webp', alt: 'Shipra on a mountain, sticker', className: 'right-[6%] top-[2%] w-[170px] rotate-6 md:w-[240px]' },
 ];
 

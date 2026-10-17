@@ -38,6 +38,15 @@ export function Numbers() {
         });
       });
 
+      gsap.to('.num-strike', {
+        scaleX: 1,
+        duration: 0.5,
+        ease: 'power3.out',
+        delay: 1.4,
+        stagger: 0.15,
+        scrollTrigger: { trigger: root.current, start: 'top 70%' },
+      });
+
       // ticker: constant drift, speeds up and leans with scroll velocity
       const track = root.current!.querySelector<HTMLElement>('.ticker-track')!;
       const loop = gsap.to(track, { xPercent: -50, duration: 40, ease: 'none', repeat: -1 });
@@ -59,12 +68,15 @@ export function Numbers() {
   }, []);
 
   return (
-    <section ref={root} aria-label="Numbers" className="relative border-t border-line bg-ink py-20 text-paper sm:py-28">
+    <section ref={root} id="numbers" aria-label="Numbers" className="relative border-t border-line bg-ink py-20 text-paper sm:py-28">
       <div className="grid grid-cols-2 gap-y-14 px-5 sm:px-8 lg:grid-cols-4">
         {numbers.map((n) => (
           <div key={n.small} className="overflow-hidden border-l border-line pl-4">
             <div className="num-cell">
-              <p className="label h-4 text-stone line-through decoration-lime/70">{n.was ?? ''}</p>
+              <p className="relative inline-block h-8 font-serif text-2xl italic text-stone">
+                {n.was ?? ''}
+                {n.was && <i className="num-strike absolute left-0 top-1/2 h-[2px] w-full origin-left scale-x-0 bg-lime" />}
+              </p>
               <p className="num-value mt-2 font-display text-6xl font-extrabold leading-[0.85] tracking-tight text-paper lg:text-[7.5vw]">
                 {fmt(n, n.value)}
               </p>

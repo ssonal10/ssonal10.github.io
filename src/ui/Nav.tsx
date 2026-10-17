@@ -12,19 +12,23 @@ const links = [
 /** Obys-style nav: plain mono links; colour follows the page theme (ink on the paper section). */
 export function Nav({ onReplay }: { onReplay: () => void }) {
   return (
-    <header className="site-nav no-print fixed inset-x-0 top-0 z-50 flex items-center justify-between p-5 text-paper transition-colors duration-500 sm:p-8">
+    <>
+      {/* logo keeps its colours (themed); the links blend so they read on any photo */}
       <a
         href="#top"
         onClick={(e) => {
           e.preventDefault();
           scrollToId('top');
         }}
-        className="font-display text-lg font-extrabold tracking-tight"
+        className="site-nav no-print fixed left-5 top-5 z-50 font-display text-lg font-extrabold tracking-tight text-paper transition-colors duration-500 sm:left-8 sm:top-8"
         data-cursor="top"
       >
         S<span className="text-lime [text-shadow:0_0_1px_currentColor]">@</span>S
       </a>
-      <nav aria-label="Sections" className="flex items-center gap-4 sm:gap-7">
+      <nav
+        aria-label="Sections"
+        className="no-print fixed right-5 top-5 z-50 flex items-center gap-4 text-white mix-blend-difference sm:right-8 sm:top-8 sm:gap-7"
+      >
         {links.map((l) => (
           <a
             key={l.id}
@@ -39,13 +43,13 @@ export function Nav({ onReplay }: { onReplay: () => void }) {
             <span className="absolute -bottom-1 left-0 h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
           </a>
         ))}
-        <button type="button" onClick={onReplay} className="label hidden hover:text-lime lg:inline" data-cursor="play">
+        <button type="button" onClick={onReplay} className="label hidden lg:inline" data-cursor="play">
           ▶ game
         </button>
         <a href={`mailto:${profile.email}`} className="sr-only">
           Email
         </a>
       </nav>
-    </header>
+    </>
   );
 }

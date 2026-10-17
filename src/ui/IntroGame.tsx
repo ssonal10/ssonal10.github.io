@@ -166,6 +166,7 @@ export function IntroGame({ onDone }: { onDone: () => void }) {
       } catch {
         /* private mode */
       }
+      window.dispatchEvent(new CustomEvent('intro-tally'));
       setFinished(true);
       window.setTimeout(close, 1300);
     };
