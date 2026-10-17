@@ -9,7 +9,7 @@ export const tables: Record<string, { rows: Row[]; section: string }> = {
     section: 'work',
   },
   path: {
-    rows: experience.map((e) => ({ role: e.role, org: e.org, period: e.period })),
+    rows: experience.map((e) => ({ role: e.role, org: e.org, period: e.period, since: Number(e.period.match(/\d{4}/)?.[0]) })),
     section: 'path',
   },
   numbers: {
@@ -26,7 +26,7 @@ export const tables: Record<string, { rows: Row[]; section: string }> = {
 
 export const chips = [
   { label: 'shipped in 2026', q: "select name, impact from work where year = 2026" },
-  { label: 'roles by date', q: 'select role, period from path' },
+  { label: 'roles by date', q: 'select role, period from path order by since desc' },
   { label: 'the numbers', q: 'select * from numbers' },
   { label: 'photos', q: 'select caption from life limit 6' },
 ];

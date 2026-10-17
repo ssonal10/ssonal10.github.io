@@ -158,8 +158,8 @@ export function WorkList() {
         <p className="label text-lime">
           {w.year} · {w.kind}
         </p>
-        <p className="text-[15px] leading-relaxed text-paper/85">{w.context}</p>
-        <p className="font-serif text-2xl italic leading-snug text-paper">{w.impact}</p>
+        <p className="font-serif text-xl italic leading-snug text-paper">{w.impact}</p>
+        <p className="text-[14px] leading-relaxed text-paper/80">{w.context}</p>
         <p className="label text-stone">{w.stack.join(' · ')}</p>
         {w.link && (
           <a href={w.link} target="_blank" rel="noreferrer" className="label inline-block border-b border-lime text-lime" data-cursor="open">
@@ -189,8 +189,8 @@ function WorkCards({ print = false }: { print?: boolean }) {
             <p className="label mt-2 text-lime">
               {p.year} · {p.kind}
             </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-paper/85">{p.context}</p>
             <p className="mt-3 font-serif text-xl italic text-paper">{p.impact}</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-paper/85">{p.context}</p>
             <p className="label mt-3 text-stone">{p.stack.join(' · ')}</p>
             {p.link && (
               <a href={p.link} target="_blank" rel="noreferrer" className="label mt-3 inline-block border-b border-lime text-lime">
