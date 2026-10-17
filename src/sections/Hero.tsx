@@ -132,7 +132,7 @@ export function Hero({ ready }: { ready: boolean }) {
       <h1 className="absolute inset-0 z-[2] flex flex-col justify-center px-[3vw] font-display font-extrabold leading-[0.82] tracking-[-0.045em]">
         <span className="hero-line hero-line-a block whitespace-nowrap text-[19vw] md:text-[17vw]">Shipra</span>
         <span className="hero-line hero-line-b block self-end whitespace-nowrap text-[19vw] md:text-[17vw]">
-          Sonal<span className="text-lime">.</span>
+          Sonal
         </span>
         <span className="sr-only">, Data @ Amazon</span>
       </h1>
@@ -185,7 +185,7 @@ function HeroStatic({ ready }: { ready: boolean }) {
         <h1 className="relative z-[1] font-display font-extrabold leading-[0.85] tracking-[-0.045em]">
           <span className="hero-line block text-[22vw]">Shipra</span>
           <span className="hero-line block text-[22vw]">
-            Sonal<span className="text-lime">.</span>
+            Sonal
           </span>
           <span className="sr-only">, Data @ Amazon</span>
         </h1>
