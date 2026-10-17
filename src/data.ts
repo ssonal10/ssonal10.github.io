@@ -46,7 +46,7 @@ export const work: Work[] = [
     area: "Financial modeling",
     big: "weeks → min",
     bigSmall: "per deal model",
-    problem: "Leaders wanted several deal models before locking a partnership, and each one took weeks in Excel.",
+    problem: "Every partner deal needed several models before leaders would commit, and each one took weeks to build in Excel.",
     built: "A deterministic LLM agent wired to 20+ live data sources. The LLM only routes and a Python engine computes every number; access is IAM-authenticated and personalized per executive, and every run generates a dashboard so leaders change inputs on the spot.",
     result: "Deal models in minutes instead of weeks. It replaced about 6 months of manual modeling in its first week and underwrote deals bringing 4M customers on access plans, 3M general customers and new advertising business.",
     name: "Partnership free cash flow agent",
